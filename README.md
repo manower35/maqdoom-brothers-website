@@ -16,6 +16,16 @@ Official website for **Maqdoom Bros Designers Pvt Ltd**—the historic clothiers
 * **Official Instagram:** [@maqdoombrothers](https://www.instagram.com/maqdoombrothers/)
 * **WedMeGood Profile:** [Maqdoom Brothers Groom Wear Hyderabad](https://www.wedmegood.com/profile/Maqdoom-Brothers-23209)
 * **Bing Maps:** [Maqdoom Bros Designers Pvt Ltd](https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53)
+* **GitHub Repository:** [manower35/maqdoom-bros-website](https://github.com/manower35/maqdoom-bros-website)
+
+---
+
+## 🤖 Modern AI Search & LLM Indexing (llmstxt.org)
+
+This platform implements the modern **AI Search & GEO (Generative Engine Optimization)** standard:
+* **`/llms.txt`**: Standardized Markdown synopsis designed for Perplexity AI, ChatGPT Search, Claude, Gemini, and Apple Intelligence.
+* **`/llms-full.txt`**: Deep RAG context corpus containing the complete 130-year Asaf Jahi heritage archive, WedMeGood-verified pricing matrix, bride-groom royal color matching rules, fabric specifications, and custom size estimation algorithms.
+* **`/robots.txt`**: Explicit crawler permissions for `GPTBot`, `PerplexityBot`, `ClaudeBot`, `Google-Extended`, and `Applebot-Extended`.
 
 ---
 
@@ -53,13 +63,16 @@ Double-click `index.html` to open the website directly in any web browser.
 node server.js
 ```
 Then visit: `http://localhost:3000`
+AI files: `http://localhost:3000/llms.txt` and `http://localhost:3000/llms-full.txt`
 
 ---
 
-## ☁️ Deployment (Vercel / Netlify / Cloudflare)
+## ☁️ Deployment (GitHub & Vercel)
 
-This project is configured with zero-config serverless architecture:
-1. Push this folder to a GitHub repository.
-2. Import into **Vercel** or **Netlify**.
-3. (Optional) In project settings, add your environment variable:
-   * `GEMINI_API_KEY` or `OPENAI_API_KEY` to connect the serverless edge endpoint (`api/ai-chat.js`) to live cloud LLMs.
+1. Repository created and synchronized at `https://github.com/manower35/maqdoom-bros-website`.
+2. Connect to **Vercel** (`vercel.com`):
+   * Click **Add New Project** -> **Import Git Repository**.
+   * Select `manower35/maqdoom-bros-website`.
+   * Click **Deploy** (framework preset: *Other*, zero build command required).
+3. (Optional) In project environment variables:
+   * Add `GEMINI_API_KEY` or `OPENAI_API_KEY` to enable live cloud LLM completions for `/api/ai-chat.js`.
