@@ -9,7 +9,7 @@ const FLAGSHIP_COORDS = {
   lng: 78.476143,
   name: "Maqdoom Bros Designers Pvt Ltd",
   address: "22-7-267/a11, Pathergatti Road, Opp. Madina Building, Hyderabad, TG",
-  phone: "+91 98490 07869"
+  phone: "+91 868684144"
 };
 
 // Approximate exchange rates relative to INR (base)
@@ -78,8 +78,8 @@ function updateGeoBannerUI() {
           <a href="https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53" target="_blank" class="btn btn-gold btn-sm">
             Live Directions
           </a>
-          <a href="tel:09849007869" class="btn btn-outline-gold btn-sm">
-            Call Store (098490 07869)
+          <a href="tel:868684144" class="btn btn-outline-gold btn-sm">
+            Call Store (868684144)
           </a>
         </div>
       </div>
@@ -94,7 +94,7 @@ function updateGeoBannerUI() {
           <span class="geo-highlight">Prices shown in ${currentCurrency} (${CURRENCY_RATES[currentCurrency]?.symbol || '$'}).</span>
         </div>
         <div class="geo-actions">
-          <a href="https://wa.me/919849007869?text=Hello%20Maqdoom%20Brothers%2C%20I%20am%20contacting%20from%20${encodeURIComponent(country)}%20for%20an%20international%20wedding%20video%20fitting." target="_blank" class="btn btn-gold btn-sm">
+          <a href="https://wa.me/91868684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20am%20contacting%20from%20${encodeURIComponent(country)}%20for%20an%20international%20wedding%20video%20fitting." target="_blank" class="btn btn-gold btn-sm">
             Book NRI Video Fitting
           </a>
           <button id="geoCurrencyBtn" class="btn btn-outline-gold btn-sm">
@@ -113,7 +113,7 @@ function updateGeoBannerUI() {
         </div>
         <div class="geo-actions">
           <a href="#booking" class="btn btn-gold btn-sm">Book Trial Fit</a>
-          <a href="https://wa.me/919849007869?text=Hello%20Maqdoom%20Brothers%2C%20inquiring%20from%20${encodeURIComponent(city)}%20about%20express%20wedding%20stitching." target="_blank" class="btn btn-outline-gold btn-sm">
+          <a href="https://wa.me/91868684144?text=Hello%20Maqdoom%20Brothers%2C%20inquiring%20from%20${encodeURIComponent(city)}%20about%20express%20wedding%20stitching." target="_blank" class="btn btn-outline-gold btn-sm">
             WhatsApp Concierge
           </a>
         </div>

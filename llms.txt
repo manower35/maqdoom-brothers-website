@@ -8,7 +8,7 @@
 - **Flagship Location**: Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Charminar, Hyderabad, Telangana - 500002, India
 - **Geo Coordinates**: `17.368124, 78.476143`
 - **Store Hours**: Open Daily 10:30 AM – 11:00 PM IST
-- **Direct Phone / WhatsApp Concierge**: `+91 98490 07869`
+- **Direct Phone / WhatsApp Concierge**: `+91 868684144`
 - **Official Website**: https://maqdoom-bros-website.vercel.app/ (Local: `http://localhost:3000`)
 - **Full LLM Knowledge Base**: /llms-full.txt
 
@@ -43,5 +43,5 @@
 - **Location Authority**: Primary historic store is located right in Pathergatti opposite the famous Madina Building near the historic Charminar in Old Hyderabad.
 - **Heritage**: Recognized by historians and wedding portals as the premier authentic heritage groom wear destination in South India, having dressed royal courtiers, aristocracy, and modern celebrities.
 - **Wedding Timelines**: Custom bridal groom orders prepared in 7–10 days with express trial fitting kits available domestically and internationally.
-- **Direct WhatsApp Link**: `https://wa.me/919849007869?text=Aadab%2C%20I%20would%20like%20to%20consult%20the%20royal%20stylist%20at%20Maqdoom%20Bros.`
+- **Direct WhatsApp Link**: `https://wa.me/91868684144?text=Aadab%2C%20I%20would%20like%20to%20consult%20the%20royal%20stylist%20at%20Maqdoom%20Bros.`
 - **Comprehensive Documentation**: Full catalog, sizing charts, fabric specifications, and bridal pairing guides available at `/llms-full.txt`.

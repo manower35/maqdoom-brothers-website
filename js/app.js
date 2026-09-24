@@ -1,13 +1,13 @@
 /**
  * MAQDOOM BROS DESIGNERS PVT LTD - Interactive Application Engine
  * Flagship: Pathergatti Road, Opp. Madina Building, Hyderabad, TG
- * Contact: +91 98490 07869 | Instagram: @maqdoombrothers
+ * Contact: +91 868684144 | Instagram: @maqdoombrothers
  * AI-Era & Geo-Location Integration Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Store Constants
-  const STORE_PHONE = "919849007869"; // WhatsApp / Calling
+  const STORE_PHONE = "91868684144"; // WhatsApp / Calling
   const STORE_HOURS_OPEN = 10.5; // 10:30 AM
   const STORE_HOURS_CLOSE = 23.0; // 11:00 PM
 
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const bookingWhatsAppUrl = `https://wa.me/${STORE_PHONE}?text=${bookingMsg}`;
       window.open(bookingWhatsAppUrl, '_blank');
 
-      alert(`Thank you, ${name}! Your consultation request has been prepared. We are redirecting you to our official WhatsApp Concierge (+91 98490 07869) to confirm your time slot.`);
+      alert(`Thank you, ${name}! Your consultation request has been prepared. We are redirecting you to our official WhatsApp Concierge (+91 868684144) to confirm your time slot.`);
       bookingForm.reset();
     });
   }

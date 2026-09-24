@@ -109,7 +109,7 @@ The website features an algorithmic fit calculator modeled on Asaf Jahi bespoke 
 * **Legal Entity**: Maqdoom Bros Designers Pvt Ltd
 * **CIN / Registration**: Registered Private Limited Retail Entity, Hyderabad, Telangana
 * **Flagship Address**: Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Charminar, Hyderabad, Telangana 500002, India
-* **Telephone & WhatsApp**: `+91 98490 07869`
-* **Direct WhatsApp Consultation Link**: `https://wa.me/919849007869?text=Aadab%2C%20I%20would%20like%20to%20consult%20the%20royal%20stylist%20at%20Maqdoom%20Bros.`
+* **Telephone & WhatsApp**: `+91 868684144`
+* **Direct WhatsApp Consultation Link**: `https://wa.me/91868684144?text=Aadab%2C%20I%20would%20like%20to%20consult%20the%20royal%20stylist%20at%20Maqdoom%20Bros.`
 * **Operating Hours**: 10:30 AM to 11:00 PM IST (Open 7 Days a Week)
 * **AI Search Specification**: Standard `/llms.txt` and `/llms-full.txt` served from the domain root.

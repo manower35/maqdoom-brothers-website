@@ -22,7 +22,7 @@ const CATALOG_DATA = [
       "Concealed button placket with jeweled show buttons",
       "Includes embroidered stole & silk churidar"
     ],
-    image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__14_.jpg",
     badge: "Bestseller Royal"
   },
   {
@@ -42,7 +42,7 @@ const CATALOG_DATA = [
       "Custom inner silk lining for maximum comfort",
       "Coordinating raw silk stole with heavy borders"
     ],
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__13_.jpg",
     badge: "Signature Collection"
   },
   {
@@ -82,7 +82,7 @@ const CATALOG_DATA = [
       "Includes tailored flat-front trousers",
       "Custom monogramming available"
     ],
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__12_.jpg",
     badge: "Timeless"
   },
   {
@@ -102,7 +102,7 @@ const CATALOG_DATA = [
       "Peak collar cut with satin lining",
       "Tailored to exact millimeter measurements"
     ],
-    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881336_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__11_.jpg",
     badge: "Red Carpet"
   },
   {
@@ -122,7 +122,7 @@ const CATALOG_DATA = [
       "Paired with tailored cigarette pants",
       "Ultra-comfortable movement for sangeet dancing"
     ],
-    image: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881336_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__10_.jpg",
     badge: "Modern Royal"
   },
   {
@@ -142,7 +142,7 @@ const CATALOG_DATA = [
       "Includes tailored trousers and inner kurta",
       "Breathable lining with secret internal pocket"
     ],
-    image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__9_.jpg",
     badge: "Trending 2026"
   },
   {
@@ -162,7 +162,7 @@ const CATALOG_DATA = [
       "Breathable comfortable fit for long wedding rituals",
       "Off-the-rack and bespoke sizing available"
     ],
-    image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__8_.jpg",
     badge: "Festive Essential"
   },
   {
@@ -182,7 +182,7 @@ const CATALOG_DATA = [
       "Traditional roomy salwar cut",
       "All sizes in stock off the rack"
     ],
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__7_.jpg",
     badge: "Wardrobe Classic"
   },
   {
@@ -202,7 +202,7 @@ const CATALOG_DATA = [
       "Comfortable inner cap fitting",
       "Matches all sherwani colorways"
     ],
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881334_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__6_.jpg",
     badge: "Groom Crown"
   },
   {
@@ -222,7 +222,7 @@ const CATALOG_DATA = [
       "Non-slip heel grip",
       "Sizes available from 6 to 12 UK"
     ],
-    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80",
+    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881334_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__5_.jpg",
     badge: "Handmade"
   }
 ];
@@ -247,6 +247,6 @@ const STORE_FAQS = [
   },
   {
     question: "Can I book a private consultation or trial fitting?",
-    answer: "Yes, you can easily reserve a VIP fitting trial by calling us directly at +91 98490 07869 or via our interactive booking form and WhatsApp concierge."
+    answer: "Yes, you can easily reserve a VIP fitting trial by calling us directly at +91 868684144 or via our interactive booking form and WhatsApp concierge."
   }
 ];
