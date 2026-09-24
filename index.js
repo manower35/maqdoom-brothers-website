@@ -1,6 +1,6 @@
 /**
  * MAQDOOM BROS DESIGNERS PVT LTD (Est. 1895)
- * Vercel Serverless Entrypoint & Static Dispatcher
+ * Vercel Serverless Entrypoint & Protected Static Dispatcher
  */
 
 const fs = require('fs');
@@ -21,23 +21,48 @@ const MIME_TYPES = {
 };
 
 module.exports = (req, res) => {
-  let reqPath = decodeURI(req.url.split('?')[0]);
+  // 1. Security Protection: Path sanitization and traversal prevention
+  let rawUrl = (req.url || '/').split('?')[0];
+  let reqPath;
+  try {
+    reqPath = decodeURI(rawUrl);
+  } catch (e) {
+    reqPath = rawUrl;
+  }
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
-  // Check public folder first, then root
-  let targetPath = path.join(__dirname, 'public', reqPath);
-  if (!fs.existsSync(targetPath)) {
-    targetPath = path.join(__dirname, reqPath);
+  const safePath = path.normalize(reqPath).replace(/^(\.\.[\/\\])+/, '');
+  const rootDir = path.resolve(__dirname);
+  const publicDir = path.resolve(__dirname, 'public');
+
+  let targetPath = path.resolve(publicDir, '.' + safePath);
+  if (!targetPath.startsWith(publicDir)) {
+    targetPath = path.resolve(rootDir, '.' + safePath);
   }
 
+  // Security barrier: Ensure file path cannot escape project root
+  if (!targetPath.startsWith(rootDir)) {
+    res.statusCode = 403;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('403 Forbidden');
+    return;
+  }
+
+  // 2. Security Headers on All Responses
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  // 3. Serve static file if exists
   if (fs.existsSync(targetPath) && fs.statSync(targetPath).isFile()) {
     const ext = path.extname(targetPath).toLowerCase();
     res.setHeader('Content-Type', MIME_TYPES[ext] || 'application/octet-stream');
     return fs.createReadStream(targetPath).pipe(res);
   }
 
-  // Fallback to index.html
-  const fallbackIndex = path.join(__dirname, 'public', 'index.html');
+  // 4. Fallback to index.html
+  const fallbackIndex = path.join(publicDir, 'index.html');
   if (fs.existsSync(fallbackIndex)) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     return fs.createReadStream(fallbackIndex).pipe(res);
