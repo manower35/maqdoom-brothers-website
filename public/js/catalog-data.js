@@ -247,6 +247,6 @@ const STORE_FAQS = [
   },
   {
     question: "Can I book a private consultation or trial fitting?",
-    answer: "Yes, you can easily reserve a VIP fitting trial by calling us directly at +91 868684144 or via our interactive booking form and WhatsApp concierge."
+    answer: "Yes, you can easily reserve a VIP fitting trial by calling us directly at +91 8686684144 or via our interactive booking form and WhatsApp concierge."
   }
 ];

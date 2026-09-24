@@ -11,7 +11,7 @@ Official website for **Maqdoom Bros Designers Pvt Ltd**—the historic clothiers
 * **Founded:** 1895 (Over 130 Years of Royal Heritage)
 * **Flagship Address:** Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Hyderabad, TG – 500002
 * **Store Coordinates:** `17.368124, 78.476143`
-* **Direct Helpline / WhatsApp:** `+91 868684144` / `868684144`
+* **Direct Helpline / WhatsApp:** `+91 8686684144` / `8686684144`
 * **Operating Hours:** Open Daily: 10:30 AM – 11:00 PM (23:00 hrs) IST
 * **Official Instagram:** [@maqdoombrothers](https://www.instagram.com/maqdoombrothers/)
 * **WedMeGood Profile:** [Maqdoom Brothers Groom Wear Hyderabad](https://www.wedmegood.com/profile/Maqdoom-Brothers-23209)

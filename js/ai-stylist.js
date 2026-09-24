@@ -217,7 +217,7 @@ class NizamAIStylist {
                   <h5 class="ai-rec-title">${item.title}</h5>
                   <div class="ai-rec-price">${formattedPrice}</div>
                   <div class="ai-rec-actions">
-                    <a href="https://wa.me/91868684144?text=${waText}" target="_blank" class="btn btn-whatsapp btn-sm">
+                    <a href="https://wa.me/918686684144?text=${waText}" target="_blank" class="btn btn-whatsapp btn-sm">
                       WhatsApp Inquire
                     </a>
                   </div>
