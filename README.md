@@ -16,7 +16,7 @@ Official website for **Maqdoom Bros Designers Pvt Ltd**—the historic clothiers
 * **Official Instagram:** [@maqdoombrothers](https://www.instagram.com/maqdoombrothers/)
 * **WedMeGood Profile:** [Maqdoom Brothers Groom Wear Hyderabad](https://www.wedmegood.com/profile/Maqdoom-Brothers-23209)
 * **Bing Maps:** [Maqdoom Bros Designers Pvt Ltd](https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53)
-* **GitHub Repository:** [manower35/maqdoom-bros-website](https://github.com/manower35/maqdoom-bros-website)
+* **GitHub Repository:** [manower35/maqdoom-brothers-website](https://github.com/manower35/maqdoom-brothers-website)
 
 ---
 
@@ -69,10 +69,10 @@ AI files: `http://localhost:3000/llms.txt` and `http://localhost:3000/llms-full.
 
 ## ☁️ Deployment (GitHub & Vercel)
 
-1. Repository created and synchronized at `https://github.com/manower35/maqdoom-bros-website`.
+1. Repository created and synchronized at `https://github.com/manower35/maqdoom-brothers-website`.
 2. Connect to **Vercel** (`vercel.com`):
    * Click **Add New Project** -> **Import Git Repository**.
-   * Select `manower35/maqdoom-bros-website`.
+   * Select `manower35/maqdoom-brothers-website`.
    * Click **Deploy** (framework preset: *Other*, zero build command required).
 3. (Optional) In project environment variables:
    * Add `GEMINI_API_KEY` or `OPENAI_API_KEY` to enable live cloud LLM completions for `/api/ai-chat.js`.
