@@ -2,8 +2,10 @@
   "name": "maqdoom-brothers-website",
   "version": "1.0.0",
   "description": "Official AI-Era & Geo-Intelligent website for Maqdoom Bros Designers Pvt Ltd (Est. 1895, Hyderabad)",
+  "main": "index.js",
   "scripts": {
-    "build": "echo 'Maqdoom Bros website static build ready'"
+    "build": "echo 'Maqdoom Bros website static build ready'",
+    "start": "node server.js"
   },
   "keywords": [
     "maqdoom-brothers",
