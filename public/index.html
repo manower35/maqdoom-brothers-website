@@ -422,7 +422,7 @@ button, input, select, textarea {
   align-items: center;
   padding: 80px 0;
   background: linear-gradient(to right, rgba(7, 25, 20, 0.95) 45%, rgba(7, 25, 20, 0.6) 80%, rgba(7, 25, 20, 0.4) 100%),
-              url('https://image.wedmegood.com/resized/800X/uploads/member/23209/1489016449_1447852375_taj.jpg') center/cover no-repeat;
+              url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
   border-bottom: 2px solid var(--border-gold);
 }
 
@@ -1822,12 +1822,115 @@ textarea.form-control {
   .form-row {
     grid-template-columns: 1fr;
   }
+  
   .mobile-call-sticky {
     display: grid;
   }
-  body {
-    padding-bottom: 60px;
+  .floating-concierge {
+    display: none !important; /* Avoid cluttering mobile view; sticky bottom bar has direct WhatsApp */
   }
+  .catalog-filters {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .catalog-filters::-webkit-scrollbar {
+    display: none !important;
+  }
+  .filter-tab {
+    flex-shrink: 0 !important;
+  }
+  .hero-cta-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+  .hero-cta-group .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .ai-prompt-pills-bar {
+    display: flex !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .ai-prompt-pill {
+    flex-shrink: 0 !important;
+  }
+  body {
+    padding-bottom: 65px;
+  }
+}
+
+/* ==========================================================================
+   SMARTPHONE RESPONSIVE (Screens <= 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.75rem !important;
+    line-height: 1.25 !important;
+  }
+  .hero-subtitle {
+    font-size: 0.95rem !important;
+  }
+  .section-title {
+    font-size: 1.55rem !important;
+  }
+  .section-subtitle {
+    font-size: 0.9rem !important;
+  }
+  .hero-metrics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .metric-item {
+    padding: 12px 6px !important;
+  }
+  .metric-number {
+    font-size: 1.5rem !important;
+  }
+  .metric-label {
+    font-size: 0.72rem !important;
+  }
+  .pricing-card {
+    padding: 24px 18px !important;
+  }
+  .modal-window {
+    width: 95vw !important;
+    max-height: 88vh !important;
+    padding: 15px !important;
+    overflow-y: auto !important;
+  }
+  .ai-chat-window {
+    width: 96vw !important;
+    height: 85vh !important;
+    border-radius: 12px !important;
+  }
+  .floating-ai-trigger {
+    bottom: 65px !important;
+    right: 12px !important;
+    left: auto !important;
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+  }
+  .insta-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+  .top-bar-inner {
+    font-size: 0.76rem !important;
+    gap: 6px !important;
+  }
+
 }
 
 /* ==========================================================================
