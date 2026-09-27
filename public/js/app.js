@@ -8,8 +8,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Store Constants
   const STORE_PHONE = "918686684144"; // WhatsApp / Calling
-  const STORE_HOURS_OPEN = 10.5; // 10:30 AM
-  const STORE_HOURS_CLOSE = 23.0; // 11:00 PM
+  const STORE_HOURS_WEEKDAY_OPEN = 10.5; // 10:30 AM
+  const STORE_HOURS_WEEKDAY_CLOSE = 22.5; // 10:30 PM
+  const STORE_HOURS_SUNDAY_OPEN = 11.0; // 11:00 AM
+  const STORE_HOURS_SUNDAY_CLOSE = 17.0; // 5:00 PM
 
   // Elements
   const catalogContainer = document.getElementById('catalogGrid');
@@ -24,19 +26,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const navAiStylistBtn = document.getElementById('navAiStylistBtn');
   const sizeEstimatorForm = document.getElementById('sizeEstimatorForm');
 
-  // 1. Live Store Status Indicator
+  // 1. Live Store Status Indicator (Mon-Sat 10:30 AM - 10:30 PM | Sun 11:00 AM - 5:00 PM IST)
   function updateStoreStatus() {
     if (!storeStatusText) return;
     const now = new Date();
     // UTC to IST offset is +5.5 hours
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const istTime = new Date(utc + (3600000 * 5.5));
+    const currentDay = istTime.getDay(); // 0 is Sunday
     const currentHour = istTime.getHours() + (istTime.getMinutes() / 60);
 
-    if (currentHour >= STORE_HOURS_OPEN && currentHour < STORE_HOURS_CLOSE) {
-      storeStatusText.innerHTML = `<span class="status-dot"></span> Open Now · Closes 11:00 PM`;
+    const isSunday = (currentDay === 0);
+    const openHour = isSunday ? 11.0 : 10.5;   // 11:00 AM or 10:30 AM
+    const closeHour = isSunday ? 17.0 : 22.5; // 5:00 PM or 10:30 PM
+    const closeStr = isSunday ? "5:00 PM" : "10:30 PM";
+    const nextOpenStr = isSunday ? "Monday at 10:30 AM" : (currentDay === 6 ? "Sunday at 11:00 AM" : "Tomorrow at 10:30 AM");
+
+    const isOpen = (currentHour >= openHour && currentHour < closeHour);
+
+    if (isOpen) {
+      storeStatusText.innerHTML = `<span class="status-dot"></span> Open Now · Closes ${closeStr}`;
     } else {
-      storeStatusText.innerHTML = `<span class="status-dot" style="background:#e72e77;box-shadow:0 0 8px #e72e77"></span> Currently Closed · Opens at 10:30 AM`;
+      storeStatusText.innerHTML = `<span class="status-dot" style="background:#e72e77;box-shadow:0 0 8px #e72e77"></span> Currently Closed · Opens ${nextOpenStr}`;
+    }
+
+    const storeTableStatus = document.getElementById('storeTableStatus');
+    if (storeTableStatus) {
+      if (isOpen) {
+        storeTableStatus.style.color = '#25d366';
+        storeTableStatus.textContent = `Open Now · Closes ${closeStr} IST`;
+      } else {
+        storeTableStatus.style.color = '#e72e77';
+        storeTableStatus.textContent = `Closed Now · Opens ${nextOpenStr} IST`;
+      }
     }
   }
   updateStoreStatus();
