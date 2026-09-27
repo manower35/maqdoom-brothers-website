@@ -65,8 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
         : item.priceRange;
 
+      const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
+        ? `${window.location.origin}/${(item.image || '').replace(/^\/+/, '')}`
+        : `https://maqdoom-brothers-website.vercel.app/${(item.image || '').replace(/^\/+/, '')}`;
+
       const whatsappText = encodeURIComponent(
-        `Hello Maqdoom Brothers, I am interested in inquiring about "${item.title}" (${item.priceRange}) seen on your website. Please share availability & custom fitting details.`
+        `Hello Maqdoom Brothers, I am interested in inquiring about "${item.title}" (${item.priceRange}) seen on your website.\n\n` +
+        `📸 Product Image: ${itemImageUrl}\n` +
+        `Item Code: ${item.id}\n\n` +
+        `Please share availability & custom fitting details.`
       );
       const whatsappUrl = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;
 
@@ -157,8 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalCraft) modalCraft.textContent = item.work;
     if (modalOccasion) modalOccasion.textContent = item.occasion;
 
+    const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
+      ? `${window.location.origin}/${(item.image || '').replace(/^\/+/, '')}`
+      : `https://maqdoom-brothers-website.vercel.app/${(item.image || '').replace(/^\/+/, '')}`;
+
     const whatsappText = encodeURIComponent(
-      `Assalamu Alaikum / Greetings Maqdoom Brothers, I would like to inquire about "${item.title}" (${item.priceRange}) for my upcoming wedding event. Can you assist me with custom tailoring & video consultation?`
+      `Assalamu Alaikum / Greetings Maqdoom Brothers, I would like to inquire about "${item.title}" (${item.priceRange}) for my upcoming wedding event.\n\n` +
+      `📸 Product Image: ${itemImageUrl}\n` +
+      `Item Code: ${item.id}\n` +
+      `Fabric: ${item.fabric}\n\n` +
+      `Can you assist me with custom tailoring & video consultation?`
     );
     if (modalWhatsAppBtn) {
       modalWhatsAppBtn.href = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;

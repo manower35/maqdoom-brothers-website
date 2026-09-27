@@ -264,8 +264,15 @@ class NizamAIStylist {
               ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
               : item.priceRange;
 
+            const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
+              ? `${window.location.origin}/${(item.image || '').replace(/^\/+/, '')}`
+              : `https://maqdoom-brothers-website.vercel.app/${(item.image || '').replace(/^\/+/, '')}`;
+
             const waText = encodeURIComponent(
-              `Hello Maqdoom Brothers, Nizam AI recommended "${item.title}" (${item.priceRange}). I would like to inquire about availability & custom fitting.`
+              `Hello Maqdoom Brothers, Nizam AI recommended "${item.title}" (${item.priceRange}).\n\n` +
+              `📸 Product Image: ${itemImageUrl}\n` +
+              `Item Code: ${item.id}\n\n` +
+              `I would like to inquire about availability & custom fitting.`
             );
 
             return `
