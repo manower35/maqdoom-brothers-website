@@ -14,5 +14,8 @@
     "groom-wear"
   ],
   "author": "Maqdoom Bros Designers Pvt Ltd",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
 }

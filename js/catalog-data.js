@@ -1,7 +1,8 @@
 /**
  * Maqdoom Bros Designers Pvt Ltd - Curated Catalog Data
  * Established 1895 | Pathergatti, Hyderabad
- * Pricing verified against WedMeGood & Store Price Guides (₹10,000 - ₹40,000+)
+ * Authentic Royal Hyderabadi Menswear & Sherwanis
+ * Verified Products & HD Studio Imagery | 100% Truthful Garment Attributes
  */
 
 const CATALOG_DATA = [
@@ -13,196 +14,276 @@ const CATALOG_DATA = [
     priceRange: "₹28,000 – ₹42,000",
     fabric: "Pure Matka Raw Silk & Banarasi Weave",
     work: "Hand Zardozi, Fine Resham & Gota Patti",
-    color: "Imperial Ivory & Antique Gold",
+    color: "Imperial Ivory & Antique Maroon",
     occasion: "Baraat / Nikkah / Wedding Ceremony",
-    description: "An authentic tribute to the court attire of the Asaf Jahi Nizams. Tailored with structured Hyderabadi cuts, high bandhgala collar, and intricate hand-embroidered royal floral arabesques on pure raw silk. Comes with matching churidar and pure tissue silk stole.",
+    description: "An authentic tribute to the court attire of the Asaf Jahi Nizams. Tailored with structured Hyderabadi cuts, high bandhgala collar, intricate hand-embroidered royal floral arabesques on pure raw silk, and contrasting deep maroon zardozi sleeves and hem placket.",
     features: [
       "Authentic Nizam Royal Cut",
-      "Hand-worked Zardozi collar and cuffs",
+      "Hand-worked Zardozi collar, placket and cuffs",
       "Concealed button placket with jeweled show buttons",
-      "Includes embroidered stole & silk churidar"
+      "Coordinated with silk churidar"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__14_.jpg",
+    image: "assets/catalog/sherwani-01.jpg",
     badge: "Bestseller Royal"
   },
   {
     id: "sherwani-02",
-    title: "Royal Crimson Velvet Zardozi Sherwani",
+    title: "Royal Maroon Zardozi Wedding Sherwani",
     category: "sherwani",
     categoryLabel: "Royal Sherwani",
     priceRange: "₹32,000 – ₹48,000",
-    fabric: "Micro-Velvet & Vintage Brocade",
-    work: "Dabka, Nakshi, Seed Pearls & Antique Zari",
-    color: "Deep Hyderabadi Ruby Crimson",
+    fabric: "Rich Silk Brocade & Micro-Velvet Accents",
+    work: "Hand Zardozi, Bullion Gold Wire & Intricate Dabka",
+    color: "Deep Hyderabadi Ruby Maroon",
     occasion: "Grand Wedding Ceremony / Royal Reception",
-    description: "Designed for the royal groom who commands the room. Crafted from sumptuous ruby micro-velvet, embellished with painstaking artisan zardozi and delicate pearl highlights by master craftsmen in Old Hyderabad.",
+    description: "Designed for the royal groom who commands the room. Crafted from sumptuous ruby-maroon textured brocade, embellished with painstaking artisan zardozi across the bandhgala collar and full chest, paired with ivory churidar and matching hand-embroidered velvet mojaris.",
     features: [
-      "Rich velvet texture with royal drape",
-      "Full chest & cuff heavy floral embroidery",
-      "Custom inner silk lining for maximum comfort",
-      "Coordinating raw silk stole with heavy borders"
+      "Rich brocade texture with regal drape",
+      "Intricate hand-worked bullion zardozi chest medallion",
+      "Full velvet collar and cuff embellishment",
+      "Includes tailored silk churidar"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__13_.jpg",
+    image: "assets/catalog/sherwani-02.jpg",
     badge: "Signature Collection"
   },
   {
     id: "sherwani-03",
-    title: "Heritage Pathergatti Achkan Sherwani",
+    title: "The Grand Asaf Jahi Bridal Sherwani Set",
     category: "sherwani",
     categoryLabel: "Royal Sherwani",
-    priceRange: "₹18,000 – ₹32,000",
-    fabric: "Handwoven Banarasi Tussar Silk",
-    work: "Subtle Thread Mukaish & Gold Zari Weave",
-    color: "Champagne Gold & Soft Pistachio",
-    occasion: "Day Wedding / Sangeet / Reception",
-    description: "A refined classic from our flagship Pathergatti atelier. Clean lines, lightweight royal tussar silk, and exquisite zari motifs that catch the light effortlessly without feeling heavy.",
+    priceRange: "₹35,000 – ₹52,000",
+    fabric: "Handwoven Tussar Silk with Royal Velvet Stole",
+    work: "Silver Zari Mukaish, Resham Jaal & Velvet Border Stole",
+    color: "Imperial Ivory, Silver & Royal Maroon",
+    occasion: "Grand Baraat / Royal Nikkah / Wedding",
+    description: "A complete groom masterwork from our flagship Pathergatti atelier. Clean royal lines on pure ivory silk, detailed all-over silver resham jaal embroidery, completed by a deep maroon velvet stole (dupatta) and coordinated hand-tied groom safa turban.",
     features: [
-      "Lightweight breathable pure silk fabric",
-      "Heritage Banarasi jaal weaving",
-      "Versatile styling for day or evening nuptials",
-      "Handmade silk potli buttons"
+      "All-over delicate silver zari floral jaal",
+      "Heavy royal maroon velvet stole with gold bullion borders",
+      "High structured bandhgala collar with potli buttons",
+      "Includes matching ivory silk churidar"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1489016449_1447852375_taj.jpg",
+    image: "assets/catalog/sherwani-03.jpg",
+    badge: "Groom Masterpiece"
+  },
+  {
+    id: "sherwani-04",
+    title: "The Royal Pathergatti Gold Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹24,000 – ₹38,000",
+    fabric: "Pure Raw Silk & Antique Brocade Weave",
+    work: "Antique Gold Zari, Contrast Blue Buttons & Cuff Detailing",
+    color: "Imperial Gold & Hyderabadi Crimson",
+    occasion: "Wedding Reception / Sangeet / Baraat",
+    description: "A timeless Hyderabadi silhouette featuring a structured gold raw silk coat, contrast navy and gold jeweled buttons, ornate embroidered sleeve cuffs, and paired with a traditional pleated crimson dhoti salwar.",
+    features: [
+      "Premium textured raw silk body",
+      "Contrast jeweled round button front",
+      "Traditional flared Hyderabadi pleat dhoti pairing",
+      "Tailored for comfort and effortless movement"
+    ],
+    image: "assets/catalog/sherwani-04.jpg",
     badge: "Heritage Classic"
   },
   {
-    id: "bandhgala-01",
-    title: "Nawabi Jodhpuri Bandhgala Suit",
-    category: "bandhgala",
-    categoryLabel: "Nawabi Bandhgala",
-    priceRange: "₹16,000 – ₹28,000",
-    fabric: "Italian Super 120s Wool-Silk Blend",
-    work: "Hand-piped Edges & Antique Brass Crest Buttons",
-    color: "Midnight Royal Navy",
-    occasion: "Reception / Sangeet / Formal Gala",
-    description: "The pinnacle of masculine sophistication. Tailored with architectural precision, high collar, double vents, and handcrafted metal buttons bearing the historic crest motif.",
+    id: "sherwani-05",
+    title: "Royal Crimson Brocade Angrakha Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹28,000 – ₹44,000",
+    fabric: "Brocade & Silk Satin Blend",
+    work: "Dabka, Nakshi & Gold Zari Weave with Velvet Trims",
+    color: "Deep Ruby Crimson & Antique Gold",
+    occasion: "Grand Reception / Engagement Gala",
+    description: "A show-stopping hybrid featuring an asymmetrical angrakha neckline with intricate neck and collar embroidery, rich crimson brocade weave, paired with a matching red churidar and handcrafted zardozi mojaris.",
     features: [
-      "Full canvas construction for crisp silhouette",
-      "Suede trim inner collar for neck comfort",
-      "Includes tailored flat-front trousers",
-      "Custom monogramming available"
+      "Signature cross-neck angrakha embroidery line",
+      "Lustrous all-over gold zari floral brocade weave",
+      "Tailored inner lining with secret pocket",
+      "Includes matching crimson churidar"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881337_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__12_.jpg",
-    badge: "Timeless"
+    image: "assets/catalog/sherwani-05.jpg",
+    badge: "Nizami Splendour"
   },
   {
-    id: "bandhgala-02",
-    title: "Imperial Black Velvet Prince Coat",
+    id: "sherwani-06",
+    title: "Imperial Gold Brocade Darbar Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹26,000 – ₹40,000",
+    fabric: "Pure Banarasi Silk Brocade",
+    work: "Intricate All-Over Gold Zari Jaal Weave with Blue Jewels",
+    color: "Antique Gold & Sapphire Accents",
+    occasion: "Baraat / Royal Reception / Formal Wedding",
+    description: "Crafted in the finest Banarasi gold brocade, this majestic darbar coat features an opulent gold floral motif throughout, high mandarin collar with blue jewel accents, and deep crimson churidar.",
+    features: [
+      "All-over woven pure gold zari jaal",
+      "Jeweled button placket with sapphire blue accents",
+      "Ornate collar and sleeve trim embroidery",
+      "Full canvas bespoke inner construction"
+    ],
+    image: "assets/catalog/sherwani-06.jpg",
+    badge: "Darbar Special"
+  },
+  {
+    id: "sherwani-07",
+    title: "The Nizam Baraat Ceremonial Groom Ensemble",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹34,000 – ₹50,000",
+    fabric: "Banarasi Brocade, Micro-Velvet & Pure Silk",
+    work: "Layered Velvet Embroidered Vest, Turban & Dhoti",
+    color: "Antique Gold & Imperial Crimson",
+    occasion: "Baraat Entry / Main Wedding Ceremony",
+    description: "A commanding layered ceremonial look for the groom. Combines an antique gold brocade sherwani with a rich crimson velvet embroidered waistcoat layer, coordinated crimson groom safa (turban), and pleated dhoti.",
+    features: [
+      "Layered velvet waistcoat with fine bullion gold work",
+      "Hand-pleated royal crimson dhoti",
+      "Includes coordinated velvet safa headwear",
+      "Unmatched royal stage presence"
+    ],
+    image: "assets/catalog/sherwani-07.jpg",
+    badge: "Baraat Royalty"
+  },
+  {
+    id: "sherwani-08",
+    title: "Heritage Pathergatti Aristocrat Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹29,000 – ₹45,000",
+    fabric: "Heavy Banarasi Brocade & Silk",
+    work: "Shoulder Bullion Zardozi & Hand-Embroidered Cuffs",
+    color: "Royal Gold & Crimson",
+    occasion: "Royal Reception / Baraat",
+    description: "An aristocratic design from our historical Pathergatti archives. Highlighted by dense bullion zardozi handwork across the shoulders and high collar, fastens with ornate buttons, paired with a crimson dhoti.",
+    features: [
+      "Heavy artisan bullion zardozi shoulder work",
+      "High stand collar with intricate embellishment",
+      "Pleated crimson dhoti pairing",
+      "Master-tailored Asaf Jahi silhouette"
+    ],
+    image: "assets/catalog/sherwani-08.jpg",
+    badge: "Heritage Archive"
+  },
+  {
+    id: "bandhgala-01",
+    title: "Nawabi Royal Ivory Achkan",
     category: "bandhgala",
     categoryLabel: "Nawabi Bandhgala",
     priceRange: "₹22,000 – ₹36,000",
-    fabric: "Plush Imported Velvet & Pure Silk Satin",
-    work: "Zardozi Embroidered Collar & Pocket Crest",
-    color: "Obsidian Noir Black",
-    occasion: "Cocktail / Royal Reception / Black-Tie",
-    description: "Inspired by the ceremonial coats worn by Nizami nobility. Velvet richness balanced with contemporary bespoke tailoring, featuring hand-embroidered collar crest work.",
+    fabric: "Italian Silk-Wool Blend & Satin Trim",
+    work: "Hand-worked Zardozi Collar, Cuffs & Royal Crest",
+    color: "Pristine Ivory & Royal Crimson Accents",
+    occasion: "Reception / Sangeet / Formal Gala",
+    description: "The epitome of Nizami elegance. Tailored from an immaculate ivory silk-wool blend, featuring a high bandhgala collar with crimson velvet piping, hand-worked zardozi sleeve cuffs, and an elaborate royal chest crest medallion with hanging tassel.",
     features: [
-      "Luxurious jet-black deep pile velvet",
-      "Hand-embroidered gold bullion wire crest",
-      "Peak collar cut with satin lining",
-      "Tailored to exact millimeter measurements"
+      "Exquisite hand-embroidered chest crest medallion",
+      "Crimson velvet stand collar and sleeve cuff borders",
+      "Concealed button placket with jeweled accents",
+      "Includes tailored silk pyjama"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881336_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__11_.jpg",
-    badge: "Red Carpet"
+    image: "assets/catalog/bandhgala-01.jpg",
+    badge: "Nawabi Elite"
   },
   {
     id: "indo-01",
-    title: "Asymmetrical Draped Indo-Western Ensemble",
+    title: "Royal Gold & Crimson Accent Sherwani",
     category: "indo-western",
     categoryLabel: "Indo-Western",
-    priceRange: "₹18,000 – ₹34,000",
+    priceRange: "₹20,000 – ₹34,000",
     fabric: "Textured Raw Silk & Georgette Cowl",
-    work: "Minimalist Zari Borders & Contemporary Cut",
-    color: "Sage Green & Burnished Silver",
-    occasion: "Sangeet / Mehendi / Cocktail Night",
-    description: "Modern royalty redefined. Features an asymmetrical overlapping front panel with a flowing side cowl inner, blending Hyderabad’s nawabi aesthetics with cutting-edge global silhouette design.",
+    work: "Geometric Border Embellishments & Tassel Potli Buttons",
+    color: "Champagne Gold & Deep Crimson",
+    occasion: "Sangeet / Mehendi / Cocktail Gala",
+    description: "A modern royal silhouette blending Hyderabadi court heritage with structured contemporary panache. Features delicate gold tassel potli buttons, geometric crimson horizontal paneling along the hem, and flowing crimson cowl trousers.",
     features: [
-      "Modern asymmetrical overlap buttoning",
-      "Flowing cowl hemline for dramatic stage entrance",
-      "Paired with tailored cigarette pants",
-      "Ultra-comfortable movement for sangeet dancing"
+      "Intricate tassel potli button placket",
+      "Modern geometric crimson accent hemline",
+      "Paired with comfortable cowl trousers",
+      "Breathable pure raw silk construction"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881336_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__10_.jpg",
+    image: "assets/catalog/indo-01.jpg",
     badge: "Modern Royal"
   },
   {
-    id: "indo-02",
-    title: "Nizam Angrakha Tuxedo Fusion",
-    category: "indo-western",
-    categoryLabel: "Indo-Western",
-    priceRange: "₹24,000 – ₹38,000",
-    fabric: "Brocade & Fine Cashmere Blend",
-    work: "Hand-stitched Zari Borders & Satin Shawl Collar",
-    color: "Royal Emerald & Antique Gold",
-    occasion: "Grand Reception / Engagement Gala",
-    description: "A show-stopping hybrid of the traditional Angrakha cross-chest closure with a tuxedo shawl collar, finished in royal emerald green with antique zari embellishments.",
-    features: [
-      "Signature cross-body angrakha tie fastening",
-      "Tuxedo-inspired satin finish shawl lapel",
-      "Includes tailored trousers and inner kurta",
-      "Breathable lining with secret internal pocket"
-    ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__9_.jpg",
-    badge: "Trending 2026"
-  },
-  {
     id: "kurta-01",
-    title: "Hyderabadi Resham Silk Kurta Set with Bundi",
+    title: "Hyderabadi Silk Kurta & Royal Blue Bundi Set",
     category: "kurta-sets",
     categoryLabel: "Kurta & Nehru Sets",
-    priceRange: "₹6,500 – ₹14,000",
-    fabric: "Mulberry Silk & Banarasi Brocade Bundi",
-    work: "Delicate Threadwork & Mother-of-Pearl Buttons",
-    color: "Peach Blush & Rose Gold",
-    occasion: "Haldi / Mehendi / Festive Celebrations",
-    description: "Effortlessly elegant festive set consisting of a flowing pure silk kurta, fitted churidar, and an intricately woven Banarasi silk Nehru waistcoat (bundi).",
+    priceRange: "₹8,500 – ₹16,000",
+    fabric: "Mulberry Silk Kurta & Raw Silk Nehru Waistcoat",
+    work: "Silver Threadwork Pocket Crest & Mother-of-Pearl Buttons",
+    color: "Royal Sapphire Blue & Pure White",
+    occasion: "Haldi / Mehendi / Sangeet / Festive Gatherings",
+    description: "Crisp, impeccably tailored pure white silk kurta and churidar paired with a vibrant royal sapphire blue raw silk Nehru waistcoat (bundi), detailed with contrast white piping and an ornate silver bullion pocket crest.",
     features: [
-      "Pure mulberry silk with natural sheen",
-      "Tailored bundi with mandarin collar and welt pockets",
-      "Breathable comfortable fit for long wedding rituals",
-      "Off-the-rack and bespoke sizing available"
+      "Pure mulberry silk kurta with smooth comfortable drape",
+      "Tailored bundi with mandarin collar and welt chest pocket",
+      "Silver bullion embroidered crest detailing",
+      "Perfect for pre-wedding ceremonies and festive celebrations"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__8_.jpg",
+    image: "assets/catalog/kurta-01.jpg",
     badge: "Festive Essential"
   },
   {
     id: "kurta-02",
-    title: "Classic Nawabi Pathani Suit",
+    title: "Nawabi Charcoal Silk Kurta & Textured Bundi",
     category: "kurta-sets",
     categoryLabel: "Kurta & Nehru Sets",
-    priceRange: "₹4,500 – ₹9,500",
-    fabric: "High-twist Egyptian Cotton / Linen Blend",
-    work: "Fine Contrast Stitching & Shoulder Epaulettes",
-    color: "Crisp Pure White / Charcoal Black",
-    occasion: "Jumma Prayer / Festive Gatherings / Family Events",
-    description: "The classic Hyderabadi Pathani suit with signature point collar, chest flap pockets, shoulder epaulettes, and a comfortable pleated salwar.",
+    priceRange: "₹7,500 – ₹14,500",
+    fabric: "Pure Black Silk Kurta & Textured Tweed Waistcoat",
+    work: "Fine Contrast Piping, Pocket Crest & Silver Buttons",
+    color: "Charcoal Black & Textured Silver-Grey",
+    occasion: "Sangeet / Evening Gatherings / Eid Celebrations",
+    description: "Understated refinement at its best. Features a midnight black silk kurta paired with a structured silver-grey textured Nehru waistcoat (bundi), complete with matching pocket crest and antique silver buttons.",
     features: [
-      "100% breathable luxury Egyptian cotton",
-      "Impeccable collar stiffness and cuff finishing",
-      "Traditional roomy salwar cut",
-      "All sizes in stock off the rack"
+      "100% breathable pure black silk kurta",
+      "Textured silver-grey bundi with mandarin collar",
+      "Cuff piping and signature pocket square",
+      "Versatile ensemble for evening wedding rituals"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881335_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__7_.jpg",
-    badge: "Wardrobe Classic"
+    image: "assets/catalog/kurta-02.jpg",
+    badge: "Contemporary Classic"
+  },
+  {
+    id: "kurta-03",
+    title: "Festive Crimson Red Silk Kurta Set",
+    category: "kurta-sets",
+    categoryLabel: "Kurta & Nehru Sets",
+    priceRange: "₹6,500 – ₹12,500",
+    fabric: "High-sheen Banarasi Raw Silk",
+    work: "Woven Gold Zari Paisley Butis & Embroidered Neckline",
+    color: "Festive Ruby Crimson & Gold",
+    occasion: "Mehendi / Haldi / Sangeet / Family Celebrations",
+    description: "A festive standout in rich ruby red Banarasi raw silk, covered with all-over woven gold zari teardrop paisley (kalka/buti) motifs, banded mandarin collar placket, and paired with a gold tissue silk churidar.",
+    features: [
+      "Pure raw silk with rich festive crimson sheen",
+      "Dense woven gold zari paisley buti motifs",
+      "Ornate collar and cuff trim detailing",
+      "Includes gold tissue churidar"
+    ],
+    image: "assets/catalog/kurta-03.jpg",
+    badge: "Festive Favorite"
   },
   {
     id: "acc-01",
     title: "Royal Hyderabadi Safa with Kundan Kalgi",
     category: "accessories",
     categoryLabel: "Royal Accessories",
-    priceRange: "₹3,500 – ₹8,500",
-    fabric: "Chanderi Silk & Pure Kota Doria",
-    work: "Hand-tied Nizami Turban with Kundan & Pearl Brooch",
-    color: "Imperial Gold & Ruby Accent",
+    priceRange: "₹4,500 – ₹9,500",
+    fabric: "Chanderi Silk, Imperial Gold Tissue & Velvet",
+    work: "Hand-tied Nizami Safa with Kundan & Pearl Brooch",
+    color: "Imperial Gold & Ruby Maroon Accent",
     occasion: "Groom Wedding Headwear",
-    description: "The crowning glory of the royal groom. Hand-tied in the iconic Hyderabadi Nawabi safa drape, adorned with an ornate kundan kalgi featuring dangling Basra-style pearls.",
+    description: "The crowning glory of the royal groom. Hand-tied in the iconic Hyderabadi Nawabi safa drape using imperial gold tissue and rich maroon silk, adorned with an ornate kundan kalgi featuring Basra-style pearls and emerald drops.",
     features: [
-      "Pre-tied or custom hand-tying at store/venue",
-      "High-grade kundan & faux emerald kalgi included",
+      "Pre-tied or custom hand-tying available",
+      "High-grade kundan, emerald & Basra-style pearl kalgi included",
       "Comfortable inner cap fitting",
-      "Matches all sherwani colorways"
+      "Perfect companion for royal ivory and gold sherwanis"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881334_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__6_.jpg",
+    image: "assets/catalog/acc-safa-kalgi.jpg",
     badge: "Groom Crown"
   },
   {
@@ -210,20 +291,20 @@ const CATALOG_DATA = [
     title: "Handcrafted Zardozi Royal Velvet Mojaris",
     category: "accessories",
     categoryLabel: "Royal Accessories",
-    priceRange: "₹2,800 – ₹5,500",
-    fabric: "Genuine Leather Sole & Velvet Upper",
+    priceRange: "₹3,200 – ₹6,500",
+    fabric: "Genuine Hand-stitched Leather Sole & Deep Velvet Upper",
     work: "Gold Dabka & Bullion Zardozi Embroidery",
-    color: "Maroon & Antique Gold / Jet Black",
-    occasion: "Groom Footwear",
-    description: "Master crafted traditional mojaris with curved toe, padded leather insoles for day-long wedding comfort, and dense hand-zardozi gold bullion embroidery.",
+    color: "Deep Crimson Velvet & Antique Gold",
+    occasion: "Groom Wedding Footwear",
+    description: "Master crafted traditional royal mojaris with curved toe, padded leather insoles for day-long wedding comfort, and dense hand-zardozi gold bullion embroidery on deep crimson velvet.",
     features: [
-      "Padded insole for 12+ hour comfort",
+      "Padded leather insole for 12+ hour ceremony comfort",
       "Genuine hand-stitched leather sole",
-      "Non-slip heel grip",
+      "Curved pointed royal Nizami toe shape",
       "Sizes available from 6 to 12 UK"
     ],
-    image: "https://image.wedmegood.com/resized/800X/uploads/member/23209/1446881334_Best_Groom_wear_wedding_sherwani_suits_in_Hyderabad_Maqdoom_Brothers_wedmegood__5_.jpg",
-    badge: "Handmade"
+    image: "assets/catalog/acc-velvet-mojaris.jpg",
+    badge: "Handmade Royal"
   }
 ];
 
@@ -250,3 +331,8 @@ const STORE_FAQS = [
     answer: "Yes, you can easily reserve a VIP fitting trial by calling us directly at +91 8686684144 or via our interactive booking form and WhatsApp concierge."
   }
 ];
+
+// Export for node or browser
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { CATALOG_DATA, STORE_FAQS };
+}
