@@ -2470,7 +2470,252 @@ textarea.form-control {
   }
 }
 
-  </style>
+  
+
+/* ==========================================================================
+   FAQ SECTION (SearchGPT & Gemini AI Overviews Optimized)
+   ========================================================================== */
+.faq-section {
+  background: var(--nizam-dark);
+  position: relative;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.faq-container {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--nizam-emerald-surface);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.faq-item:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+}
+
+.faq-item[open] {
+  border-color: var(--gold-primary);
+  background: rgba(16, 51, 42, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.faq-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--pearl-white);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  transition: color 0.25s ease;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item[open] .faq-summary {
+  color: var(--gold-light);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.faq-chevron {
+  font-size: 1.2rem;
+  color: var(--gold-primary);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 22px 24px;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--pearl-cream);
+}
+
+.faq-answer p {
+  margin-bottom: 12px;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-list {
+  margin: 10px 0 16px 20px;
+  list-style-type: square;
+}
+
+.faq-list li {
+  margin-bottom: 8px;
+  color: var(--pearl-cream);
+}
+
+.faq-link {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.faq-link:hover {
+  color: #ffffff;
+}
+
+.faq-footer-cta {
+  max-width: 920px;
+  margin: 40px auto 0;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(19, 66, 54, 0.6) 0%, rgba(7, 25, 20, 0.9) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-gold);
+}
+
+.faq-cta-text h4 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+.faq-cta-text p {
+  font-size: 0.92rem;
+  color: var(--pearl-cream);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.faq-cta-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-summary {
+    padding: 16px 18px;
+    font-size: 1rem;
+  }
+  .faq-answer {
+    padding: 16px 18px;
+    font-size: 0.9rem;
+  }
+  .faq-footer-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .faq-cta-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .faq-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+</style>
+
+  <!-- Schema.org FAQPage for Google AI Overviews, Gemini & SearchGPT -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is Maqdoom Brothers and what is their historical legacy in Hyderabad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Founded in 1895 in Pathergatti, Hyderabad, Maqdoom Bros Designers Pvt Ltd has served as the historic royal clothiers and court tailors to the Asaf Jahi Nizams of Hyderabad for over 130 years across four generations. Renowned for authentic Royal Hyderabadi Khada Sherwanis, Nawabi Bandhgalas, and handcrafted Old City zardozi wire embroidery on pure raw silk, Maqdoom Brothers is South India’s premier heritage destination for royal groom wear and bespoke wedding couture."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is the Maqdoom Brothers flagship store located and what are the opening hours?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The flagship showroom and master atelier is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, near Charminar, Hyderabad, Telangana 500002. Open all 7 days a week from 10:30 AM to 11:00 PM IST. Phone & WhatsApp: +91 8686684144."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the starting price range of sherwanis and wedding attire at Maqdoom Brothers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Transparent pricing across all collections: Festive Silk Kurta Sets & Bundis: ₹6,500 – ₹16,000; Nawabi Bandhgalas & Jodhpuris: ₹18,000 – ₹28,000; Royal Wedding Sherwanis: ₹22,000 – ₹48,000; Bespoke Haute-Couture Heirloom Pieces: tailored to custom specifications. All sherwanis include tailored silk churidar/trouser and master trial fittings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does custom bespoke tailoring take, and is express stitching available?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard bespoke royal sherwani tailoring takes 2 to 3 weeks including hand zardozi bullion embroidery on wooden karchob frames and fitting trials. An Express Stitching Service completes orders in 7 to 10 days for urgent weddings. Ready-to-wear alterations take 24 to 48 hours."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you cater to NRI and international grooms? How does video fitting work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we dress NRI grooms worldwide across USA, UK, Canada, UAE (Dubai/Abu Dhabi), and Australia. We provide live 1-on-1 WhatsApp video consultations, 18-point measurement calibration, fabric video swatches, and insured door-to-door DHL/FedEx Express delivery in 5 to 7 business days."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes an authentic Asaf Jahi Hyderabadi Sherwani unique?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The authentic Nizami sherwani features an imperial high-stand collar, structured royal chest flair, and pure Matka raw silk or Banarasi katan brocades, embellished with genuine hand-worked metallic gold and silver bullion zardozi, dabka, and resham French knots by hereditary Old City master artisans."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide coordinated groom accessories (Safas, Kalgis, and Mojaris)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Maqdoom Brothers provides complete head-to-toe groom coordination including hand-tied Royal Hyderabadi Safas with Basra pearls, antique Kundan-encrusted Kalgis, handcrafted zardozi velvet Mojaris, ceremonial swords, stoles, and royal Kamarbands."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I book a bespoke consultation or VIP fitting trial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Book online via the website booking form, phone/WhatsApp at +91 8686684144, or in-browser via Ask Nizam AI. Walk-in visitors at the Pathergatti atelier are welcomed 7 days a week."
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body>
 
@@ -2547,6 +2792,7 @@ textarea.form-control {
         <li><a href="#bespoke" class="nav-link">Bespoke Tailoring</a></li>
         <li><a href="#size-estimator" class="nav-link">Size Estimator</a></li>
         <li><a href="#visit" class="nav-link">Visit Store</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
       </ul>
 
       <div class="header-cta-group">
@@ -3186,6 +3432,155 @@ textarea.form-control {
     </div>
   </section>
 
+  
+  <!-- ==========================================================================
+       FREQUENTLY ASKED QUESTIONS (FAQ) & SARTORIAL GUIDE
+       Optimized for SearchGPT, Google Gemini AI Overviews, & Perplexity Grounding
+       ========================================================================== -->
+  <section id="faq" class="section faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Royal Atelier Knowledge & Client Guide</span>
+        <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+        <p class="section-subtitle">
+          Essential facts about our 130-year Asaf Jahi heritage, bespoke tailoring timelines, transparent pricing, NRI international video fittings, and royal groom styling.
+        </p>
+      </div>
+
+      <div class="faq-container">
+        <!-- FAQ Item 1 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" open>
+          <summary class="faq-summary" itemprop="name">
+            <span>Who is Maqdoom Brothers and what is their historical legacy in Hyderabad?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              Founded in <strong>1895</strong> along historic Pathergatti Road, <strong>Maqdoom Bros Designers Pvt Ltd</strong> has served as the legendary clothiers and court tailors to the <strong>Asaf Jahi Nizams of Hyderabad</strong> for over 130 years across four generations. Renowned for authentic Royal Hyderabadi Khada Sherwanis, Nawabi Bandhgalas, and handcrafted Old City zardozi wire embroidery on pure raw silk, Maqdoom Brothers is South India’s premier heritage destination for royal groom wear and bespoke wedding couture.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 2 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>Where is the Maqdoom Brothers flagship store located and what are the opening hours?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              Our historic flagship showroom and master atelier is located at <strong>Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building</strong>, just 800 meters from the iconic Charminar in Old Hyderabad (Telangana - 500002). We are open <strong>all 7 days a week from 10:30 AM to 11:00 PM IST</strong>. You can reach our master concierge directly by phone or WhatsApp at <a href="tel:8686684144" class="faq-link">+91 8686684144</a>.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 3 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>What is the starting price range of sherwanis and wedding attire?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              We practice verified, transparent pricing across all groom wear categories:
+            </p>
+            <ul class="faq-list">
+              <li><strong>Festive Silk Kurta Sets & Embroidered Bundis:</strong> ₹6,500 – ₹16,000</li>
+              <li><strong>Nawabi Bandhgalas & Jodhpuris:</strong> ₹18,000 – ₹28,000</li>
+              <li><strong>Royal Wedding Sherwanis & Khada Silhouettes:</strong> ₹22,000 – ₹48,000</li>
+              <li><strong>Bespoke Heirloom Haute-Couture Bridal Pieces:</strong> Tailored according to custom fabric sourcing and hand embroidery density.</li>
+            </ul>
+            <p itemprop="text">
+              All sherwanis include a tailored silk churidar/trouser and two personalized master trial fittings.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 4 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>How long does custom bespoke tailoring take, and is express stitching available?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              A standard handcrafted bespoke sherwani or bandhgala requires <strong>2 to 3 weeks</strong>, covering master pattern cutting, hand zardozi bullion embroidery on traditional wooden <em>karchob</em> frames, and fitting trials. For urgent weddings or outstation clients visiting Hyderabad for limited days, we offer an <strong>Express Stitching Service completed in 7 to 10 days</strong>. Ready-to-wear alterations can be delivered within <strong>24 to 48 hours</strong>.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 5 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>Do you cater to NRI and international grooms? How does video fitting work?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              Yes! Over 40% of our wedding clientele are NRI grooms across the <strong>USA (Chicago, Dallas, Houston, New York, California), UK (London, Birmingham), Canada (Toronto), UAE (Dubai, Abu Dhabi), and Australia</strong>. We conduct live 1-on-1 WhatsApp video consultations, guide you through a precision 18-point measurement calibration, and share high-resolution fabric/embroidery swatches. Once tailored, orders are steam-pressed, luxury-boxed, and dispatched via insured DHL/FedEx Express with guaranteed <strong>5 to 7 business day door-to-door worldwide delivery</strong>.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 6 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>What makes an authentic Asaf Jahi Hyderabadi Sherwani different from modern suits?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              The authentic Nizami sherwani features an imperial high-stand collar, structured royal chest flair, and a tapered waistline designed to convey regal court authority. Unlike mass-manufactured garments, our pieces are crafted from pure <strong>Matka raw silk</strong> and <strong>Banarasi katan brocades</strong>, adorned with genuine hand-worked <em>zardozi</em> (metallic gold and silver bullion wire), <em>dabka</em>, and <em>resham</em> French knots handcrafted by hereditary artisans whose families have served the Hyderabad royal court since the 19th century.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 7 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>Do you provide coordinated groom accessories (Safas, Kalgis, and Mojaris)?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              Yes, Maqdoom Brothers provides complete head-to-toe royal coordination. Our curated accessories include hand-tied <strong>Royal Hyderabadi Safas</strong> (Dastar/Pheta) with authentic Basra pearl malas, antique <strong>Kundan-encrusted Kalgis</strong> (turban jewels), hand-embroidered <strong>Velvet Mojaris</strong> with padded leather comfort soles, ceremonial royal swords (Talwar), silk dupattas, and handcrafted Nawabi Kamarbands.
+            </p>
+          </div>
+        </details>
+
+        <!-- FAQ Item 8 -->
+        <details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary class="faq-summary" itemprop="name">
+            <span>How can I book a bespoke consultation or VIP fitting trial?</span>
+            <span class="faq-chevron" aria-hidden="true">▾</span>
+          </summary>
+          <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">
+              You can easily reserve an appointment via our online <a href="#booking" class="faq-link">Bespoke Booking Form</a>, connect with our concierge directly on <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20would%20like%20to%20book%20a%20bridal%20consultation" target="_blank" rel="noopener noreferrer" class="faq-link">WhatsApp (+91 8686684144)</a>, or consult our in-browser AI stylist <strong>Ask Nizam AI</strong>. Walk-ins at our Pathergatti flagship atelier are always welcomed.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <!-- FAQ CTA Box -->
+      <div class="faq-footer-cta">
+        <div class="faq-cta-text">
+          <h4>Have a unique bridal requirement or destination wedding timeline?</h4>
+          <p>Our senior master tailors and bridal concierges are available 7 days a week to advise on cuts, color pairings with your bride, and fabric swatches.</p>
+        </div>
+        <div class="faq-cta-actions">
+          <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20have%20a%20question%20about%20groom%20wear%20and%20tailoring" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+            Chat with Concierge
+          </a>
+          <a href="#booking" class="btn btn-gold">
+            Book Fitting Trial
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ==========================================================================
        INSTAGRAM FEED PREVIEW (@maqdoombrothers)
        ========================================================================== -->
@@ -3291,6 +3686,7 @@ textarea.form-control {
             <li><a href="#bespoke">The 3-Step Bespoke Tailoring</a></li>
             <li><a href="#booking">Book In-Store Fitting</a></li>
             <li><a href="#visit">Location & Directions</a></li>
+            <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
             <li><a href="/llms.txt" target="_blank" rel="noopener" style="color:var(--gold-light);">AI Search Index (llms.txt)</a></li>
             <li><a href="/llms-full.txt" target="_blank" rel="noopener">Full RAG Corpus (llms-full.txt)</a></li>
           </ul>

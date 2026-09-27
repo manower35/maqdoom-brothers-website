@@ -195,6 +195,15 @@ class NizamAIStylist {
     } else if (q.includes("price") || q.includes("cost") || q.includes("budget") || q.includes("under") || q.includes("30,000") || q.includes("30k") || q.includes("cheap")) {
       rationale = "Our ready-to-wear and bespoke wedding collections offer verified transparent pricing: festive silk kurta sets from ₹6,500, royal sherwanis starting from ₹20,000 to ₹35,000, and bespoke haute-couture bridal pieces tailored to your exact budget.";
       priorityOccasion = "budget";
+    } else if (q.includes("history") || q.includes("who is maqdoom") || q.includes("1895") || q.includes("legacy") || q.includes("court") || q.includes("founder")) {
+      rationale = "Founded in 1895 in Pathergatti, Maqdoom Bros Designers Pvt Ltd has served as the court tailors to the Asaf Jahi Nizams of Hyderabad for over 130 years across 4 generations! We are South India's oldest and most prestigious royal groom wear institution.";
+      priorityOccasion = "wedding";
+    } else if (q.includes("how long") || q.includes("timeline") || q.includes("urgent") || q.includes("express") || q.includes("days") || q.includes("weeks") || q.includes("stitching time")) {
+      rationale = "Custom bespoke royal tailoring takes 2 to 3 weeks, including artisan hand-zardozi wire embroidery on wooden karchob frames and two trial fittings. For urgent weddings, our Express Stitching Service completes custom pieces in 7 to 10 days, while ready-to-wear alterations take only 24 to 48 hours!";
+      priorityOccasion = "wedding";
+    } else if (q.includes("location") || q.includes("where") || q.includes("address") || q.includes("timings") || q.includes("hours") || q.includes("pathergatti") || q.includes("open")) {
+      rationale = "Our historic flagship atelier is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad (500002), near Charminar. We are open all 7 days from 10:30 AM to 11:00 PM IST!";
+      priorityOccasion = "wedding";
     } else if (q.includes("nri") || q.includes("usa") || q.includes("uk") || q.includes("canada") || q.includes("dubai") || q.includes("abroad") || q.includes("ship") || q.includes("video")) {
       rationale = "We dress NRI grooms worldwide across the USA, UK, Canada, and UAE! We conduct live high-definition video consultations, millimeter digital measurement guidance, and provide insured door-to-door DHL/FedEx courier delivery in 5-7 business days.";
       priorityOccasion = "nri";

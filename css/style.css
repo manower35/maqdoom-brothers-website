@@ -2439,3 +2439,172 @@ textarea.form-control {
     font-size: 0.78rem;
   }
 }
+
+
+/* ==========================================================================
+   FAQ SECTION (SearchGPT & Gemini AI Overviews Optimized)
+   ========================================================================== */
+.faq-section {
+  background: var(--nizam-dark);
+  position: relative;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.faq-container {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--nizam-emerald-surface);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.faq-item:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+}
+
+.faq-item[open] {
+  border-color: var(--gold-primary);
+  background: rgba(16, 51, 42, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.faq-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--pearl-white);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  transition: color 0.25s ease;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item[open] .faq-summary {
+  color: var(--gold-light);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.faq-chevron {
+  font-size: 1.2rem;
+  color: var(--gold-primary);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 22px 24px;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--pearl-cream);
+}
+
+.faq-answer p {
+  margin-bottom: 12px;
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-list {
+  margin: 10px 0 16px 20px;
+  list-style-type: square;
+}
+
+.faq-list li {
+  margin-bottom: 8px;
+  color: var(--pearl-cream);
+}
+
+.faq-link {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.faq-link:hover {
+  color: #ffffff;
+}
+
+.faq-footer-cta {
+  max-width: 920px;
+  margin: 40px auto 0;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(19, 66, 54, 0.6) 0%, rgba(7, 25, 20, 0.9) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-gold);
+}
+
+.faq-cta-text h4 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+.faq-cta-text p {
+  font-size: 0.92rem;
+  color: var(--pearl-cream);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.faq-cta-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-summary {
+    padding: 16px 18px;
+    font-size: 1rem;
+  }
+  .faq-answer {
+    padding: 16px 18px;
+    font-size: 0.9rem;
+  }
+  .faq-footer-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .faq-cta-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .faq-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
