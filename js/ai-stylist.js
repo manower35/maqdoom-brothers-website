@@ -21,23 +21,65 @@ class NizamAIStylist {
     this.inputField = document.getElementById('aiUserInput');
     this.sendBtn = document.getElementById('aiSendBtn');
     this.openBtn = document.getElementById('aiStylistFloatingTrigger');
+    this.navBtn = document.getElementById('navAiStylistBtn');
     this.closeBtn = document.getElementById('aiStylistCloseBtn');
     this.quickPills = document.querySelectorAll('.ai-prompt-pill');
   }
 
   initEventListeners() {
+    // Open triggers
     if (this.openBtn) {
-      this.openBtn.addEventListener('click', () => this.open());
+      this.openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.open();
+      });
     }
+    if (this.navBtn) {
+      this.navBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.open();
+      });
+    }
+    document.querySelectorAll('[data-open-ai], .ai-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.open();
+      });
+    });
+
+    // Close triggers
     if (this.closeBtn) {
-      this.closeBtn.addEventListener('click', () => this.close());
+      this.closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.close();
+      });
     }
+
+    // Backdrop click closes modal
+    if (this.container) {
+      this.container.addEventListener('click', (e) => {
+        if (e.target === this.container) {
+          this.close();
+        }
+      });
+    }
+
+    // Escape key closes modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.close();
+      }
+    });
+
+    // Send on button click
     if (this.sendBtn) {
       this.sendBtn.addEventListener('click', () => {
-        const text = this.inputField.value.trim();
+        const text = this.inputField ? this.inputField.value.trim() : '';
         if (text) this.handleUserQuery(text);
       });
     }
+
+    // Send on Enter key
     if (this.inputField) {
       this.inputField.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -47,6 +89,7 @@ class NizamAIStylist {
       });
     }
 
+    // Quick prompt pills
     if (this.quickPills) {
       this.quickPills.forEach(pill => {
         pill.addEventListener('click', () => {
@@ -59,15 +102,20 @@ class NizamAIStylist {
 
   open() {
     if (!this.container) return;
+    this.container.style.display = 'flex';
     this.container.classList.add('ai-modal-open');
     this.isOpen = true;
-    if (this.inputField) this.inputField.focus();
+    this.seedInitialGreeting();
+    if (this.inputField) {
+      setTimeout(() => this.inputField.focus(), 80);
+    }
     document.body.style.overflow = 'hidden';
   }
 
   close() {
     if (!this.container) return;
     this.container.classList.remove('ai-modal-open');
+    this.container.style.display = 'none';
     this.isOpen = false;
     document.body.style.overflow = '';
   }
@@ -88,7 +136,7 @@ class NizamAIStylist {
 
   handleUserQuery(query) {
     if (!query || !this.chatBody) return;
-    this.inputField.value = '';
+    if (this.inputField) this.inputField.value = '';
 
     // Render User Bubble
     const userMsgHtml = `
@@ -119,7 +167,7 @@ class NizamAIStylist {
 
       const response = this.synthesizeAdviceAndRecommendations(query);
       this.renderBotResponse(response);
-    }, 600);
+    }, 450);
   }
 
   synthesizeAdviceAndRecommendations(query) {
@@ -128,25 +176,30 @@ class NizamAIStylist {
     let matchedItems = [];
     let priorityOccasion = null;
 
-    // 1. Detect Intent / Occasion
-    if (q.includes("reception") || q.includes("cocktail") || q.includes("evening")) {
-      rationale = "For a grand evening reception or cocktail gala, an obsidian velvet Prince coat, an Angrakha tuxedo-fusion, or a navy Jodhpuri Bandhgala commands utmost prestige.";
-      priorityOccasion = "reception";
-    } else if (q.includes("baraat") || q.includes("nikkah") || q.includes("main wedding") || q.includes("shaadi") || q.includes("groom")) {
-      rationale = "For the grand Baraat and Nikkah ceremonies, the authentic Nizami Khada Sherwani in pure raw silk with Old City hand-zardozi and antique gold resham is the timeless choice worn by generations of royalty.";
-      priorityOccasion = "wedding";
-    } else if (q.includes("haldi") || q.includes("mehendi") || q.includes("sangeet") || q.includes("day")) {
-      rationale = "For lively Day events such as Sangeet or Mehendi, we recommend flowing mulberry silk kurtas paired with hand-loomed Banarasi brocade bundis or asymmetric draped jackets for effortless movement.";
-      priorityOccasion = "festive";
-    } else if (q.includes("accessory") || q.includes("safa") || q.includes("turban") || q.includes("pagdi") || q.includes("mojari") || q.includes("shoe")) {
-      rationale = "A royal groom's ensemble is complete only with coronation accessories: hand-tied Chanderi safa crowned with a Kundan Kalgi, Basra-style pearl mala, and genuine velvet zardozi mojaris.";
+    // 1. Detect Intent / Occasion in prioritized order
+    if (q.includes("accessory") || q.includes("accessories") || q.includes("safa") || q.includes("turban") || q.includes("pagdi") || q.includes("kalgi") || q.includes("mojari") || q.includes("jooti") || q.includes("shoe")) {
+      rationale = "A royal Hyderabadi groom's coronation look is incomplete without authentic accessories: our hand-tied Chanderi silk and gold tissue Safa crowned with a Kundan Kalgi and Basra pearls, paired with handcrafted deep crimson velvet mojaris.";
       priorityOccasion = "accessories";
-    } else if (q.includes("price") || q.includes("cost") || q.includes("how much") || q.includes("budget") || q.includes("cheap") || q.includes("under")) {
-      rationale = "As verified on WedMeGood, our ready-to-wear wedding sherwanis start from ₹10,000 to ₹40,000+, luxury kurtas from ₹3,500, and bespoke hand-zardozi royal bridal pieces are tailored to your budget.";
-    } else if (q.includes("nri") || q.includes("usa") || q.includes("uk") || q.includes("chicago") || q.includes("dubai") || q.includes("abroad") || q.includes("ship")) {
-      rationale = "We cater extensively to global grooms in the USA, UK, and UAE! We conduct live high-definition video consultations, digital measurement calibrations, and deliver worldwide via DHL/FedEx Express in 5-7 business days.";
+    } else if (q.includes("bride in maroon") || q.includes("bride is wearing") || q.includes("maroon") || q.includes("crimson") || q.includes("red")) {
+      rationale = "If your bride is wearing deep maroon or ruby crimson, you have two imperial styling paths: coordinate seamlessly with our Royal Maroon Zardozi Sherwani, or create a regal royal contrast with our Grand Asaf Jahi Ivory Sherwani adorned with a deep maroon velvet stole!";
+      priorityOccasion = "maroon_match";
+    } else if (q.includes("reception") || q.includes("cocktail") || q.includes("evening") || q.includes("bandhgala") || q.includes("achkan") || q.includes("prince coat")) {
+      rationale = "For a grand evening reception or cocktail gala, our Nawabi Royal Ivory Achkan with velvet crest embroidery, or our Royal Crimson Brocade Angrakha commands utmost prestige on stage.";
+      priorityOccasion = "reception";
+    } else if (q.includes("haldi") || q.includes("mehendi") || q.includes("sangeet") || q.includes("kurta") || q.includes("bundi") || q.includes("waistcoat")) {
+      rationale = "For pre-wedding celebrations such as Sangeet or Mehendi, we recommend pure mulberry silk kurta sets paired with our Royal Blue raw silk bundi or festive crimson Banarasi gold brocade kurta for effortless elegance.";
+      priorityOccasion = "festive";
+    } else if (q.includes("baraat") || q.includes("nikkah") || q.includes("wedding") || q.includes("shaadi") || q.includes("groom")) {
+      rationale = "For the grand Baraat and Nikkah ceremonies, the authentic Nizam Darbar Khada Sherwani in pure raw silk with Old City hand-zardozi and antique gold resham is the timeless choice worn by generations of nobility.";
+      priorityOccasion = "wedding";
+    } else if (q.includes("price") || q.includes("cost") || q.includes("budget") || q.includes("under") || q.includes("30,000") || q.includes("30k") || q.includes("cheap")) {
+      rationale = "Our ready-to-wear and bespoke wedding collections offer verified transparent pricing: festive silk kurta sets from ₹6,500, royal sherwanis starting from ₹20,000 to ₹35,000, and bespoke haute-couture bridal pieces tailored to your exact budget.";
+      priorityOccasion = "budget";
+    } else if (q.includes("nri") || q.includes("usa") || q.includes("uk") || q.includes("canada") || q.includes("dubai") || q.includes("abroad") || q.includes("ship") || q.includes("video")) {
+      rationale = "We dress NRI grooms worldwide across the USA, UK, Canada, and UAE! We conduct live high-definition video consultations, millimeter digital measurement guidance, and provide insured door-to-door DHL/FedEx courier delivery in 5-7 business days.";
+      priorityOccasion = "nri";
     } else {
-      rationale = "Based on our 130-year heritage of Asaf Jahi court tailoring, here are our recommended royal master creations for you:";
+      rationale = "Based on our 130-year heritage of Asaf Jahi court tailoring, here are our signature handcrafted master creations for you:";
     }
 
     // 2. Score and Rank Catalog Items (RAG)
@@ -160,24 +213,30 @@ class NizamAIStylist {
         if (fullText.includes(word)) score += 3;
       });
 
-      // Category matching
-      if (priorityOccasion === "wedding" && item.category === "sherwani") score += 10;
-      if (priorityOccasion === "reception" && (item.category === "bandhgala" || item.category === "indo-western")) score += 10;
-      if (priorityOccasion === "festive" && item.category === "kurta-sets") score += 10;
-      if (priorityOccasion === "accessories" && item.category === "accessories") score += 10;
+      // Priority occasion matching
+      if (priorityOccasion === "accessories" && item.category === "accessories") score += 20;
+      if (priorityOccasion === "maroon_match") {
+        if (item.id === "sherwani-02" || item.id === "sherwani-03" || item.id === "sherwani-01") score += 25;
+      }
+      if (priorityOccasion === "wedding" && item.category === "sherwani") score += 12;
+      if (priorityOccasion === "reception" && (item.category === "bandhgala" || item.id === "sherwani-05" || item.category === "indo-western")) score += 15;
+      if (priorityOccasion === "festive" && item.category === "kurta-sets") score += 18;
+      if (priorityOccasion === "budget") {
+        if (item.category === "kurta-sets" || item.id === "indo-01" || item.id === "sherwani-04") score += 15;
+      }
 
       // Color matching
-      if (q.includes("red") || q.includes("maroon") || q.includes("ruby")) {
-        if (item.color.toLowerCase().includes("crimson") || item.color.toLowerCase().includes("ruby")) score += 8;
+      if (q.includes("maroon") || q.includes("red") || q.includes("crimson")) {
+        if (item.color.toLowerCase().includes("maroon") || item.color.toLowerCase().includes("crimson") || item.color.toLowerCase().includes("ruby")) score += 10;
       }
-      if (q.includes("emerald") || q.includes("green")) {
-        if (item.color.toLowerCase().includes("emerald") || item.color.toLowerCase().includes("green")) score += 8;
+      if (q.includes("ivory") || q.includes("white")) {
+        if (item.color.toLowerCase().includes("ivory") || item.color.toLowerCase().includes("white")) score += 10;
       }
-      if (q.includes("ivory") || q.includes("white") || q.includes("gold")) {
-        if (item.color.toLowerCase().includes("ivory") || item.color.toLowerCase().includes("gold")) score += 8;
+      if (q.includes("gold")) {
+        if (item.color.toLowerCase().includes("gold")) score += 8;
       }
-      if (q.includes("black") || q.includes("navy") || q.includes("blue")) {
-        if (item.color.toLowerCase().includes("black") || item.color.toLowerCase().includes("navy")) score += 8;
+      if (q.includes("blue")) {
+        if (item.color.toLowerCase().includes("blue") || item.color.toLowerCase().includes("sapphire")) score += 12;
       }
 
       return { item, score };
@@ -187,7 +246,7 @@ class NizamAIStylist {
     .map(res => res.item)
     .slice(0, 3);
 
-    // If no strong matches, fallback to 2 popular signature items
+    // If no strong matches, fallback to 2 flagship signature items
     if (matchedItems.length === 0) {
       matchedItems = this.catalog.slice(0, 2);
     }
@@ -217,9 +276,12 @@ class NizamAIStylist {
                   <h5 class="ai-rec-title">${item.title}</h5>
                   <div class="ai-rec-price">${formattedPrice}</div>
                   <div class="ai-rec-actions">
-                    <a href="https://wa.me/918686684144?text=${waText}" target="_blank" class="btn btn-whatsapp btn-sm">
+                    <a href="https://wa.me/918686684144?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
                       WhatsApp Inquire
                     </a>
+                    <button class="btn btn-outline-gold btn-sm" onclick="if(window.nizamAI) window.nizamAI.close(); if(window.openQuickViewById) window.openQuickViewById('${item.id}');">
+                      Quick View
+                    </button>
                   </div>
                 </div>
               </div>
@@ -258,7 +320,6 @@ class NizamAIStylist {
 class VirtualSizeEstimator {
   static calculate(heightCm, chestInches, fitPreference) {
     let baseSize = Math.round(chestInches);
-    // Standard menswear sizing 36, 38, 40, 42, 44, 46
     if (baseSize % 2 !== 0) baseSize += 1;
     if (baseSize < 34) baseSize = 36;
     if (baseSize > 52) baseSize = 52;

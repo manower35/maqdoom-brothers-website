@@ -1479,10 +1479,7 @@ textarea.form-control {
   transition: opacity 0.3s ease;
 }
 
-.modal-overlay.open {
-  display: flex;
-  opacity: 1;
-}
+.modal-overlay.open { display: flex !important; opacity: 1; }
 
 .modal-window {
   background: var(--nizam-dark);
@@ -2003,9 +2000,7 @@ textarea.form-control {
   padding: 20px;
 }
 
-.ai-modal-overlay.ai-modal-open {
-  display: flex;
-}
+.ai-modal-overlay.ai-modal-open { display: flex !important; }
 
 .ai-chat-window {
   background: var(--nizam-dark);

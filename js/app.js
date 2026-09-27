@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalWhatsAppBtn.href = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;
     }
 
+    quickViewModal.style.display = 'flex';
     quickViewModal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -171,8 +172,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeQuickView() {
     if (!quickViewModal) return;
     quickViewModal.classList.remove('open');
+    quickViewModal.style.display = 'none';
     document.body.style.overflow = '';
   }
+
+  window.openQuickViewById = function(itemId) {
+    if (typeof CATALOG_DATA !== 'undefined') {
+      const item = CATALOG_DATA.find(i => i.id === itemId);
+      if (item) openQuickView(item);
+    }
+  };
 
   if (modalCloseBtn) {
     modalCloseBtn.addEventListener('click', closeQuickView);
@@ -255,7 +264,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.nizamAI = new NizamAIStylist(CATALOG_DATA);
 
     if (navAiStylistBtn) {
-      navAiStylistBtn.addEventListener('click', () => {
+      navAiStylistBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.nizamAI.open();
+      });
+    }
+
+    const floatingTrigger = document.getElementById('aiStylistFloatingTrigger');
+    if (floatingTrigger) {
+      floatingTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
         window.nizamAI.open();
       });
     }

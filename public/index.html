@@ -1546,10 +1546,7 @@ textarea.form-control {
   transition: opacity 0.3s ease;
 }
 
-.modal-overlay.open {
-  display: flex;
-  opacity: 1;
-}
+.modal-overlay.open { display: flex !important; opacity: 1; }
 
 .modal-window {
   background: var(--nizam-dark);
@@ -2066,9 +2063,7 @@ textarea.form-control {
   padding: 20px;
 }
 
-.ai-modal-overlay.ai-modal-open {
-  display: flex;
-}
+.ai-modal-overlay.ai-modal-open { display: flex !important; }
 
 .ai-chat-window {
   background: var(--nizam-dark);
@@ -3334,7 +3329,7 @@ textarea.form-control {
   <!-- ==========================================================================
        QUICK VIEW MODAL POPUP
        ========================================================================== -->
-  <div id="quickViewModal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div id="quickViewModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-window">
       <button id="modalCloseBtn" class="modal-close-btn" aria-label="Close modal">&times;</button>
       <div class="quickview-grid">
@@ -3378,7 +3373,7 @@ textarea.form-control {
   <!-- ==========================================================================
        NIZAM AI ROYAL STYLIST MODAL (Voice-Free Text & Prompt Interface)
        ========================================================================== -->
-  <div id="aiStylistModal" class="ai-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="aiStylistTitle">
+  <div id="aiStylistModal" class="ai-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aiStylistTitle">
     <div class="ai-chat-window">
       <div class="ai-chat-header">
         <div class="ai-header-brand">
