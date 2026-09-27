@@ -72,7 +72,7 @@ function updateGeoBannerUI() {
         <div class="geo-icon">📍</div>
         <div class="geo-text">
           <strong>Hyderabad Resident / Visitor Detected:</strong> You are approximately <strong>${distText}</strong> from our Pathergatti Flagship (Opp. Madina Building).
-          <span class="geo-highlight">Open Mon–Sat until 10:30 PM, Sun until 5:00 PM · Valet assistance available.</span>
+          <span class="geo-highlight">Open daily until 10:30 PM · Valet assistance available.</span>
         </div>
         <div class="geo-actions">
           <a href="https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53" target="_blank" class="btn btn-gold btn-sm">

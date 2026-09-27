@@ -202,7 +202,7 @@ class NizamAIStylist {
       rationale = "Custom bespoke royal tailoring takes 2 to 3 weeks, including artisan hand-zardozi wire embroidery on wooden karchob frames and two trial fittings. For urgent weddings, our Express Stitching Service completes custom pieces in 7 to 10 days, while ready-to-wear alterations take only 24 to 48 hours!";
       priorityOccasion = "wedding";
     } else if (q.includes("location") || q.includes("where") || q.includes("address") || q.includes("timings") || q.includes("hours") || q.includes("pathergatti") || q.includes("open")) {
-      rationale = "Our historic flagship atelier is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad (500002), near Charminar. We are open Monday to Saturday from 10:30 AM to 10:30 PM, and Sunday from 11:00 AM to 5:00 PM IST!";
+      rationale = "Our historic flagship atelier is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad (500002), near Charminar. We are open all 7 days from 10:30 AM to 10:30 PM IST!";
       priorityOccasion = "wedding";
     } else if (q.includes("nri") || q.includes("usa") || q.includes("uk") || q.includes("canada") || q.includes("dubai") || q.includes("abroad") || q.includes("ship") || q.includes("video")) {
       rationale = "We dress NRI grooms worldwide across the USA, UK, Canada, and UAE! We conduct live high-definition video consultations, millimeter digital measurement guidance, and provide insured door-to-door DHL/FedEx courier delivery in 5-7 business days.";

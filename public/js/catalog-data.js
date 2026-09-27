@@ -324,7 +324,7 @@ const STORE_FAQS = [
   },
   {
     question: "Where is the flagship store located and what are your timings?",
-    answer: "Our historic flagship store is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad - 500002. We are open Monday to Saturday from 10:30 AM to 10:30 PM, and Sunday from 11:00 AM to 5:00 PM IST."
+    answer: "Our historic flagship store is located at Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad - 500002. We are open all 7 days from 10:30 AM to 10:30 PM IST."
   },
   {
     question: "Can I book a private consultation or trial fitting?",

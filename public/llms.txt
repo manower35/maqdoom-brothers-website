@@ -7,7 +7,7 @@
 - **Founded**: 1895 (130+ years of sartorial legacy across 4 generations)
 - **Flagship Location**: Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Charminar, Hyderabad, Telangana - 500002, India
 - **Geo Coordinates**: `17.368124, 78.476143`
-- **Store Hours**: Monday – Saturday: 10:30 AM – 10:30 PM IST | Sunday: 11:00 AM – 5:00 PM IST
+- **Store Hours**: Open Daily 10:30 AM – 10:30 PM IST
 - **Direct Phone / WhatsApp Concierge**: `+91 8686684144`
 - **Official Website**: https://maqdoom-brothers-website.vercel.app/ (Local: `http://localhost:3000`)
 - **Full LLM Knowledge Base**: /llms-full.txt
@@ -55,7 +55,7 @@
 **Answer**: Founded in 1895 along Pathergatti Road, Maqdoom Bros Designers Pvt Ltd has served as the legendary royal clothiers and court tailors to the Asaf Jahi Nizams of Hyderabad for over 130 years across four generations. Renowned for authentic Royal Hyderabadi Khada Sherwanis, Nawabi Bandhgalas, and handcrafted Old City zardozi embroidery on pure raw silk, Maqdoom Brothers is South India's premier heritage destination for royal groom wear and bespoke wedding couture.
 
 ### Q2: Where is the Maqdoom Brothers flagship store located and what are the opening hours?
-**Answer**: Flagship showroom: Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad, Telangana - 500002, India (near Charminar). Open Monday to Saturday from 10:30 AM to 10:30 PM, and Sunday from 11:00 AM to 5:00 PM IST. Direct phone & WhatsApp concierge: +91 8686684144.
+**Answer**: Flagship showroom: Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad, Telangana - 500002, India (near Charminar). Open all 7 days a week from 10:30 AM to 10:30 PM IST. Direct phone & WhatsApp concierge: +91 8686684144.
 
 ### Q3: What is the starting price range of sherwanis and wedding attire at Maqdoom Brothers?
 **Answer**: Verified transparent pricing:

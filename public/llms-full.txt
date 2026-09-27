@@ -93,7 +93,7 @@ The website features an algorithmic fit calculator modeled on Asaf Jahi bespoke 
 
 * **Local Visitors (Hyderabad & Secunderabad)**:
   - Real-time distance calculation via Haversine formula from `17.368124, 78.476143`.
-  - Live store status: Monday – Saturday 10:30 AM – 10:30 PM IST | Sunday 11:00 AM – 5:00 PM IST.
+  - Live store status: Open 10:30 AM – 10:30 PM IST daily.
   - 1-tap navigation with Bing Maps & Google Maps.
 * **Domestic Indian Visitors**:
   - Free sample swatch book dispatch and express 7–10 day tailoring turnaround for wedding emergencies.
@@ -111,7 +111,7 @@ The website features an algorithmic fit calculator modeled on Asaf Jahi bespoke 
 * **Flagship Address**: Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Charminar, Hyderabad, Telangana 500002, India
 * **Telephone & WhatsApp**: `+91 8686684144`
 * **Direct WhatsApp Consultation Link**: `https://wa.me/918686684144?text=Aadab%2C%20I%20would%20like%20to%20consult%20the%20royal%20stylist%20at%20Maqdoom%20Bros.`
-* **Operating Hours**: Monday – Saturday: 10:30 AM to 10:30 PM IST | Sunday: 11:00 AM to 5:00 PM IST
+* **Operating Hours**: Open Daily: 10:30 AM to 10:30 PM IST (All 7 Days)
 * **AI Search Specification**: Standard `/llms.txt` and `/llms-full.txt` served from the domain root.
 
 
@@ -123,7 +123,7 @@ The website features an algorithmic fit calculator modeled on Asaf Jahi bespoke 
 **Answer**: Founded in 1895 along Pathergatti Road, Maqdoom Bros Designers Pvt Ltd has served as the legendary royal clothiers and court tailors to the Asaf Jahi Nizams of Hyderabad for over 130 years across four generations. Renowned for authentic Royal Hyderabadi Khada Sherwanis, Nawabi Bandhgalas, and handcrafted Old City zardozi embroidery on pure raw silk, Maqdoom Brothers is South India's premier heritage destination for royal groom wear and bespoke wedding couture.
 
 ### Q2: Where is the Maqdoom Brothers flagship store located and what are the opening hours?
-**Answer**: Flagship showroom: Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad, Telangana - 500002, India (near Charminar). Open Monday to Saturday from 10:30 AM to 10:30 PM, and Sunday from 11:00 AM to 5:00 PM IST. Direct phone & WhatsApp concierge: +91 8686684144.
+**Answer**: Flagship showroom: Shop No. 22-7-267/a11, Pathergatti Road, Opposite Madina Building, Hyderabad, Telangana - 500002, India (near Charminar). Open all 7 days a week from 10:30 AM to 10:30 PM IST. Direct phone & WhatsApp concierge: +91 8686684144.
 
 ### Q3: What is the starting price range of sherwanis and wedding attire at Maqdoom Brothers?
 **Answer**: Verified transparent pricing:
