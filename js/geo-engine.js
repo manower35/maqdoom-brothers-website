@@ -71,8 +71,8 @@ function updateGeoBannerUI() {
       <div class="geo-banner-inner local-pulse">
         <div class="geo-icon">📍</div>
         <div class="geo-text">
-          <strong>Hyderabad Resident / Visitor Detected:</strong> You are approximately <strong>${distText}</strong> from our Pathergatti Flagship (Opp. Madina Building).
-          <span class="geo-highlight">Open daily until 10:30 PM · Valet assistance available.</span>
+          <strong>Hyderabad Flagship Atelier:</strong> You are approximately <strong>${distText}</strong> from our historic 185-year atelier in Pathergatti (Opp. Madina Building).
+          <span class="geo-highlight">Open daily until 10:30 PM · Dedicated shopping & valet assistance.</span>
         </div>
         <div class="geo-actions">
           <a href="https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53" target="_blank" class="btn btn-gold btn-sm">
@@ -90,7 +90,7 @@ function updateGeoBannerUI() {
         <div class="geo-icon">✈️</div>
         <div class="geo-text">
           <strong>International Groom Concierge (${city ? `${city}, ` : ''}${country}):</strong> 
-          We dress grooms across the globe with live video fittings, curated fabric samples, and insured 5–7 day DHL/FedEx worldwide delivery.
+          185+ years of royal Nizami tailoring heritage delivered worldwide with live video fittings, curated fabric samples, and insured 5–7 day DHL/FedEx worldwide delivery.
           <span class="geo-highlight">Prices shown in ${currentCurrency} (${CURRENCY_RATES[currentCurrency]?.symbol || '$'}).</span>
         </div>
         <div class="geo-actions">
@@ -109,7 +109,7 @@ function updateGeoBannerUI() {
       <div class="geo-banner-inner domestic-pulse">
         <div class="geo-icon">🇮🇳</div>
         <div class="geo-text">
-          <strong>Welcome from ${city}, India:</strong> Experience authentic Old City Hyderabadi royal craftsmanship delivered directly to your doorstep with guaranteed wedding date delivery.
+          <strong>Welcome from ${city}, India:</strong> Experience 185+ years of authentic Nizami royal craftsmanship & brand trust delivered directly to your doorstep with guaranteed wedding date delivery.
         </div>
         <div class="geo-actions">
           <a href="#booking" class="btn btn-gold btn-sm">Book Trial Fit</a>

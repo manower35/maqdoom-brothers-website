@@ -163,6 +163,67 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
+   HERITAGE & BRAND TRUST BANNER (185+ Years of Sartorial Heritage)
+   ========================================================================== */
+.heritage-trust-banner {
+  background: linear-gradient(90deg, #020b08 0%, #09261c 50%, #020b08 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--pearl-cream);
+  font-size: 0.82rem;
+  padding: 8px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1001;
+}
+
+.heritage-trust-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.heritage-trust-icon {
+  color: var(--gold-primary);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.heritage-trust-text {
+  color: #f7f3e8;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+}
+
+.heritage-trust-text strong {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.heritage-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.heritage-trust-badge:hover {
+  background: var(--gold-primary);
+  color: var(--nizam-dark);
+}
+
+/* ==========================================================================
    TOP BAR (Store Status & Direct Concierge)
    ========================================================================== */
 .top-bar {
@@ -1771,6 +1832,15 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  .heritage-trust-banner {
+    padding: 10px 0;
+    font-size: 0.76rem;
+  }
+  .heritage-trust-inner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
   .top-bar-inner {
     flex-direction: column;
     text-align: center;
@@ -2728,6 +2798,19 @@ textarea.form-control {
 <body>
 
   <!-- ==========================================================================
+       ROYAL HERITAGE & BRAND TRUST BANNER (185+ Years of Sartorial Heritage)
+       ========================================================================== -->
+  <div class="heritage-trust-banner">
+    <div class="container heritage-trust-inner">
+      <span class="heritage-trust-icon">⚜️</span>
+      <span class="heritage-trust-text">
+        <strong>A Century-Old Legacy of Trust:</strong> Court clothiers to the Nizams of Hyderabad with <strong>185+ years of sartorial heritage</strong> — dressing 4 generations of grooms with timeless zardozi craftsmanship and unwavering brand trust.
+      </span>
+      <a href="#heritage" class="heritage-trust-badge">Explore Legacy</a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        TOP ANNOUNCEMENT BAR
        ========================================================================== -->
   <div class="top-bar">
@@ -2821,7 +2904,7 @@ textarea.form-control {
     <div class="container">
       <div class="hero-content">
         <div class="hero-badge">
-          👑 Historic Clothiers to the Nizams · Over 130 Years
+          ⚜️ Court Clothiers to the Nizams · 185+ Years of Sartorial Heritage & Unbroken Trust
         </div>
         <h1 class="hero-title">
           The Pinnacle of <span>Royal Hyderabadi</span> Menswear
@@ -2874,13 +2957,13 @@ textarea.form-control {
             <img src="assets/heritage/heritage-craftsman-atelier.jpg" alt="Maqdoom Brothers Master Embroidery Atelier Since 1895" loading="lazy" />
           </div>
           <div class="heritage-seal-badge">
-            <span>130+</span>
+            <span>185+</span>
             <p>Years of Royal Splendour</p>
           </div>
         </div>
 
         <div class="heritage-content">
-          <span class="section-label">A Golden History Since 1895</span>
+          <span class="section-label">185+ Years of Royal Sartorial Heritage</span>
           <h3>Historic Clothiers to the Nizams of Hyderabad</h3>
           <p>
             For more than a century, **Maqdoom Bros Designers Pvt Ltd** has occupied pride of place along the famed arches of Pathergatti, directly opposite the historic Madina Building. Having historically served as royal clothiers to the Nizams of Hyderabad, our house is credited as the undisputed pioneer of the authentic Hyderabadi sherwani.

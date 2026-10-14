@@ -88,6 +88,67 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
+   HERITAGE & BRAND TRUST BANNER (185+ Years of Sartorial Heritage)
+   ========================================================================== */
+.heritage-trust-banner {
+  background: linear-gradient(90deg, #020b08 0%, #09261c 50%, #020b08 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--pearl-cream);
+  font-size: 0.82rem;
+  padding: 8px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1001;
+}
+
+.heritage-trust-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.heritage-trust-icon {
+  color: var(--gold-primary);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.heritage-trust-text {
+  color: #f7f3e8;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+}
+
+.heritage-trust-text strong {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.heritage-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.heritage-trust-badge:hover {
+  background: var(--gold-primary);
+  color: var(--nizam-dark);
+}
+
+/* ==========================================================================
    TOP BAR (Store Status & Direct Concierge)
    ========================================================================== */
 .top-bar {
@@ -1717,6 +1778,15 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  .heritage-trust-banner {
+    padding: 10px 0;
+    font-size: 0.76rem;
+  }
+  .heritage-trust-inner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
   .top-bar-inner {
     flex-direction: column;
     text-align: center;
