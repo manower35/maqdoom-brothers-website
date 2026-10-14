@@ -67,6 +67,7 @@ function updateGeoBannerUI() {
 
   if (mode === 'local') {
     const distText = distanceKm !== null ? `${distanceKm} km away` : 'nearby';
+    geoBanner.style.display = 'block';
     geoBanner.innerHTML = `
       <div class="geo-banner-inner local-pulse">
         <div class="geo-icon">📍</div>
@@ -85,6 +86,7 @@ function updateGeoBannerUI() {
       </div>
     `;
   } else if (mode === 'nri') {
+    geoBanner.style.display = 'block';
     geoBanner.innerHTML = `
       <div class="geo-banner-inner nri-pulse">
         <div class="geo-icon">✈️</div>
@@ -104,21 +106,9 @@ function updateGeoBannerUI() {
       </div>
     `;
   } else {
-    // Domestic India (outside Hyderabad)
-    geoBanner.innerHTML = `
-      <div class="geo-banner-inner domestic-pulse">
-        <div class="geo-icon">🇮🇳</div>
-        <div class="geo-text">
-          <strong>Welcome from ${city}, India:</strong> Experience 185+ years of authentic Nizami royal craftsmanship & brand trust delivered directly to your doorstep with guaranteed wedding date delivery.
-        </div>
-        <div class="geo-actions">
-          <a href="#booking" class="btn btn-gold btn-sm">Book Trial Fit</a>
-          <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20inquiring%20from%20${encodeURIComponent(city)}%20about%20express%20wedding%20stitching." target="_blank" class="btn btn-outline-gold btn-sm">
-            WhatsApp Concierge
-          </a>
-        </div>
-      </div>
-    `;
+    // Domestic India - removed per user request to keep the top bar clean and concise
+    geoBanner.style.display = 'none';
+    geoBanner.innerHTML = '';
   }
 }
 
