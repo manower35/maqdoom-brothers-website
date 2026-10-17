@@ -2640,6 +2640,422 @@ textarea.form-control {
   }
 }
 
+
+
+/* ==========================================================================
+   ROYAL HERITAGE & STORE CONCIERGE TOP STRIP
+   ========================================================================== */
+.royal-top-bar {
+  background: linear-gradient(90deg, #020907 0%, #08241b 50%, #020907 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  font-size: 0.8rem;
+  padding: 8px 0;
+  color: var(--pearl-cream);
+  position: relative;
+  z-index: 1001;
+}
+
+.royal-top-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.royal-top-legacy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+
+.royal-top-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.royal-top-legacy-text {
+  color: #f7f3e8;
+  font-size: 0.79rem;
+  letter-spacing: 0.3px;
+}
+
+.royal-top-legacy-text strong {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.royal-top-legacy-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  color: var(--gold-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.royal-top-legacy-badge:hover {
+  background: var(--gold-primary);
+  color: var(--nizam-dark);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.royal-top-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.royal-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pearl-cream);
+  font-size: 0.78rem;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.royal-top-link:hover {
+  color: var(--gold-primary);
+}
+
+.royal-top-link svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   HAUTE COUTURE CATALOG CARD & SPOTLIGHT ELEVATIONS
+   ========================================================================== */
+.catalog-card {
+  background: linear-gradient(180deg, rgba(14, 40, 32, 0.85) 0%, rgba(7, 23, 18, 0.96) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.catalog-card:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(212, 175, 55, 0.65) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.22) !important;
+}
+
+.card-media {
+  position: relative !important;
+  aspect-ratio: 3 / 4 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background: #05130f !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  cursor: pointer !important;
+}
+
+.card-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: block !important;
+}
+
+.catalog-card:hover .card-media img {
+  transform: scale(1.05) !important;
+}
+
+.card-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 15, 12, 0.85) 0%, rgba(4, 15, 12, 0) 50%, rgba(4, 15, 12, 0.25) 100%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.card-badge {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  background: rgba(7, 25, 20, 0.88) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  color: var(--gold-light) !important;
+  padding: 4px 12px !important;
+  border-radius: 50px !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  z-index: 2 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.card-hover-preview {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+  background: rgba(5, 18, 14, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--gold-primary);
+  color: var(--pearl-white);
+  padding: 9px 20px;
+  border-radius: 40px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+.card-hover-preview .preview-icon {
+  font-size: 0.9rem;
+}
+
+.catalog-card:hover .card-hover-preview {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.card-quick-actions {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: linear-gradient(to top, rgba(4, 15, 12, 0.96) 0%, rgba(4, 15, 12, 0.7) 70%, transparent 100%) !important;
+  padding: 24px 16px 14px !important;
+  display: flex !important;
+  gap: 10px !important;
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 4 !important;
+}
+
+.catalog-card:hover .card-quick-actions {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.card-body {
+  padding: 20px 22px 22px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+}
+
+.card-eyebrow-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.card-category {
+  font-size: 0.72rem !important;
+  text-transform: uppercase !important;
+  color: var(--gold-primary) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.6px !important;
+}
+
+.card-item-code {
+  font-size: 0.68rem;
+  color: #8da498;
+  font-family: monospace;
+  letter-spacing: 0.8px;
+}
+
+.card-title {
+  font-family: var(--font-serif) !important;
+  font-size: 1.25rem !important;
+  color: var(--pearl-white) !important;
+  line-height: 1.35 !important;
+  margin-bottom: 12px !important;
+  font-weight: 600 !important;
+}
+
+.card-specs-panel {
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-row {
+  display: flex;
+  font-size: 0.8rem;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+.spec-label {
+  color: var(--gold-light);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.spec-val {
+  color: var(--pearl-cream);
+  opacity: 0.92;
+}
+
+.card-footer {
+  margin-top: auto !important;
+  padding-top: 16px !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.price-tag {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.price-label {
+  font-size: 0.66rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  color: #8da498 !important;
+}
+
+.price-value {
+  font-family: var(--font-serif) !important;
+  font-size: 1.22rem !important;
+  color: #f7e7b4 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Haute Couture Spotlight Marquee */
+.haute-couture-spotlight {
+  background: linear-gradient(135deg, rgba(10, 36, 28, 0.95) 0%, rgba(5, 18, 14, 0.98) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 20px 28px !important;
+  margin-bottom: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 0 24px rgba(212, 175, 55, 0.08) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.haute-couture-spotlight::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 4px !important;
+  height: 100% !important;
+  background: var(--gold-gradient) !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.6) !important;
+}
+
+.spotlight-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+}
+
+.spotlight-icon {
+  font-size: 2rem !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4)) !important;
+}
+
+.spotlight-title {
+  font-family: var(--font-serif) !important;
+  font-size: 1.25rem !important;
+  color: #ffffff !important;
+  margin-bottom: 5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.6px !important;
+}
+
+.spotlight-desc {
+  font-size: 0.88rem !important;
+  color: #e5ede8 !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+}
+
+.spotlight-badge {
+  background: var(--gold-gradient) !important;
+  color: var(--nizam-dark) !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.6px !important;
+  text-transform: uppercase !important;
+  padding: 8px 18px !important;
+  border-radius: 50px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35) !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .royal-top-bar {
+    padding: 8px 0 !important;
+  }
+  .royal-top-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+  .royal-top-legacy {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .royal-top-links {
+    justify-content: center !important;
+    gap: 12px !important;
+    font-size: 0.75rem !important;
+  }
+  .haute-couture-spotlight {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 18px 20px !important;
+  }
+  .card-hover-preview {
+    display: none !important;
+  }
+}
+
 </style>
 
   <!-- Schema.org FAQPage for Google AI Overviews, Gemini & SearchGPT -->
@@ -2720,37 +3136,30 @@ textarea.form-control {
 <body>
 
   <!-- ==========================================================================
-       ROYAL HERITAGE & BRAND TRUST BANNER (185+ Years of Sartorial Heritage)
+       ROYAL HERITAGE & STORE CONCIERGE TOP STRIP (Est. 1895 · 185+ Years of Trust)
        ========================================================================== -->
-  <div class="heritage-trust-banner">
-    <div class="container heritage-trust-inner">
-      <span class="heritage-trust-icon">⚜️</span>
-      <span class="heritage-trust-text">
-        <strong>A Century-Old Legacy of Trust:</strong> Court clothiers to the Nizams of Hyderabad with <strong>185+ years of sartorial heritage</strong> — dressing 4 generations of grooms with timeless zardozi craftsmanship and unwavering brand trust.
-      </span>
-      <a href="#heritage" class="heritage-trust-badge">Explore Legacy</a>
-    </div>
-  </div>
-
-
-  <!-- ==========================================================================
-       TOP ANNOUNCEMENT BAR
-       ========================================================================== -->
-  <div class="top-bar">
-    <div class="container top-bar-inner">
-      <div id="storeStatusText" class="store-status-badge">
-        <span class="status-dot"></span> Open Today · Closes 10:30 PM
+  <div class="royal-top-bar">
+    <div class="container royal-top-inner">
+      <div class="royal-top-legacy">
+        <span class="royal-top-icon">⚜️</span>
+        <span class="royal-top-legacy-text">
+          <strong>A Century-Old Legacy of Trust:</strong> Court clothiers to the Nizams of Hyderabad with <strong>185+ years of sartorial heritage</strong> — dressing 4 generations of grooms with timeless zardozi craftsmanship and unwavering brand trust.
+        </span>
+        <a href="#heritage" class="royal-top-legacy-badge">Explore Legacy →</a>
       </div>
-      <div class="top-bar-links">
-        <a href="tel:8686684144" class="top-bar-link">
+      <div class="royal-top-links">
+        <div id="storeStatusText" class="store-status-badge">
+          <span class="status-dot"></span> Open Today · Closes 10:30 PM
+        </div>
+        <a href="tel:8686684144" class="royal-top-link" title="Call Atelier">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
           <span>+91 8686684144</span>
         </a>
-        <a href="https://www.instagram.com/maqdoombrothers/" target="_blank" rel="noopener noreferrer" class="top-bar-link">
+        <a href="https://www.instagram.com/maqdoombrothers/" target="_blank" rel="noopener noreferrer" class="royal-top-link" title="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           <span>@maqdoombrothers</span>
         </a>
-        <a href="#visit" class="top-bar-link">
+        <a href="#visit" class="royal-top-link" title="Flagship Atelier Location">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           <span>Pathergatti, Opp. Madina Building</span>
         </a>
@@ -2758,28 +3167,8 @@ textarea.form-control {
     </div>
   </div>
 
-  <!-- ==========================================================================
-       GEO-INTELLIGENCE LOCATION BANNER
-       ========================================================================== -->
-  <div id="geoIntelligenceBanner" class="geo-intelligence-bar" style="display: none;">
-    <div class="container">
-      <div class="geo-banner-inner local-pulse">
-        <div class="geo-icon">📍</div>
-        <div class="geo-text">
-          <strong>Flagship Atelier:</strong> Shop No. 22-7-267/a11, Pathergatti Road, Opp. Madina Building, Hyderabad.
-          <span class="geo-highlight">Open daily until 10:30 PM · Dedicated shopping & valet assistance.</span>
-        </div>
-        <div class="geo-actions">
-          <a href="https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53" target="_blank" class="btn btn-gold btn-sm">
-            Live Directions
-          </a>
-          <a href="tel:8686684144" class="btn btn-outline-gold btn-sm">
-            Call (8686684144)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Geo-Intelligence Alert (Kept clean & empty for local/domestic per user request) -->
+  <div id="geoIntelligenceBanner" class="geo-intelligence-bar" style="display: none;"></div>
 
   <!-- ==========================================================================
        MAIN NAVIGATION BAR

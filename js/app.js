@@ -99,10 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div class="card-media" data-id="${item.id}" role="button" tabindex="0" title="Click to view details and full-length image for ${item.title}">
           <img src="${item.image}" alt="${item.title}" loading="lazy" />
-          <span class="card-badge">${item.badge || item.categoryLabel}</span>
-          <span class="card-media-zoom-hint">🔍 View Outfit</span>
+          <div class="card-media-overlay"></div>
+          <span class="card-badge">⚜️ ${item.badge || item.categoryLabel}</span>
+          <div class="card-hover-preview">
+            <span class="preview-icon">🔍</span>
+            <span>View Masterpiece</span>
+          </div>
           <div class="card-quick-actions">
-            <button class="btn btn-outline-gold btn-quickview" data-id="${item.id}" style="flex:1;">
+            <button type="button" class="btn btn-outline-gold btn-quickview" data-id="${item.id}" style="flex:1;">
               Quick View
             </button>
             <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="padding: 10px 14px;" title="Chat on WhatsApp">
@@ -111,12 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
         <div class="card-body">
-          <span class="card-category">${item.categoryLabel}</span>
+          <div class="card-eyebrow-row">
+            <span class="card-category">${item.categoryLabel}</span>
+            <span class="card-item-code">Code: ${item.id}</span>
+          </div>
           <h3 class="card-title">${item.title}</h3>
-          <ul class="card-details-list">
-            <li><strong>Fabric:</strong> ${item.fabric}</li>
-            <li><strong>Craft:</strong> ${item.work}</li>
-          </ul>
+          <div class="card-specs-panel">
+            <div class="spec-row">
+              <span class="spec-label">🧵 Fabric:</span>
+              <span class="spec-val">${item.fabric}</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">✨ Craft:</span>
+              <span class="spec-val">${item.work}</span>
+            </div>
+          </div>
           <div class="card-footer">
             <div class="price-tag">
               <span class="price-label">Price Range</span>

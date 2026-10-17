@@ -63,52 +63,72 @@ function updateGeoBannerUI() {
   const geoBanner = document.getElementById('geoIntelligenceBanner');
   if (!geoBanner) return;
 
+  // Respect user dismissal for current session
+  try {
+    if (sessionStorage.getItem('geo_banner_dismissed') === 'true') {
+      geoBanner.style.display = 'none';
+      return;
+    }
+  } catch (e) {}
+
   const { mode, city, country, distanceKm } = userLocationData;
 
-  if (mode === 'local') {
-    const distText = distanceKm !== null ? `${distanceKm} km away` : 'nearby';
-    geoBanner.style.display = 'block';
-    geoBanner.innerHTML = `
-      <div class="geo-banner-inner local-pulse">
-        <div class="geo-icon">📍</div>
-        <div class="geo-text">
-          <strong>Hyderabad Flagship Atelier:</strong> You are approximately <strong>${distText}</strong> from our historic 185-year atelier in Pathergatti (Opp. Madina Building).
-          <span class="geo-highlight">Open daily until 10:30 PM · Dedicated shopping & valet assistance.</span>
-        </div>
-        <div class="geo-actions">
-          <a href="https://www.bing.com/maps?q=Maqdoom+Bros+Designers+Pvt+Ltd&ss=ypid.YN7BBC08CA6929BC53" target="_blank" class="btn btn-gold btn-sm">
-            Live Directions
-          </a>
-          <a href="tel:8686684144" class="btn btn-outline-gold btn-sm">
-            Call Store (8686684144)
-          </a>
-        </div>
-      </div>
-    `;
+  // Local flagship atelier distance banner removed per user request:
+  // "📍 Hyderabad Flagship Atelier: You are approximately 14.5 km away ... remove this line"
+  if (mode === 'local' || mode === 'domestic') {
+    geoBanner.style.display = 'none';
+    geoBanner.innerHTML = '';
+    return;
   } else if (mode === 'nri') {
     geoBanner.style.display = 'block';
     geoBanner.innerHTML = `
-      <div class="geo-banner-inner nri-pulse">
-        <div class="geo-icon">✈️</div>
-        <div class="geo-text">
-          <strong>International Groom Concierge (${city ? `${city}, ` : ''}${country}):</strong> 
-          185+ years of royal Nizami tailoring heritage delivered worldwide with live video fittings, curated fabric samples, and insured 5–7 day DHL/FedEx worldwide delivery.
-          <span class="geo-highlight">Prices shown in ${currentCurrency} (${CURRENCY_RATES[currentCurrency]?.symbol || '$'}).</span>
-        </div>
-        <div class="geo-actions">
-          <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20am%20contacting%20from%20${encodeURIComponent(country)}%20for%20an%20international%20wedding%20video%20fitting." target="_blank" class="btn btn-gold btn-sm">
-            Book NRI Video Fitting
-          </a>
-          <button id="geoCurrencyBtn" class="btn btn-outline-gold btn-sm">
-            Change Currency
-          </button>
+      <div class="container">
+        <div class="geo-banner-inner nri-pulse">
+          <div class="geo-left">
+            <span class="geo-icon">✈️</span>
+            <div class="geo-text">
+              <strong>International Groom Concierge (${city ? `${city}, ` : ''}${country}):</strong> 
+              185+ years of royal Nizami tailoring heritage delivered worldwide with live video fittings, curated fabric samples, and insured 5–7 day DHL/FedEx worldwide delivery.
+              <span class="geo-highlight">Prices shown in ${currentCurrency} (${CURRENCY_RATES[currentCurrency]?.symbol || '$'}).</span>
+            </div>
+          </div>
+          <div class="geo-actions">
+            <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20am%20contacting%20from%20${encodeURIComponent(country)}%20for%20an%20international%20wedding%20video%20fitting." target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-xs">
+              Book NRI Fitting
+            </a>
+            <button type="button" id="geoCurrencyBtn" class="btn btn-outline-gold btn-xs">
+              ${currentCurrency} (${CURRENCY_RATES[currentCurrency]?.symbol || '$'})
+            </button>
+            <button type="button" class="geo-dismiss-btn" aria-label="Dismiss banner" title="Dismiss notification">✕</button>
+          </div>
         </div>
       </div>
     `;
   } else {
-    // Domestic India - removed per user request to keep the top bar clean and concise
     geoBanner.style.display = 'none';
     geoBanner.innerHTML = '';
+    return;
+  }
+
+  // Attach dismissal handler
+  const dismissBtn = geoBanner.querySelector('.geo-dismiss-btn');
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', () => {
+      geoBanner.style.display = 'none';
+      try {
+        sessionStorage.setItem('geo_banner_dismissed', 'true');
+      } catch (e) {}
+    });
+  }
+
+  // Attach currency toggle handler
+  const currBtn = geoBanner.querySelector('#geoCurrencyBtn');
+  if (currBtn) {
+    currBtn.addEventListener('click', () => {
+      const currencies = Object.keys(CURRENCY_RATES);
+      const nextIdx = (currencies.indexOf(currentCurrency) + 1) % currencies.length;
+      setCurrency(currencies[nextIdx]);
+    });
   }
 }
 
