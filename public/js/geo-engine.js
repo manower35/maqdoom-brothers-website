@@ -73,8 +73,7 @@ function updateGeoBannerUI() {
 
   const { mode, city, country, distanceKm } = userLocationData;
 
-  // Local flagship atelier distance banner removed per user request:
-  // "📍 Hyderabad Flagship Atelier: You are approximately 14.5 km away ... remove this line"
+  // Local/domestic banner permanently disabled per user preference
   if (mode === 'local' || mode === 'domestic') {
     geoBanner.style.display = 'none';
     geoBanner.innerHTML = '';
