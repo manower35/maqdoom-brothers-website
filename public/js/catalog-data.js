@@ -6,6 +6,119 @@
  */
 
 const CATALOG_DATA = [
+  // =========================================================================
+  // TOP PREMIER MASTERWORKS (Latest Haute Couture 2026 Collection)
+  // Featured with full visibility right at the top of the collection
+  // =========================================================================
+  {
+    id: "indo-04",
+    title: "The Royal Asaf Jahi Mint Sage Chevron Achkan",
+    category: "indo-western",
+    categoryLabel: "Indo-Western",
+    priceRange: "₹28,000 – ₹42,000",
+    fabric: "Pure Raw Silk & Fine Matka Weave",
+    work: "Tone-on-Tone Chevron Resham Threadwork & Metallic Buttons",
+    color: "Mint Sage / Pistachio & Pale Gold",
+    occasion: "Sangeet / Mehendi / Royal Reception",
+    description: "A premier modern royal silhouette tailored in refreshing mint sage raw silk. Showcases delicate tone-on-tone chevron resham threadwork, structured high mandarin collar, coordinated chest pocket square, metallic show buttons, paired with ivory silk churidar and matching mojaris.",
+    features: [
+      "Modern asymmetric chevron cut with layered hemline",
+      "Tone-on-tone textured chevron resham embroidery",
+      "Includes tailored silk churidar and pocket square",
+      "Official Maqdoom Brothers crest craftsmanship"
+    ],
+    image: "assets/catalog/indo-04.jpg",
+    fullImage: "assets/catalog/indo-04-full.jpg",
+    badge: "Haute Couture 2026"
+  },
+  {
+    id: "sherwani-12",
+    title: "The Nizam Turquoise Resham Court Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹34,000 – ₹52,000",
+    fabric: "Pure Slub Raw Silk & Brocade Lining",
+    work: "Dense Resham Leaf Embroidery, Beaded Collar & Double Hem",
+    color: "Persian Turquoise & Ivory",
+    occasion: "Royal Baraat / Nikkah / Grand Reception",
+    description: "A peerless court sherwani tailored in vibrant Persian turquoise raw slub silk. Showcases painstaking tone-on-tone floral vine and leaf resham embroidery across the shoulders, chest, and mandarin collar, complemented by round jeweled buttons and an architectural double-layered asymmetrical front hemline.",
+    features: [
+      "Opulent shoulder and collar artisan resham threadwork",
+      "Architectural double-layered asymmetric hemline",
+      "High structured mandarin collar with jeweled buttons",
+      "Paired with tailored ivory silk churidar"
+    ],
+    image: "assets/catalog/sherwani-12.jpg",
+    fullImage: "assets/catalog/sherwani-12-full.jpg",
+    badge: "Royal Masterwork 2026"
+  },
+  {
+    id: "bandhgala-02",
+    title: "Royal Wine Burgundy Asymmetrical Bandhgala",
+    category: "bandhgala",
+    categoryLabel: "Nawabi Bandhgala",
+    priceRange: "₹26,000 – ₹38,000",
+    fabric: "Bespoke Suiting Silk-Wool Blend & Velvet Accents",
+    work: "White Dandelion Resham Threadwork & Brooch Chain",
+    color: "Deep Royal Wine Burgundy",
+    occasion: "Reception / Sangeet / Cocktail Gala",
+    description: "A sophisticated crossover modern Bandhgala tailored in a deep royal wine burgundy fabric. Highlights include an overlapping asymmetrical front placket, delicate hand-embroidered white dandelion flora motifs, and an antique gold pocket-watch brooch chain accent.",
+    features: [
+      "Overlapping modern asymmetrical bandhgala silhouette",
+      "Hand-embroidered botanical resham flora motifs",
+      "Accent vintage brooch chain and ornate buttons",
+      "Paired with tailored slim-fit formal trousers"
+    ],
+    image: "assets/catalog/bandhgala-02.jpg",
+    fullImage: "assets/catalog/bandhgala-02-full.jpg",
+    badge: "Signature Exclusive 2026"
+  },
+  {
+    id: "indo-02",
+    title: "The Royal Nizam Midnight Navy Embellished Tuxedo",
+    category: "indo-western",
+    categoryLabel: "Indo-Western",
+    priceRange: "₹28,000 – ₹44,000",
+    fabric: "Italian Wool-Silk Blend with Satin Shawl Lapel",
+    work: "Metallic Vertical Pinstripe Threadwork & Satin Trims",
+    color: "Midnight Navy & Burnished Gold",
+    occasion: "Grand Reception / Sangeet / Black-Tie Gala",
+    description: "A bespoke 3-piece evening tuxedo merging Western black-tie elegance with Nizami opulence. Features shimmering vertical metallic pinstripes across a rich midnight navy jacket, contrast satin shawl lapel, matching double-breasted waistcoat, and silk bow tie.",
+    features: [
+      "Bespoke 3-piece tuxedo set with jacket, waistcoat & trousers",
+      "Contrasting black satin shawl collar lapel",
+      "Delicate metallic vertical pinstripe embellishment",
+      "Includes coordinating silk bow tie and formal trousers"
+    ],
+    image: "assets/catalog/indo-02.jpg",
+    fullImage: "assets/catalog/indo-02-full.jpg",
+    badge: "Black Tie Nizami 2026"
+  },
+  {
+    id: "sherwani-09",
+    title: "The Asaf Jahi Royal Ivory Darbar Sherwani",
+    category: "sherwani",
+    categoryLabel: "Royal Sherwani",
+    priceRange: "₹36,000 – ₹54,000",
+    fabric: "Pure Matka Raw Silk & Fine Brocade",
+    work: "Asaf Jahi Buta Embroidery & Heavy Zardozi Daman",
+    color: "Imperial Ivory & Antique Gold",
+    occasion: "Royal Baraat / Grand Nikkah / Wedding Gala",
+    description: "An opulent courtly masterpiece fit for royal ceremonies. Tailored in pure ivory raw silk featuring ornate Asaf Jahi teardrop buta embroidery across the torso, densely embellished zardozi daman hemline and sleeve cuffs, framed by a high mandarin collar with jeweled potli buttons.",
+    features: [
+      "Intricate hand-crafted Asaf Jahi buta motifs",
+      "Dense bullion zardozi on daman hem and cuffs",
+      "High structured mandarin collar with jeweled buttons",
+      "Paired with tailored ivory silk churidar"
+    ],
+    image: "assets/catalog/sherwani-09.jpg",
+    fullImage: "assets/catalog/sherwani-09-full.jpg",
+    badge: "Imperial Darbar 2026"
+  },
+
+  // =========================================================================
+  // CLASSIC HERITAGE ROYAL SHERWANIS
+  // =========================================================================
   {
     id: "sherwani-01",
     title: "The Nizam Darbar Khada Sherwani",
@@ -166,66 +279,10 @@ const CATALOG_DATA = [
     image: "assets/catalog/sherwani-08.jpg",
     badge: "Heritage Archive"
   },
-  {
-    id: "sherwani-09",
-    title: "The Asaf Jahi Royal Ivory Darbar Sherwani",
-    category: "sherwani",
-    categoryLabel: "Royal Sherwani",
-    priceRange: "₹36,000 – ₹54,000",
-    fabric: "Pure Matka Raw Silk & Fine Brocade",
-    work: "Asaf Jahi Buta Embroidery & Heavy Zardozi Daman",
-    color: "Imperial Ivory & Antique Gold",
-    occasion: "Royal Baraat / Grand Nikkah / Wedding Gala",
-    description: "An opulent courtly masterpiece fit for royal ceremonies. Tailored in pure ivory raw silk featuring ornate Asaf Jahi teardrop buta embroidery across the torso, densely embellished zardozi daman hemline and sleeve cuffs, framed by a high mandarin collar with jeweled potli buttons.",
-    features: [
-      "Intricate hand-crafted Asaf Jahi buta motifs",
-      "Dense bullion zardozi on daman hem and cuffs",
-      "High structured mandarin collar with jeweled buttons",
-      "Paired with tailored ivory silk churidar"
-    ],
-    image: "assets/catalog/sherwani-09.jpg",
-    badge: "Imperial Darbar"
-  },
-  {
-    id: "sherwani-10",
-    title: "Imperial Champagne Gold Zardozi Sherwani",
-    category: "sherwani",
-    categoryLabel: "Royal Sherwani",
-    priceRange: "₹38,000 – ₹58,000",
-    fabric: "Handwoven Champagne Katan Silk",
-    work: "Bullion Zardozi Jaal, Antique Gold Dabka & Resham",
-    color: "Champagne Gold & Warm Ivory",
-    occasion: "Grand Baraat / Reception / Nikkah",
-    description: "A majestic ceremonial sherwani displaying exquisite bullion zardozi and antique gold wire embroidery in an all-over royal jaal. Features structured shoulders, an ornate embroidered collar, and matching embroidered cuffs with official Maqdoom Brothers crest craftsmanship.",
-    features: [
-      "All-over hand-embroidered antique gold zardozi jaal",
-      "High mandarin collar with bullion threadwork",
-      "Concealed placket with regal show buttons",
-      "Includes coordinating silk churidar"
-    ],
-    image: "assets/catalog/sherwani-10.jpg",
-    badge: "Heritage Royal"
-  },
-  {
-    id: "sherwani-11",
-    title: "Nizam Court Champagne Zari Sherwani",
-    category: "sherwani",
-    categoryLabel: "Royal Sherwani",
-    priceRange: "₹34,000 – ₹49,000",
-    fabric: "Premium Silk Brocade with Zari Infusion",
-    work: "Delicate Floral Zari Jaal & Beaded Collar Trim",
-    color: "Lustrous Champagne & Soft Gold",
-    occasion: "Baraat / Wedding Reception / Royal Celebrations",
-    description: "Exuding understated royal grandeur, this champagne gold silk sherwani showcases an elegant, all-over floral zari jaal pattern with a crisp tailored cut, embellished stand collar, and bespoke jeweled buttons for the discerning groom.",
-    features: [
-      "Lustrous champagne silk with shimmering zari weave",
-      "Embroidered stand collar and cuff detailing",
-      "Full canvas tailored inner lining for superior drape",
-      "Includes matching silk churidar"
-    ],
-    image: "assets/catalog/sherwani-11.jpg",
-    badge: "Court Elegance"
-  },
+
+  // =========================================================================
+  // NAWABI BANDHGALAS & ACHKANS
+  // =========================================================================
   {
     id: "bandhgala-01",
     title: "Nawabi Royal Ivory Achkan",
@@ -246,26 +303,10 @@ const CATALOG_DATA = [
     image: "assets/catalog/bandhgala-01.jpg",
     badge: "Nawabi Elite"
   },
-  {
-    id: "bandhgala-02",
-    title: "Royal Wine Burgundy Asymmetrical Bandhgala",
-    category: "bandhgala",
-    categoryLabel: "Nawabi Bandhgala",
-    priceRange: "₹26,000 – ₹38,000",
-    fabric: "Bespoke Suiting Silk-Wool Blend & Velvet Accents",
-    work: "White Dandelion Resham Threadwork & Brooch Chain",
-    color: "Deep Royal Wine Burgundy",
-    occasion: "Reception / Sangeet / Cocktail Gala",
-    description: "A sophisticated crossover modern Bandhgala tailored in a deep royal wine burgundy fabric. Highlights include an overlapping asymmetrical front placket, delicate hand-embroidered white dandelion flora motifs, and an antique gold pocket-watch brooch chain accent.",
-    features: [
-      "Overlapping modern asymmetrical bandhgala silhouette",
-      "Hand-embroidered botanical resham flora motifs",
-      "Accent vintage brooch chain and ornate buttons",
-      "Paired with tailored slim-fit formal trousers"
-    ],
-    image: "assets/catalog/bandhgala-02.jpg",
-    badge: "Designer Exclusive"
-  },
+
+  // =========================================================================
+  // INDO-WESTERN & FUSION
+  // =========================================================================
   {
     id: "indo-01",
     title: "Royal Gold & Crimson Accent Sherwani",
@@ -286,46 +327,10 @@ const CATALOG_DATA = [
     image: "assets/catalog/indo-01.jpg",
     badge: "Modern Royal"
   },
-  {
-    id: "indo-02",
-    title: "The Royal Nizam Midnight Navy Embellished Tuxedo",
-    category: "indo-western",
-    categoryLabel: "Indo-Western",
-    priceRange: "₹28,000 – ₹44,000",
-    fabric: "Italian Wool-Silk Blend with Satin Shawl Lapel",
-    work: "Metallic Vertical Pinstripe Threadwork & Satin Trims",
-    color: "Midnight Navy & Burnished Gold",
-    occasion: "Grand Reception / Sangeet / Black-Tie Gala",
-    description: "A bespoke 3-piece evening tuxedo merging Western black-tie elegance with Nizami opulence. Features shimmering vertical metallic pinstripes across a rich midnight navy jacket, contrast satin shawl lapel, matching double-breasted waistcoat, and silk bow tie.",
-    features: [
-      "Bespoke 3-piece tuxedo set with jacket, waistcoat & trousers",
-      "Contrasting black satin shawl collar lapel",
-      "Delicate metallic vertical pinstripe embellishment",
-      "Includes coordinating silk bow tie and formal trousers"
-    ],
-    image: "assets/catalog/indo-02.jpg",
-    badge: "Black Tie Nizami"
-  },
-  {
-    id: "indo-03",
-    title: "Nawabi Crimson Maroon Fusion Achkan",
-    category: "indo-western",
-    categoryLabel: "Indo-Western",
-    priceRange: "₹24,000 – ₹36,000",
-    fabric: "Fine Textured Raw Silk with Velvet Highlights",
-    work: "Asymmetrical Floral Resham Threadwork & Mandarin Placket",
-    color: "Crimson Maroon & Subtle Gold",
-    occasion: "Engagement / Sangeet / Reception Night",
-    description: "A high-fashion Indo-Western crossover ensemble in rich crimson maroon. Designed with an angular modern front flap, delicate floral vine resham embroidery winding over the shoulder and chest, and tailored straight trousers.",
-    features: [
-      "Modern crossover Indo-Western achkan cut",
-      "Artistic asymmetrical vine resham threadwork",
-      "Structured high mandarin collar with jeweled buttons",
-      "Paired with tailored matching trousers"
-    ],
-    image: "assets/catalog/indo-03.jpg",
-    badge: "Modern Achkan"
-  },
+
+  // =========================================================================
+  // KURTA & NEHRU SETS
+  // =========================================================================
   {
     id: "kurta-01",
     title: "Hyderabadi Silk Kurta & Royal Blue Bundi Set",
@@ -386,6 +391,10 @@ const CATALOG_DATA = [
     image: "assets/catalog/kurta-03.jpg",
     badge: "Festive Favorite"
   },
+
+  // =========================================================================
+  // ROYAL ACCESSORIES
+  // =========================================================================
   {
     id: "acc-01",
     title: "Royal Hyderabadi Safa with Kundan Kalgi",

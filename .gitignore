@@ -23,3 +23,6 @@ npm-debug.log*
 
 scratch/
 magdoom_images/
+
+magdoom_bro_images/
+scripts/

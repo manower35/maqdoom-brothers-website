@@ -58,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStoreStatus();
   setInterval(updateStoreStatus, 60000);
 
-  // 2. Render Catalog Cards with Currency Localization
+  // 2. Render Catalog Cards with Currency Localization & Full Visibility
+  let currentActiveItem = null;
+
   function renderCatalog(items) {
     if (!catalogContainer) return;
     catalogContainer.innerHTML = '';
@@ -81,9 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
         : item.priceRange;
 
+      const fullImgSrc = item.fullImage || item.image;
       const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
-        ? `${window.location.origin}/${(item.image || '').replace(/^\/+/, '')}`
-        : `https://maqdoom-brothers-website.vercel.app/${(item.image || '').replace(/^\/+/, '')}`;
+        ? `${window.location.origin}/${(fullImgSrc || '').replace(/^\/+/, '')}`
+        : `https://maqdoom-brothers-website.vercel.app/${(fullImgSrc || '').replace(/^\/+/, '')}`;
 
       const whatsappText = encodeURIComponent(
         `Hello Maqdoom Brothers, I am interested in inquiring about "${item.title}" (${item.priceRange}) seen on your website.\n\n` +
@@ -94,9 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const whatsappUrl = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;
 
       card.innerHTML = `
-        <div class="card-media">
+        <div class="card-media" data-id="${item.id}" role="button" tabindex="0" title="Click to view details and full-length image for ${item.title}">
           <img src="${item.image}" alt="${item.title}" loading="lazy" />
           <span class="card-badge">${item.badge || item.categoryLabel}</span>
+          <span class="card-media-zoom-hint">🔍 View Outfit</span>
           <div class="card-quick-actions">
             <button class="btn btn-outline-gold btn-quickview" data-id="${item.id}" style="flex:1;">
               Quick View
@@ -128,9 +132,28 @@ document.addEventListener('DOMContentLoaded', () => {
       catalogContainer.appendChild(card);
     });
 
-    // Attach Quick View Click Handlers
+    // Attach Click Handlers to Card Media & Quick View button
+    document.querySelectorAll('.catalog-card .card-media').forEach(media => {
+      media.addEventListener('click', (e) => {
+        // Prevent opening if WhatsApp icon clicked
+        if (e.target.closest('.btn-whatsapp')) return;
+        const id = media.dataset.id;
+        const item = CATALOG_DATA.find(x => x.id === id);
+        if (item) openQuickView(item);
+      });
+      media.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const id = media.dataset.id;
+          const item = CATALOG_DATA.find(x => x.id === id);
+          if (item) openQuickView(item);
+        }
+      });
+    });
+
     document.querySelectorAll('.btn-quickview').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const id = e.currentTarget.dataset.id;
         const item = CATALOG_DATA.find(x => x.id === id);
         if (item) openQuickView(item);
@@ -157,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Quick View Modal Operations
   function openQuickView(item) {
     if (!quickViewModal) return;
+    currentActiveItem = item;
     const modalImage = document.getElementById('modalImage');
     const modalCategory = document.getElementById('modalCategory');
     const modalTitle = document.getElementById('modalTitle');
@@ -171,7 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
       : item.priceRange;
 
-    if (modalImage) modalImage.src = item.image;
+    if (modalImage) {
+      modalImage.src = item.image;
+      modalImage.alt = item.title;
+    }
     if (modalCategory) modalCategory.textContent = item.categoryLabel;
     if (modalTitle) modalTitle.textContent = item.title;
     if (modalPrice) modalPrice.textContent = formattedPrice;
@@ -180,9 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalCraft) modalCraft.textContent = item.work;
     if (modalOccasion) modalOccasion.textContent = item.occasion;
 
+    const fullImgSrc = item.fullImage || item.image;
     const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
-      ? `${window.location.origin}/${(item.image || '').replace(/^\/+/, '')}`
-      : `https://maqdoom-brothers-website.vercel.app/${(item.image || '').replace(/^\/+/, '')}`;
+      ? `${window.location.origin}/${(fullImgSrc || '').replace(/^\/+/, '')}`
+      : `https://maqdoom-brothers-website.vercel.app/${(fullImgSrc || '').replace(/^\/+/, '')}`;
 
     const whatsappText = encodeURIComponent(
       `Assalamu Alaikum / Greetings Maqdoom Brothers, I would like to inquire about "${item.title}" (${item.priceRange}) for my upcoming wedding event.\n\n` +
@@ -207,10 +235,116 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  // 4B. Full-Screen Image Lightbox Operations
+  const fullImageLightbox = document.getElementById('fullImageLightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxCategory = document.getElementById('lightboxCategory');
+  const lightboxPrice = document.getElementById('lightboxPrice');
+  const lightboxWhatsAppBtn = document.getElementById('lightboxWhatsAppBtn');
+  const lightboxZoomBtn = document.getElementById('lightboxZoomBtn');
+  const lightboxContainer = document.querySelector('.lightbox-image-container');
+
+  function openLightbox(item) {
+    if (!fullImageLightbox || !item) return;
+    currentActiveItem = item;
+    const fullImgSrc = item.fullImage || item.image;
+    if (lightboxImage) {
+      lightboxImage.src = fullImgSrc;
+      lightboxImage.alt = item.title;
+    }
+    if (lightboxTitle) lightboxTitle.textContent = item.title;
+    if (lightboxCategory) lightboxCategory.textContent = item.categoryLabel;
+    if (lightboxPrice) {
+      lightboxPrice.textContent = window.GeoEngine 
+        ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
+        : item.priceRange;
+    }
+
+    const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
+      ? `${window.location.origin}/${fullImgSrc.replace(/^\/+/, '')}`
+      : `https://maqdoom-brothers-website.vercel.app/${fullImgSrc.replace(/^\/+/, '')}`;
+
+    const whatsappText = encodeURIComponent(
+      `Assalamu Alaikum Maqdoom Brothers, I am viewing the full-length look of "${item.title}" (${item.priceRange}) on your website.\n\n` +
+      `📸 Full Look: ${itemImageUrl}\n` +
+      `Item Code: ${item.id}\n\n` +
+      `Please provide bespoke stitching details and appointment availability.`
+    );
+    if (lightboxWhatsAppBtn) {
+      lightboxWhatsAppBtn.href = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;
+    }
+
+    if (lightboxContainer) lightboxContainer.classList.remove('is-zoomed');
+    if (lightboxZoomBtn) lightboxZoomBtn.textContent = '🔍 Zoom 100%';
+    fullImageLightbox.style.display = 'flex';
+    void fullImageLightbox.offsetWidth;
+    fullImageLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!fullImageLightbox) return;
+    fullImageLightbox.classList.remove('open');
+    setTimeout(() => {
+      fullImageLightbox.style.display = 'none';
+      if (!quickViewModal || !quickViewModal.classList.contains('open')) {
+        document.body.style.overflow = '';
+      }
+    }, 250);
+  }
+
+  // Wire Quick View image click and Full View button to Lightbox
+  const modalImageWrap = document.getElementById('modalImageWrap');
+  if (modalImageWrap) {
+    modalImageWrap.addEventListener('click', () => {
+      if (currentActiveItem) openLightbox(currentActiveItem);
+    });
+  }
+  const modalFullViewBtn = document.getElementById('modalFullViewBtn');
+  if (modalFullViewBtn) {
+    modalFullViewBtn.addEventListener('click', () => {
+      if (currentActiveItem) openLightbox(currentActiveItem);
+    });
+  }
+
+  if (lightboxCloseBtn) {
+    lightboxCloseBtn.addEventListener('click', closeLightbox);
+  }
+  if (fullImageLightbox) {
+    fullImageLightbox.addEventListener('click', (e) => {
+      if (e.target === fullImageLightbox) closeLightbox();
+    });
+  }
+  if (lightboxZoomBtn && lightboxContainer) {
+    lightboxZoomBtn.addEventListener('click', () => {
+      lightboxContainer.classList.toggle('is-zoomed');
+      lightboxZoomBtn.textContent = lightboxContainer.classList.contains('is-zoomed') ? 'Reset View' : '🔍 Zoom 100%';
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (fullImageLightbox && fullImageLightbox.classList.contains('open')) {
+        closeLightbox();
+      } else if (quickViewModal && quickViewModal.classList.contains('open')) {
+        closeQuickView();
+      }
+    }
+  });
+
   window.openQuickViewById = function(itemId) {
     if (typeof CATALOG_DATA !== 'undefined') {
       const item = CATALOG_DATA.find(i => i.id === itemId);
       if (item) openQuickView(item);
+    }
+  };
+
+  window.openLightboxById = function(itemId) {
+    if (typeof CATALOG_DATA !== 'undefined') {
+      const item = CATALOG_DATA.find(i => i.id === itemId);
+      if (item) openLightbox(item);
     }
   };
 
@@ -225,12 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && quickViewModal && quickViewModal.classList.contains('open')) {
-      closeQuickView();
-    }
-  });
 
   // 5. Booking Form Submission -> Dispatches to WhatsApp Concierge
   if (bookingForm) {

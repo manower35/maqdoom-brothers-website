@@ -2678,3 +2678,271 @@ textarea.form-control {
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   2026 HAUTE COUTURE SPOTLIGHT (Top Collection Arrivals)
+   ========================================================================== */
+.haute-couture-spotlight {
+  background: linear-gradient(135deg, rgba(7, 25, 20, 0.95), rgba(13, 43, 34, 0.9));
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(212, 175, 55, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.haute-couture-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gold-gradient);
+}
+
+.spotlight-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.spotlight-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.spotlight-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--pearl-white);
+  margin-bottom: 4px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.spotlight-desc {
+  font-size: 0.84rem;
+  color: var(--pearl-cream);
+  margin: 0;
+  opacity: 0.9;
+}
+
+.spotlight-badge {
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Card Media Enhancements for Full Visibility */
+.card-media {
+  cursor: pointer;
+}
+
+.card-media-zoom-hint {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(7, 25, 20, 0.8);
+  backdrop-filter: blur(4px);
+  color: var(--gold-light);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.85;
+  transition: var(--transition);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.catalog-card:hover .card-media-zoom-hint {
+  opacity: 1;
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+  border-color: var(--gold-primary);
+}
+
+.quickview-image-wrap {
+  cursor: pointer;
+  position: relative;
+}
+
+.quickview-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(7, 25, 20, 0.85);
+  backdrop-filter: blur(4px);
+  color: var(--gold-light);
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: var(--transition);
+  pointer-events: none;
+}
+
+.quickview-image-wrap:hover .quickview-zoom-hint {
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+}
+
+/* ==========================================================================
+   FULL IMAGE LIGHTBOX MODAL (Ultra HD Head-to-Toe View)
+   ========================================================================== */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 15, 12, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-window {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--nizam-dark);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.25);
+  overflow: hidden;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(7, 25, 20, 0.85);
+  border: 1px solid var(--border-gold);
+  color: var(--pearl-white);
+  font-size: 1.6rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.lightbox-close-btn:hover {
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+  transform: rotate(90deg);
+}
+
+.lightbox-image-container {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 16px;
+  max-height: 76vh;
+}
+
+.lightbox-image-container img {
+  max-height: 72vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  border-radius: 4px;
+}
+
+.lightbox-image-container.is-zoomed img {
+  max-height: none;
+  max-width: none;
+  transform: scale(1.35);
+  cursor: zoom-out;
+}
+
+.lightbox-footer {
+  padding: 16px 24px;
+  background: var(--nizam-dark);
+  border-top: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lightbox-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-category {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.lightbox-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--pearl-white);
+  margin: 2px 0;
+}
+
+.lightbox-price {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.lightbox-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
