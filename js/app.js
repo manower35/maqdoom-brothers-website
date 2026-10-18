@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="card-body">
           <div class="card-eyebrow-row">
             <span class="card-category">${item.categoryLabel}</span>
-            <span class="card-item-code">Code: ${item.id}</span>
           </div>
           <h3 class="card-title">${item.title}</h3>
           <div class="card-specs-panel">
