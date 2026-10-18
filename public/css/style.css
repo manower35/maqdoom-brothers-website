@@ -3361,3 +3361,214 @@ textarea.form-control {
     display: none !important;
   }
 }
+
+
+/* ==========================================================================
+   VERTICAL SET TOP HEADER: 2-TIER LUXURY ARCHITECTURE
+   ========================================================================== */
+.royal-header-stack {
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+}
+
+/* Tier 1: Royal Heritage Proclamation Strip */
+.royal-heritage-strip {
+  background: linear-gradient(90deg, #020a07 0%, #08281d 50%, #020a07 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 9px 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #f7f3e8;
+  position: relative;
+}
+
+.royal-heritage-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  line-height: 1.45;
+}
+
+.royal-crest-symbol {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5));
+}
+
+.royal-heritage-text {
+  letter-spacing: 0.3px;
+  color: #f7f3e8;
+}
+
+.royal-heritage-text strong {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.royal-heritage-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: rgba(212, 175, 55, 0.16);
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.royal-heritage-link:hover {
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Tier 2: Atelier Boutique Utility & Direct Concierge */
+.atelier-concierge-strip {
+  background: #030f0c;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  padding: 8px 0;
+  font-size: 0.79rem;
+  color: var(--pearl-cream);
+}
+
+.atelier-concierge-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.concierge-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.atelier-location-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cfdcd5;
+  font-size: 0.77rem;
+  letter-spacing: 0.3px;
+}
+
+.atelier-location-hint svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.atelier-location-hint a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.atelier-location-hint a:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+.concierge-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.concierge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #e5ede8;
+  font-size: 0.77rem;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.concierge-link:hover {
+  color: var(--gold-primary);
+}
+
+.concierge-link svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.concierge-link-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  color: #55ef88;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.concierge-link-whatsapp:hover {
+  background: #25d366;
+  color: #03110d;
+  box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+}
+
+.concierge-link-whatsapp svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Responsive formatting for mobile & tablet */
+@media (max-width: 991px) {
+  .atelier-concierge-inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .concierge-left, .concierge-right {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .royal-heritage-strip {
+    padding: 10px 0;
+    font-size: 0.76rem;
+  }
+  .royal-heritage-inner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .atelier-concierge-strip {
+    padding: 8px 0;
+  }
+  .concierge-left {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .concierge-right {
+    gap: 12px;
+  }
+}

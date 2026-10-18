@@ -3056,6 +3056,218 @@ textarea.form-control {
   }
 }
 
+
+
+/* ==========================================================================
+   VERTICAL SET TOP HEADER: 2-TIER LUXURY ARCHITECTURE
+   ========================================================================== */
+.royal-header-stack {
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+}
+
+/* Tier 1: Royal Heritage Proclamation Strip */
+.royal-heritage-strip {
+  background: linear-gradient(90deg, #020a07 0%, #08281d 50%, #020a07 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 9px 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #f7f3e8;
+  position: relative;
+}
+
+.royal-heritage-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  line-height: 1.45;
+}
+
+.royal-crest-symbol {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5));
+}
+
+.royal-heritage-text {
+  letter-spacing: 0.3px;
+  color: #f7f3e8;
+}
+
+.royal-heritage-text strong {
+  color: var(--gold-light);
+  font-weight: 700;
+}
+
+.royal-heritage-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: rgba(212, 175, 55, 0.16);
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.royal-heritage-link:hover {
+  background: var(--gold-gradient);
+  color: var(--nizam-dark);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Tier 2: Atelier Boutique Utility & Direct Concierge */
+.atelier-concierge-strip {
+  background: #030f0c;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+  padding: 8px 0;
+  font-size: 0.79rem;
+  color: var(--pearl-cream);
+}
+
+.atelier-concierge-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.concierge-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.atelier-location-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cfdcd5;
+  font-size: 0.77rem;
+  letter-spacing: 0.3px;
+}
+
+.atelier-location-hint svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.atelier-location-hint a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.atelier-location-hint a:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+.concierge-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.concierge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #e5ede8;
+  font-size: 0.77rem;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.concierge-link:hover {
+  color: var(--gold-primary);
+}
+
+.concierge-link svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.concierge-link-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  color: #55ef88;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.concierge-link-whatsapp:hover {
+  background: #25d366;
+  color: #03110d;
+  box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+}
+
+.concierge-link-whatsapp svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Responsive formatting for mobile & tablet */
+@media (max-width: 991px) {
+  .atelier-concierge-inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .concierge-left, .concierge-right {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .royal-heritage-strip {
+    padding: 10px 0;
+    font-size: 0.76rem;
+  }
+  .royal-heritage-inner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  .atelier-concierge-strip {
+    padding: 8px 0;
+  }
+  .concierge-left {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .concierge-right {
+    gap: 12px;
+  }
+}
+
 </style>
 
   <!-- Schema.org FAQPage for Google AI Overviews, Gemini & SearchGPT -->
@@ -3136,36 +3348,51 @@ textarea.form-control {
 <body>
 
   <!-- ==========================================================================
-       ROYAL HERITAGE & STORE CONCIERGE TOP STRIP (Est. 1895 · 185+ Years of Trust)
+       TOP HEADER (VERTICAL 2-TIER ROYAL ARCHITECTURE)
+       Tier 1: Royal Heritage Proclamation Strip (185+ Years of Trust)
+       Tier 2: Atelier Store Status, Location & Direct Concierge
        ========================================================================== -->
-  <div class="royal-top-bar">
-    <div class="container royal-top-inner">
-      <div class="royal-top-legacy">
-        <span class="royal-top-icon">⚜️</span>
-        <span class="royal-top-legacy-text">
+  <header class="royal-header-stack">
+    <!-- Tier 1: 185+ Years Royal Heritage Proclamation -->
+    <div class="royal-heritage-strip">
+      <div class="container royal-heritage-inner">
+        <span class="royal-crest-symbol">⚜️</span>
+        <span class="royal-heritage-text">
           <strong>A Century-Old Legacy of Trust:</strong> Court clothiers to the Nizams of Hyderabad with <strong>185+ years of sartorial heritage</strong> — dressing 4 generations of grooms with timeless zardozi craftsmanship and unwavering brand trust.
         </span>
-        <a href="#heritage" class="royal-top-legacy-badge">Explore Legacy →</a>
-      </div>
-      <div class="royal-top-links">
-        <div id="storeStatusText" class="store-status-badge">
-          <span class="status-dot"></span> Open Today · Closes 10:30 PM
-        </div>
-        <a href="tel:8686684144" class="royal-top-link" title="Call Atelier">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>+91 8686684144</span>
-        </a>
-        <a href="https://www.instagram.com/maqdoombrothers/" target="_blank" rel="noopener noreferrer" class="royal-top-link" title="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          <span>@maqdoombrothers</span>
-        </a>
-        <a href="#visit" class="royal-top-link" title="Flagship Atelier Location">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          <span>Pathergatti, Opp. Madina Building</span>
-        </a>
+        <a href="#heritage" class="royal-heritage-link">Explore Legacy →</a>
       </div>
     </div>
-  </div>
+
+    <!-- Tier 2: Atelier Boutique Utility & Direct Concierge -->
+    <div class="atelier-concierge-strip">
+      <div class="container atelier-concierge-inner">
+        <div class="concierge-left">
+          <div id="storeStatusText" class="store-status-badge">
+            <span class="status-dot"></span> Open Today · Closes 10:30 PM
+          </div>
+          <span class="atelier-location-hint">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <a href="#visit">Pathergatti Road, Opp. Madina Building, Hyderabad</a>
+          </span>
+        </div>
+        <div class="concierge-right">
+          <a href="tel:8686684144" class="concierge-link" title="Call Atelier">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>+91 8686684144</span>
+          </a>
+          <a href="https://www.instagram.com/maqdoombrothers/" target="_blank" rel="noopener noreferrer" class="concierge-link" title="Instagram Profile">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>@maqdoombrothers</span>
+          </a>
+          <a href="https://wa.me/918686684144?text=Hello%20Maqdoom%20Brothers%2C%20I%20would%20like%20to%20inquire%20about%20groom%20wear%20and%20bespoke%20tailoring." target="_blank" rel="noopener noreferrer" class="concierge-link-whatsapp" title="WhatsApp Concierge">
+            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>WhatsApp Concierge</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <!-- Geo-Intelligence Alert (Kept clean & empty for local/domestic per user request) -->
   <div id="geoIntelligenceBanner" class="geo-intelligence-bar" style="display: none;"></div>
