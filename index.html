@@ -3377,6 +3377,10 @@ textarea.form-control {
           </span>
         </div>
         <div class="concierge-right">
+          <button type="button" class="concierge-link concierge-search-link" id="conciergeSearchBtn" title="Search Royal Collection (Press /)">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <span>Search</span>
+          </button>
           <a href="tel:8686684144" class="concierge-link" title="Call Atelier">
             <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
             <span>+91 8686684144</span>
@@ -4504,6 +4508,125 @@ textarea.form-control {
     <a href="https://wa.me/918686684144" class="btn btn-whatsapp" style="padding:10px;font-size:0.8rem;">
       WhatsApp Chat
     </a>
+  </div>
+
+  
+  <!-- ==========================================================================
+       ROYAL INTELLIGENT VECTOR & SEMANTIC SEARCH MODAL
+       ========================================================================== -->
+  <div id="royalSearchModal" class="royal-search-overlay" role="dialog" aria-modal="true" aria-labelledby="royalSearchInput" style="display: none;">
+    <div class="royal-search-container">
+      
+      <!-- Search Header -->
+      <div class="royal-search-header">
+        <div class="search-input-shell">
+          <span class="search-input-crest">⚜️</span>
+          <input type="text" id="royalSearchInput" class="royal-search-field" placeholder="Search any garment, color (mint, maroon), fabric (raw silk), occasion (baraat)..." autocomplete="off" spellcheck="false" />
+          <button type="button" id="royalSearchClearBtn" class="search-clear-btn" aria-label="Clear search" style="display: none;">&times;</button>
+        </div>
+        <button type="button" id="royalSearchCloseBtn" class="royal-search-close" aria-label="Close search (Esc)">&times;</button>
+      </div>
+
+      <!-- Engine Status & Mode Switcher -->
+      <div class="search-engine-status-strip">
+        <div class="engine-badge-group">
+          <span class="engine-indicator-dot"></span>
+          <span class="engine-label">Semantic Vector Engine</span>
+          <span class="engine-dims-pill">32-D Cosine Similarity</span>
+        </div>
+        <div class="search-mode-selector">
+          <button type="button" class="search-mode-btn active" data-mode="hybrid" title="Combines exact keyword matches with semantic vector similarity">
+            ⚡ Hybrid Search
+          </button>
+          <button type="button" class="search-mode-btn" data-mode="vector" title="Pure semantic cosine similarity across all royal wardrobe dimensions">
+            🧠 Pure Vector AI
+          </button>
+        </div>
+      </div>
+
+      <!-- Automatically Fetched Related Words & Concepts -->
+      <div id="searchRelatedBar" class="search-related-bar">
+        <span class="related-label">✨ Related Concepts:</span>
+        <div id="relatedWordsList" class="related-words-pills">
+          <!-- Dynamically populated with interactive chips -->
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="search-category-tabs">
+        <button type="button" class="search-cat-tab active" data-cat="all">All Masterpieces (23)</button>
+        <button type="button" class="search-cat-tab" data-cat="sherwani">Royal Sherwanis</button>
+        <button type="button" class="search-cat-tab" data-cat="bandhgala">Nawabi Bandhgalas</button>
+        <button type="button" class="search-cat-tab" data-cat="indo-western">Indo-Western & Tuxedos</button>
+        <button type="button" class="search-cat-tab" data-cat="kurta-sets">Kurta & Nehru Sets</button>
+        <button type="button" class="search-cat-tab" data-cat="accessories">Royal Accessories</button>
+      </div>
+
+      <!-- Search Results Body -->
+      <div class="royal-search-body" id="royalSearchBody">
+        <div class="search-summary-row" id="searchSummaryRow">
+          <span id="searchResultCount" class="search-count-text">Showing 23 Masterpieces · Ranked by Vector Relevance</span>
+          <button type="button" id="applySearchToPageBtn" class="btn btn-outline-gold btn-sm apply-search-btn" title="View these results directly in the main website catalog">
+            ⚜️ Apply to Page Catalog
+          </button>
+        </div>
+
+        <!-- Search Results Grid -->
+        <div id="searchResultsGrid" class="search-results-grid">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Default Popular Suggestions when input is empty -->
+        <div id="searchDefaultSuggestions" class="search-default-suggestions" style="display: none;">
+          <div class="suggestion-group">
+            <h5>👑 Popular Royal Searches</h5>
+            <div class="suggestion-chips">
+              <button type="button" class="sugg-chip" data-query="Mint Sage Chevron Achkan">Mint Sage Achkan</button>
+              <button type="button" class="sugg-chip" data-query="Persian Turquoise Court Sherwani">Persian Turquoise Sherwani</button>
+              <button type="button" class="sugg-chip" data-query="Wine Burgundy Bandhgala">Wine Burgundy Bandhgala</button>
+              <button type="button" class="sugg-chip" data-query="Emerald Green Satin Shawl Tuxedo">Emerald Green Tuxedo</button>
+              <button type="button" class="sugg-chip" data-query="Nizam Darbar Khada Sherwani">Khada Sherwani</button>
+              <button type="button" class="sugg-chip" data-query="Royal Asaf Jahi Black Chalk Pinstripe Suit">Black Pinstripe Suit</button>
+              <button type="button" class="sugg-chip" data-query="Handcrafted Zardozi Royal Velvet Mojaris">Zardozi Mojaris</button>
+              <button type="button" class="sugg-chip" data-query="Royal Hyderabadi Safa with Kundan Kalgi">Royal Safa & Kalgi</button>
+            </div>
+          </div>
+
+          <div class="suggestion-group">
+            <h5>🎨 Explore by Color Palette</h5>
+            <div class="suggestion-chips">
+              <button type="button" class="sugg-chip" data-query="Ivory and Gold">Ivory & Gold</button>
+              <button type="button" class="sugg-chip" data-query="Ruby Maroon Crimson">Ruby Maroon & Crimson</button>
+              <button type="button" class="sugg-chip" data-query="Emerald and Mint Green">Emerald & Mint Green</button>
+              <button type="button" class="sugg-chip" data-query="Turquoise and Royal Sapphire">Turquoise & Sapphire</button>
+              <button type="button" class="sugg-chip" data-query="Black and Charcoal">Black & Charcoal</button>
+            </div>
+          </div>
+
+          <div class="suggestion-group">
+            <h5>🏛️ Explore by Wedding Event</h5>
+            <div class="suggestion-chips">
+              <button type="button" class="sugg-chip" data-query="Baraat and Nikkah Groom">Baraat & Nikkah (Grand Sherwanis)</button>
+              <button type="button" class="sugg-chip" data-query="Reception Cocktail Gala">Reception & Cocktails (Tuxedos & Bandhgalas)</button>
+              <button type="button" class="sugg-chip" data-query="Sangeet and Mehendi">Sangeet & Mehendi (Kurta & Bundi Sets)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Footer -->
+      <div class="royal-search-footer">
+        <div class="search-footer-shortcuts">
+          <span><kbd>Esc</kbd> to close</span>
+          <span><kbd>/</kbd> or <kbd>Ctrl+K</kbd> to open anytime</span>
+          <span><kbd>Enter</kbd> to apply to catalog</span>
+        </div>
+        <div class="search-footer-brand">
+          <span>Maqdoom Bros · Vector AI Semantic Search</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- Scripts -->

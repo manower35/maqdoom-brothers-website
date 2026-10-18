@@ -489,6 +489,387 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // =========================================================================
+  // 11. ROYAL INTELLIGENT VECTOR & SEMANTIC SEARCH CONTROLLER
+  // =========================================================================
+  let vectorSearchEngine = null;
+  if (typeof RoyalVectorSearchEngine !== 'undefined' && typeof CATALOG_DATA !== 'undefined') {
+    vectorSearchEngine = new RoyalVectorSearchEngine(CATALOG_DATA);
+    window.vectorSearchEngine = vectorSearchEngine;
+  }
+
+  const royalSearchModal = document.getElementById('royalSearchModal');
+  const royalSearchInput = document.getElementById('royalSearchInput');
+  const royalSearchCloseBtn = document.getElementById('royalSearchCloseBtn');
+  const royalSearchClearBtn = document.getElementById('royalSearchClearBtn');
+  const searchResultsGrid = document.getElementById('searchResultsGrid');
+  const searchResultCount = document.getElementById('searchResultCount');
+  const relatedWordsList = document.getElementById('relatedWordsList');
+  const searchDefaultSuggestions = document.getElementById('searchDefaultSuggestions');
+  const applySearchToPageBtn = document.getElementById('applySearchToPageBtn');
+  const catalogSearchFilterBanner = document.getElementById('catalogSearchFilterBanner');
+  const catalogSearchQueryDisplay = document.getElementById('catalogSearchQueryDisplay');
+  const catalogSearchResultCount = document.getElementById('catalogSearchResultCount');
+  const catalogClearSearchBtn = document.getElementById('catalogClearSearchBtn');
+
+  // Triggers
+  const topSearchTriggerBtn = document.getElementById('topSearchTriggerBtn');
+  const mobileSearchTriggerBtn = document.getElementById('mobileSearchTriggerBtn');
+  const conciergeSearchBtn = document.getElementById('conciergeSearchBtn');
+  const headerSearchIconBtn = document.getElementById('headerSearchIconBtn');
+
+  let currentSearchMode = 'hybrid';
+  let currentSearchCategory = 'all';
+  let currentSearchResults = [];
+  let searchDebounceTimer = null;
+
+  function openRoyalSearch(initialQuery = '') {
+    if (!royalSearchModal) return;
+    royalSearchModal.style.display = 'flex';
+    requestAnimationFrame(() => {
+      royalSearchModal.classList.add('active');
+    });
+    document.body.style.overflow = 'hidden';
+
+    if (royalSearchInput) {
+      if (initialQuery) {
+        royalSearchInput.value = initialQuery;
+      }
+      setTimeout(() => {
+        royalSearchInput.focus();
+        if (initialQuery) {
+          royalSearchInput.select();
+        }
+      }, 50);
+    }
+    executeSearch(royalSearchInput ? royalSearchInput.value : '');
+  }
+
+  function closeRoyalSearch() {
+    if (!royalSearchModal) return;
+    royalSearchModal.classList.remove('active');
+    setTimeout(() => {
+      royalSearchModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  // Bind All Search Triggers
+  [topSearchTriggerBtn, mobileSearchTriggerBtn, conciergeSearchBtn, headerSearchIconBtn].forEach(btn => {
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openRoyalSearch();
+      });
+    }
+  });
+
+  // Close triggers
+  if (royalSearchCloseBtn) {
+    royalSearchCloseBtn.addEventListener('click', closeRoyalSearch);
+  }
+  if (royalSearchModal) {
+    royalSearchModal.addEventListener('click', (e) => {
+      if (e.target === royalSearchModal) {
+        closeRoyalSearch();
+      }
+    });
+  }
+
+  // Clear button inside search field
+  if (royalSearchClearBtn) {
+    royalSearchClearBtn.addEventListener('click', () => {
+      if (royalSearchInput) {
+        royalSearchInput.value = '';
+        royalSearchClearBtn.style.display = 'none';
+        royalSearchInput.focus();
+        executeSearch('');
+      }
+    });
+  }
+
+  // Mode Selector (Hybrid vs Pure Vector)
+  document.querySelectorAll('.search-mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.search-mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSearchMode = btn.dataset.mode || 'hybrid';
+      executeSearch(royalSearchInput ? royalSearchInput.value : '');
+    });
+  });
+
+  // Category Filter Tabs inside Search Modal
+  document.querySelectorAll('.search-cat-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.search-cat-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentSearchCategory = tab.dataset.cat || 'all';
+      executeSearch(royalSearchInput ? royalSearchInput.value : '');
+    });
+  });
+
+  // Suggestions clicks
+  document.querySelectorAll('.sugg-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const q = chip.dataset.query || chip.textContent.trim();
+      if (royalSearchInput) {
+        royalSearchInput.value = q;
+        if (royalSearchClearBtn) royalSearchClearBtn.style.display = 'inline-block';
+        executeSearch(q);
+      }
+    });
+  });
+
+  // Execute Search Function
+  function executeSearch(query) {
+    const q = (query || '').trim();
+
+    // Toggle clear button
+    if (royalSearchClearBtn) {
+      royalSearchClearBtn.style.display = q ? 'inline-block' : 'none';
+    }
+
+    if (!vectorSearchEngine) return;
+
+    const searchOutput = vectorSearchEngine.search(q, {
+      mode: currentSearchMode,
+      categoryFilter: currentSearchCategory
+    });
+
+    currentSearchResults = searchOutput.results.map(r => r.item);
+
+    // Update Related Words Chips (Knowledge Graph Expansion)
+    if (relatedWordsList) {
+      relatedWordsList.innerHTML = '';
+      if (searchOutput.relatedWords && searchOutput.relatedWords.length > 0) {
+        searchOutput.relatedWords.forEach(word => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'related-chip';
+          chip.innerHTML = `✨ ${word}`;
+          chip.addEventListener('click', () => {
+            if (royalSearchInput) {
+              royalSearchInput.value = word;
+              if (royalSearchClearBtn) royalSearchClearBtn.style.display = 'inline-block';
+              royalSearchInput.focus();
+              executeSearch(word);
+            }
+          });
+          relatedWordsList.appendChild(chip);
+        });
+      }
+    }
+
+    // Update Result Count Text
+    if (searchResultCount) {
+      if (q) {
+        searchResultCount.innerHTML = `Found <strong>${searchOutput.total}</strong> Masterpiece${searchOutput.total === 1 ? '' : 's'} for "${q}" · Sorted by ${currentSearchMode === 'vector' ? 'Cosine Vector Similarity' : 'Hybrid Vector & Semantic Relevance'}`;
+      } else {
+        searchResultCount.innerHTML = `Showing <strong>${searchOutput.total}</strong> Masterpieces · Ready for Keyword & Vector Search`;
+      }
+    }
+
+    // Toggle Default Suggestions when search is empty
+    if (searchDefaultSuggestions) {
+      searchDefaultSuggestions.style.display = (!q && currentSearchCategory === 'all') ? 'flex' : 'none';
+    }
+
+    // Render Result Items in Modal Grid
+    if (searchResultsGrid) {
+      searchResultsGrid.innerHTML = '';
+
+      if (searchOutput.results.length === 0) {
+        searchResultsGrid.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: var(--text-muted); background: rgba(0,0,0,0.25); border-radius: 12px; border: 1px dashed rgba(212,175,55,0.3);">
+            <div style="font-size: 2.2rem; margin-bottom: 12px;">⚜️</div>
+            <h4 style="font-family: var(--font-serif); color: var(--pearl-white); margin-bottom: 8px;">No Direct Semantic Match Found</h4>
+            <p style="font-size: 0.85rem; max-width: 480px; margin: 0 auto 16px;">
+              Our master tailors can hand-craft bespoke garments in any custom silhouette, color, or embroidery theme.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline-gold btn-sm" onclick="document.getElementById('royalSearchInput').value='Zardozi Sherwani'; window.vectorSearchEngine && window.vectorSearchEngine.search && document.getElementById('royalSearchInput').dispatchEvent(new Event('input'));">
+                Explore Zardozi Sherwanis
+              </button>
+              <a href="https://wa.me/${STORE_PHONE}?text=Hello%20Maqdoom%20Brothers%2C%20I%20am%20looking%20for%20a%20custom%20groom%20outfit%20with%20specific%20requirements." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+                Custom WhatsApp Consultation
+              </a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      searchOutput.results.forEach(res => {
+        const item = res.item;
+        const formattedPrice = window.GeoEngine 
+          ? window.GeoEngine.formatCurrencyRange(item.priceRange) 
+          : item.priceRange;
+
+        const fullImgSrc = item.fullImage || item.image;
+        const itemImageUrl = (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost'))
+          ? `${window.location.origin}/${(fullImgSrc || '').replace(/^\/+/, '')}`
+          : `https://maqdoom-brothers-website.vercel.app/${(fullImgSrc || '').replace(/^\/+/, '')}`;
+
+        const whatsappText = encodeURIComponent(
+          `Hello Maqdoom Brothers, I found "${item.title}" (${item.priceRange}) using the Royal Vector Search on your website.\n\n` +
+          `📸 Product Image: ${itemImageUrl}\n` +
+          `Item Code: ${item.id}\n\n` +
+          `Please share availability & bespoke tailoring details.`
+        );
+        const whatsappUrl = `https://wa.me/${STORE_PHONE}?text=${whatsappText}`;
+
+        const card = document.createElement('div');
+        card.className = 'search-item-card';
+        card.innerHTML = `
+          <div class="search-item-thumb" data-id="${item.id}" role="button" tabindex="0" title="Click to view full head-to-toe image">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" />
+          </div>
+          <div class="search-item-info">
+            <div class="search-item-header-row">
+              <span class="search-item-cat">${item.categoryLabel} · ${item.badge || 'Haute Couture'}</span>
+              <span class="search-vector-badge" title="Semantic Vector Match Score">
+                ⚡ ${res.similarityPercent}% Vector Match
+              </span>
+            </div>
+            <h4 class="search-item-title">${item.title}</h4>
+            <div class="search-item-meta">
+              <span><strong>🧵 Fabric:</strong> ${item.fabric}</span>
+              <span><strong>✨ Work:</strong> ${item.work}</span>
+            </div>
+            <div class="search-item-tags">
+              <span class="search-tag-chip">🎨 ${item.color}</span>
+              <span class="search-tag-chip">👑 ${item.occasion}</span>
+              <span class="search-tag-chip" style="color:var(--gold-light);border-color:rgba(212,175,55,0.4)">⚜️ ${res.matchReason}</span>
+            </div>
+            <div class="search-item-actions">
+              <div class="search-item-price">${formattedPrice}</div>
+              <div class="search-item-btns">
+                <button type="button" class="btn btn-outline-gold btn-sm btn-search-quickview" data-id="${item.id}">
+                  Quick View 🔍
+                </button>
+                <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" title="Chat on WhatsApp">
+                  Inquire 💬
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Card clicks
+        const thumb = card.querySelector('.search-item-thumb');
+        if (thumb) {
+          thumb.addEventListener('click', () => {
+            closeRoyalSearch();
+            openQuickView(item);
+          });
+        }
+        const qvBtn = card.querySelector('.btn-search-quickview');
+        if (qvBtn) {
+          qvBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeRoyalSearch();
+            openQuickView(item);
+          });
+        }
+
+        searchResultsGrid.appendChild(card);
+      });
+    }
+  }
+
+  // Real-time debounced search input handler
+  if (royalSearchInput) {
+    royalSearchInput.addEventListener('input', (e) => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        executeSearch(e.target.value);
+      }, 70); // lightning-fast 70ms debounce
+    });
+
+    // Enter key applies results to page catalog
+    royalSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applySearchResultsToPage();
+      }
+    });
+  }
+
+  // Apply search results to the main Collections Catalog Grid
+  function applySearchResultsToPage() {
+    const q = royalSearchInput ? royalSearchInput.value.trim() : '';
+    if (!q && currentSearchResults.length === 0) {
+      closeRoyalSearch();
+      return;
+    }
+
+    closeRoyalSearch();
+
+    // Render filtered items in main catalog
+    renderCatalog(currentSearchResults);
+
+    // Show active search banner in Collections section
+    if (catalogSearchFilterBanner && catalogSearchQueryDisplay && catalogSearchResultCount) {
+      catalogSearchQueryDisplay.textContent = q ? `"${q}"` : 'Vector Filtered Masterpieces';
+      catalogSearchResultCount.textContent = currentSearchResults.length;
+      catalogSearchFilterBanner.style.display = 'flex';
+    }
+
+    // Smooth scroll to collections
+    const collectionsSection = document.getElementById('collections');
+    if (collectionsSection) {
+      collectionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  if (applySearchToPageBtn) {
+    applySearchToPageBtn.addEventListener('click', applySearchResultsToPage);
+  }
+
+  // Clear Search button on collections page
+  if (catalogClearSearchBtn) {
+    catalogClearSearchBtn.addEventListener('click', () => {
+      if (catalogSearchFilterBanner) {
+        catalogSearchFilterBanner.style.display = 'none';
+      }
+      if (royalSearchInput) {
+        royalSearchInput.value = '';
+      }
+      // Reset filter tabs to All
+      filterTabs.forEach(t => t.classList.remove('active'));
+      const allTab = document.querySelector('.filter-tab[data-filter="all"]');
+      if (allTab) allTab.classList.add('active');
+      renderCatalog(CATALOG_DATA);
+    });
+  }
+
+  // Global Keyboard Shortcuts
+  document.addEventListener('keydown', (e) => {
+    // Escape key closes search modal
+    if (e.key === 'Escape') {
+      if (royalSearchModal && royalSearchModal.classList.contains('active')) {
+        closeRoyalSearch();
+      }
+    }
+
+    // Slash key (/) opens search if user is not in an input or textarea
+    if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      openRoyalSearch();
+    }
+
+    // Ctrl+K or Cmd+K opens search
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      openRoyalSearch();
+    }
+  });
+
+  // Expose search API globally for debugging or external triggers
+  window.openRoyalSearch = openRoyalSearch;
+  window.closeRoyalSearch = closeRoyalSearch;
+
   // Initial Render of All Items
   if (typeof CATALOG_DATA !== 'undefined') {
     renderCatalog(CATALOG_DATA);
