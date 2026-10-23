@@ -6,7 +6,71 @@
  */
 
 const CATALOG_DATA = [
-  // =========================================================================
+  
+{
+  "id": "sherwani-13",
+  "title": "The Royal Asaf Jahi Blush Rose Zardozi Sherwani",
+  "category": "sherwani",
+  "categoryLabel": "Royal Sherwani",
+  "priceRange": "₹38,000 – ₹58,000",
+  "fabric": "Bespoke Matka Raw Silk & Brocade Lining",
+  "work": "Handcrafted Antique Zardozi, Fine Resham & Jeweled Collar",
+  "color": "Blush Rose & Antique Gold",
+  "occasion": "Royal Baraat / Grand Nikkah / Wedding Gala",
+  "description": "An exquisite royal wedding sherwani tailored in signature blush rose matka raw silk. Features dense antique gold zardozi work, a high structured mandarin collar with jeweled potli buttons, coordinated silk churidar, and an opulent royal cut.",
+  "features": [
+    "Handcrafted antique gold zardozi & resham embroidery",
+    "Structured royal mandarin collar with jeweled buttons",
+    "Includes tailored silk churidar and pocket square",
+    "Maqdoom Brothers royal court craftsmanship"
+  ],
+  "image": "assets/catalog/sherwani-13.jpg",
+  "fullImage": "assets/catalog/sherwani-13-full.jpg",
+  "badge": "Royal Wedding 2026"
+},
+{
+  "id": "sherwani-14",
+  "title": "The Imperial Mauve Lilac Resham Royal Sherwani",
+  "category": "sherwani",
+  "categoryLabel": "Royal Sherwani",
+  "priceRange": "₹36,000 – ₹54,000",
+  "fabric": "Pure Raw Slub Silk & Luxurious Viscose Lining",
+  "work": "Intricate Tone-on-Tone Floral Resham & Metallic Accents",
+  "color": "Imperial Mauve / Dusty Lilac & Pale Silver",
+  "occasion": "Royal Reception / Sangeet / Baraat",
+  "description": "A sophisticated modern imperial silhouette tailored in rare mauve lilac raw slub silk. Showcases painstaking tone-on-tone floral resham threadwork, ornate collar, coordinated chest pocket square, and handcrafted metallic show buttons.",
+  "features": [
+    "Artisanal floral vine & leaf resham embroidery",
+    "Rare royal mauve lilac palette for groom & reception",
+    "Paired with tailored ivory silk churidar",
+    "Official Maqdoom Brothers crest craftsmanship"
+  ],
+  "image": "assets/catalog/sherwani-14.jpg",
+  "fullImage": "assets/catalog/sherwani-14-full.jpg",
+  "badge": "Imperial Haute Couture 2026"
+},
+{
+  "id": "sherwani-15",
+  "title": "The Nizami Olive Sage Embroidered Darbar Sherwani",
+  "category": "sherwani",
+  "categoryLabel": "Royal Sherwani",
+  "priceRange": "₹36,000 – ₹56,000",
+  "fabric": "Handwoven Raw Silk & Fine Brocade",
+  "work": "Tone-on-Tone Botanical Resham Weave & Antique Gold Trims",
+  "color": "Royal Olive Sage & Burnished Gold",
+  "occasion": "Nikkah / Sangeet / Royal Wedding Reception",
+  "description": "A majestic court ensemble tailored in rich olive sage raw silk. Embellished with heritage botanical resham embroidery across the chest, shoulders, and collar, complemented by jeweled buttons and coordinated silk churidar.",
+  "features": [
+    "Heritage botanical resham artisan embroidery",
+    "High structured collar with antique button closures",
+    "Paired with tailored silk churidar and pocket square",
+    "Handcrafted by master Hyderabadi karigars"
+  ],
+  "image": "assets/catalog/sherwani-15.jpg",
+  "fullImage": "assets/catalog/sherwani-15-full.jpg",
+  "badge": "Heritage Exclusive 2026"
+},
+// =========================================================================
   // TOP PREMIER MASTERWORKS (Latest Haute Couture 2026 Collection)
   // Featured with full visibility right at the top of the collection
   // =========================================================================
