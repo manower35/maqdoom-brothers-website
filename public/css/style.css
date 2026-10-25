@@ -4314,3 +4314,118 @@ textarea.form-control {
     display: none;
   }
 }
+
+
+/* ==========================================================================
+   FULL VISIBILITY SYSTEM - ZERO CROPPING, ZERO OBSCURING OVERLAYS
+   ========================================================================== */
+.card-media {
+  position: relative !important;
+  aspect-ratio: 3 / 4 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  background: #071914 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.card-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: #071914 !important;
+  transition: transform 0.45s ease !important;
+  display: block !important;
+}
+
+.catalog-card:hover .card-media img {
+  transform: scale(1.03) !important;
+}
+
+/* Remove dark obscuring gradient so garment embroidery and colors are 100% visible */
+.card-media-overlay {
+  display: none !important;
+}
+
+/* Instagram / Lower Gallery Full Visibility */
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.insta-card {
+  position: relative !important;
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+  border-radius: var(--radius-sm) !important;
+  background: #071914 !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.insta-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: #071914 !important;
+  display: block !important;
+  transition: transform 0.4s ease !important;
+}
+
+.insta-card:hover img {
+  transform: scale(1.04) !important;
+}
+
+/* Search results thumbnails full visibility */
+.search-item-thumb {
+  width: 72px !important;
+  height: 96px !important;
+  background: #071914 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.search-item-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  background: #071914 !important;
+}
+
+/* QuickView Modal Full Visibility */
+.quickview-image-wrap {
+  background: #061510 !important;
+  min-height: 480px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.quickview-image-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 580px !important;
+  object-fit: contain !important;
+  background: #061510 !important;
+}
+
+/* Full Lightbox Window */
+.lightbox-image-container {
+  background: #04100c !important;
+  padding: 12px !important;
+}
+
+.lightbox-image-container img {
+  max-height: 82vh !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
+

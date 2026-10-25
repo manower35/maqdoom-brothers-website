@@ -147,11 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach Click Handlers to Card Media & Quick View button
     document.querySelectorAll('.catalog-card .card-media').forEach(media => {
       media.addEventListener('click', (e) => {
-        // Prevent opening if WhatsApp icon clicked
-        if (e.target.closest('.btn-whatsapp')) return;
+        // Prevent opening if WhatsApp icon or quickview clicked
+        if (e.target.closest('.btn-whatsapp') || e.target.closest('.btn-quickview')) return;
         const id = media.dataset.id;
         const item = CATALOG_DATA.find(x => x.id === id);
-        if (item) openQuickView(item);
+        if (item) openLightbox(item); // 1-tap direct full-resolution head-to-toe lightbox!
       });
       media.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : item.priceRange;
 
     if (modalImage) {
-      modalImage.src = item.image;
+      modalImage.src = item.fullImage || item.image;
       modalImage.alt = item.title;
     }
     if (modalCategory) modalCategory.textContent = item.categoryLabel;
