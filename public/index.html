@@ -3492,6 +3492,10 @@ textarea.form-control {
           </span>
         </div>
         <div class="concierge-right">
+                    <button type="button" class="concierge-link concierge-trial-link" id="conciergeTrialBtn" title="AI Royal Virtual Trial Room">
+            <span style="font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba(212,175,55,0.6));">🪞</span>
+            <span style="color: var(--gold-light); font-weight: 600;">AI Trial Room</span>
+          </button>
           <button type="button" class="concierge-link concierge-search-link" id="conciergeSearchBtn" title="Search Royal Collection (Press /)">
             <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             <span>Search</span>
@@ -3545,6 +3549,10 @@ textarea.form-control {
       </ul>
 
       <div class="header-cta-group">
+        <button id="navTrialRoomBtn" class="btn btn-gold-trial" style="padding: 8px 14px; font-size: 0.8rem; background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%); color: #071914; font-weight: 700; border-radius: 4px; border: 1px solid #ffe082; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 12px rgba(212,175,55,0.35); cursor: pointer;" title="Open AI Royal Virtual Trial Room">
+          <span>🪞</span>
+          <span>AI Trial Room</span>
+        </button>
         <button id="navAiStylistBtn" class="btn btn-outline-gold" style="padding: 8px 16px; font-size: 0.8rem;">
           👑 Nizam AI
         </button>
@@ -4516,6 +4524,9 @@ textarea.form-control {
           </div>
 
           <div class="quickview-actions">
+            <button id="modalTryOnBtn" type="button" class="btn btn-gold" style="flex:1.2; display:inline-flex; align-items:center; justify-content:center; gap:6px;">
+              <span>🪞</span> Try In Virtual Trial Room
+            </button>
             <a id="modalWhatsAppBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="flex:1.2;">
               Inquire on WhatsApp
             </a>
@@ -4600,6 +4611,12 @@ textarea.form-control {
   </div>
 
   <!-- Floating AI Stylist Trigger -->
+    <!-- Floating Royal Virtual Trial Room Trigger -->
+  <button id="trialRoomFloatingTrigger" class="floating-trial-trigger" title="Open AI Royal Virtual Trial Room (Camera / Photo)">
+    <span class="trial-sparkle-dot"></span>
+    <span>🪞 Royal Trial Room</span>
+  </button>
+
   <button id="aiStylistFloatingTrigger" class="floating-ai-trigger" title="Open Nizam AI Royal Stylist">
     <span class="ai-pulse-dot"></span>
     <span>Ask Nizam AI 👑</span>
@@ -4629,6 +4646,219 @@ textarea.form-control {
   <!-- ==========================================================================
        ROYAL INTELLIGENT VECTOR & SEMANTIC SEARCH MODAL
        ========================================================================== -->
+  
+  <!-- ==========================================================================
+       ROYAL VIRTUAL TRIAL ROOM MODAL (AI Camera & Photo Outfit Try-On)
+       ========================================================================== -->
+  <div id="royalTrialModal" class="royal-trial-overlay" role="dialog" aria-modal="true" aria-labelledby="trialRoomHeading" style="display: none;">
+    <div class="royal-trial-modal-shell">
+      
+      <!-- Modal Header -->
+      <div class="royal-trial-header">
+        <div class="royal-trial-brand">
+          <span class="royal-crest-symbol">⚜️</span>
+          <div>
+            <h2 id="trialRoomHeading" class="royal-trial-title">Maqdoom Bros Royal Virtual Trial Room</h2>
+            <p class="royal-trial-subtitle">Try 2026 Nizami Sherwanis & Kurtas using your Camera or Device Photo · 100% Private</p>
+          </div>
+        </div>
+        <button type="button" id="trialModalCloseBtn" class="royal-trial-close" aria-label="Close Virtual Trial Room">&times;</button>
+      </div>
+
+      <!-- Modal Main Body (Two Columns) -->
+      <div class="royal-trial-body">
+        
+        <!-- Left Column: Royal Mirror Stage Viewport -->
+        <div class="trial-stage-column">
+          
+          <!-- Mode Selector Strip -->
+          <div class="trial-mode-bar">
+            <span class="trial-mode-label">Stage Mode:</span>
+            <div class="trial-mode-switch">
+              <button type="button" id="trialModeTryOnBtn" class="mode-pill active" title="Layer outfit on your photo">
+                ✨ Visual Try-On
+              </button>
+              <button type="button" id="trialModeSideSideBtn" class="mode-pill" title="Compare side by side with AI fit score">
+                ⚖️ Side-by-Side Match
+              </button>
+            </div>
+          </div>
+
+          <!-- The Royal Mirror Viewport -->
+          <div class="trial-stage-viewport" id="trialStageContainer">
+            
+            <!-- Canvas Compositor -->
+            <canvas id="trialStageCanvas" class="trial-stage-canvas"></canvas>
+
+            <!-- Overlay Empty State (When no photo uploaded yet) -->
+            <div id="trialEmptyStage" class="trial-empty-overlay">
+              <div class="empty-crest">🪞</div>
+              <h3 class="empty-title">Step into the Royal Atelier</h3>
+              <p class="empty-desc">Take a photo with your camera or upload from your device to see how handcrafted Nizami sherwanis look on you.</p>
+              
+              <div class="empty-actions">
+                <button type="button" id="trialStartCameraBtn" class="btn btn-gold btn-trial-action">
+                  <svg viewBox="0 0 24 24" class="btn-svg-icon"><path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                  <span>Open Camera</span>
+                </button>
+                <button type="button" id="trialUploadFileBtn" class="btn btn-outline-gold btn-trial-action">
+                  <svg viewBox="0 0 24 24" class="btn-svg-icon"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                  <span>Upload Photo</span>
+                </button>
+                <input type="file" id="trialFileInput" accept="image/*" style="display: none;" />
+              </div>
+
+              <div class="sample-model-strip">
+                <button type="button" id="trialSampleModelBtn" class="btn-sample-model">
+                  <span>👤 Or Test with Royal Groom Model</span>
+                </button>
+              </div>
+
+              <div class="empty-privacy-notice">
+                <span>🔒 100% Private: Photos run strictly on your device and are never sent to external servers.</span>
+              </div>
+            </div>
+
+            <!-- Live Camera Streaming Viewport (Hidden until activated) -->
+            <div id="trialCameraViewport" class="trial-camera-overlay" style="display: none;">
+              <video id="trialCameraVideo" autoplay playsinline muted class="camera-stream-video"></video>
+              <div class="camera-hud-guide">
+                <div class="camera-oval-guide"></div>
+                <span class="camera-guide-text">Position face & chest in the royal frame</span>
+              </div>
+              <div class="camera-hud-controls">
+                <button type="button" id="trialFlipCameraBtn" class="btn-camera-util" title="Flip Camera">
+                  🔄 Flip
+                </button>
+                <button type="button" id="trialSnapBtn" class="btn-camera-capture" title="Take Photo">
+                  <span class="snap-inner-dot"></span>
+                </button>
+                <button type="button" id="trialCancelCameraBtn" class="btn-camera-util" title="Cancel">
+                  ✕ Cancel
+                </button>
+              </div>
+            </div>
+
+            <!-- Stage Micro-Controls (Zoom, Adjust, Toggle Guide) -->
+            <div id="trialStageControls" class="trial-stage-hud" style="display: none;">
+              <div class="hud-left">
+                <button type="button" id="trialRetakeBtn" class="hud-btn" title="Upload new photo or open camera">
+                  📷 Retake
+                </button>
+                <button type="button" id="trialToggleGuideBtn" class="hud-btn active" title="Toggle face & neckline alignment guide">
+                  📐 Guide
+                </button>
+              </div>
+              <div class="hud-center">
+                <button type="button" id="trialZoomOutBtn" class="hud-btn-circle" title="Zoom Out">−</button>
+                <input type="range" id="trialZoomSlider" min="0.5" max="2.0" step="0.05" value="1.0" class="hud-zoom-slider" title="Adjust photo size" />
+                <button type="button" id="trialZoomInBtn" class="hud-btn-circle" title="Zoom In">+</button>
+              </div>
+              <div class="hud-right">
+                <button type="button" id="trialResetFitBtn" class="hud-btn" title="Reset to center">
+                  ↺ Reset
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Drag Hint below stage -->
+          <div class="stage-drag-hint">
+            <span>💡 <em>Tip: Touch and drag inside mirror to reposition your photo. Pinch or scroll to zoom.</em></span>
+          </div>
+        </div>
+
+        <!-- Right Column: Royal Wardrobe Carousel & AI Matchmaker -->
+        <div class="trial-wardrobe-column">
+          
+          <!-- Selected Garment Card -->
+          <div class="trial-outfit-hero">
+            <div class="hero-chip-row">
+              <span id="trialOutfitBadge" class="royal-hero-badge">⚜️ Imperial Premier 2026</span>
+              <span id="trialOutfitPrice" class="royal-hero-price">₹38,000 – ₹58,000</span>
+            </div>
+            <h3 id="trialOutfitTitle" class="royal-hero-title">The Royal Champagne Gold Zardozi Sherwani</h3>
+            
+            <div class="hero-specs-grid">
+              <div class="hero-spec-item">
+                <span class="spec-k">🧵 Fabric</span>
+                <span id="trialOutfitFabric" class="spec-v">Bespoke Matka Silk</span>
+              </div>
+              <div class="hero-spec-item">
+                <span class="spec-k">✨ Artisanal Craft</span>
+                <span id="trialOutfitWork" class="spec-v">Handcrafted Tone-on-Tone Gold Zardozi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Suitability & Color Match Card -->
+          <div class="trial-ai-card">
+            <div class="ai-card-header">
+              <div class="ai-brand-badge">
+                <span class="sparkle-icon">✨</span>
+                <strong>AI Royal Compatibility</strong>
+              </div>
+              <div class="ai-score-badge">
+                <span id="trialAiScoreVal" class="score-number">98%</span>
+                <span class="score-label">Match</span>
+              </div>
+            </div>
+            
+            <div class="ai-score-meter-shell">
+              <div id="trialAiScoreBar" class="ai-score-meter-bar" style="width: 98%;"></div>
+            </div>
+
+            <div class="ai-pills-row">
+              <span id="trialAiUndertone" class="ai-pill">Tone: Warm Golden</span>
+              <span id="trialAiOccasion" class="ai-pill">Occasion: Grand Baraat</span>
+            </div>
+
+            <p id="trialAiAdviceText" class="ai-advice-p">
+              Artisanal match: The handcrafted gold zardozi complements warm golden undertones for evening regal ceremonies.
+            </p>
+
+            <div class="ai-accessory-pairing">
+              <span class="pair-icon">👑</span>
+              <span id="trialAiAccessoryTip" class="pair-text">Pair with Handcrafted Velvet Mojaris (acc-02) and Safa with Kundan Kalgi (acc-01) for the imperial court groom silhouette.</span>
+            </div>
+          </div>
+
+          <!-- Wardrobe Selector Strip (13 Royal Pieces) -->
+          <div class="trial-wardrobe-section">
+            <div class="wardrobe-section-header">
+              <span class="wardrobe-title">Select Garment to Try (13 Royal Pieces)</span>
+              <span class="wardrobe-counter">13 Masterworks</span>
+            </div>
+            <div id="trialWardrobeCarousel" class="trial-wardrobe-track">
+              <!-- Rendered dynamically by trial-room.js -->
+            </div>
+          </div>
+
+          <!-- Conversion Actions (WhatsApp & Download) -->
+          <div class="trial-cta-cluster">
+            <button type="button" id="trialWhatsAppBtn" class="btn btn-whatsapp btn-trial-primary">
+              <svg viewBox="0 0 24 24" class="btn-svg-icon"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+              <span>Consult Master Tailor on WhatsApp</span>
+            </button>
+            <div class="trial-sub-ctas">
+              <button type="button" id="trialDownloadBtn" class="btn btn-outline-gold" style="flex:1;">
+                📥 Download Look Card
+              </button>
+              <button type="button" id="trialBookFittingBtn" class="btn btn-outline-gold" style="flex:1;">
+                📅 Book Fitting
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
   <div id="royalSearchModal" class="royal-search-overlay" role="dialog" aria-modal="true" aria-labelledby="royalSearchInput" style="display: none;">
     <div class="royal-search-container">
       
@@ -4748,6 +4978,7 @@ textarea.form-control {
   <script src="js/catalog-data.js"></script>
   <script src="js/geo-engine.js"></script>
   <script src="js/ai-stylist.js"></script>
+  <script src="js/trial-room.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
