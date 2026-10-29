@@ -307,6 +307,11 @@
         const fullSrc = item.fullImage || item.image;
         if (fullSrc && !this.cachedGarmentImages.has(fullSrc)) {
           const img = new Image();
+          img.onload = () => {
+            if (this.selectedOutfit && (this.selectedOutfit.fullImage === fullSrc || this.selectedOutfit.image === fullSrc)) {
+              this.requestRender();
+            }
+          };
           img.src = fullSrc;
           this.cachedGarmentImages.set(fullSrc, img);
         }
@@ -670,41 +675,16 @@
     }
 
     calculateAutoFitTransform() {
-      const w = this.canvasLogicalWidth || 540;
-      const h = this.canvasLogicalHeight || 720;
-      const img = this.customerImage;
-      if (!img) return;
-
-      // Target position of the mandarin collar on canvas
-      const targetCollarX = w / 2;
-      const targetCollarY = h * 0.24;
-      const targetHeadHeight = h * 0.22;
-
-      // Estimated head height in pixels
-      const detectedFaceHeightPx = this.detectedFace.radiusY * 2 * img.height;
-      const naturalAspectScale = h / img.height;
-      let calculatedScale = targetHeadHeight / (detectedFaceHeightPx * naturalAspectScale);
-
-      // Clamp scale to natural bounds
-      calculatedScale = Math.max(0.65, Math.min(1.85, calculatedScale));
-
-      // Calculate translation so face center aligns right above collar
-      const faceImgX = this.detectedFace.cx * img.width;
-      const faceImgY = (this.detectedFace.cy + this.detectedFace.radiusY * 0.7) * img.height; // chin level
-
-      const offsetX = 0; // perfectly center with sherwani
-      const offsetY = (targetCollarY - faceImgY * (h / img.height) * calculatedScale);
-
       this.transform = {
-        scale: parseFloat(calculatedScale.toFixed(2)),
+        scale: 1.0,
         offsetX: 0,
-        offsetY: Math.round(offsetY * 0.55),
+        offsetY: 0,
         rotate: 0,
         neckTuck: 0
       };
 
       if (this.zoomSlider) {
-        this.zoomSlider.value = this.transform.scale;
+        this.zoomSlider.value = 1.0;
       }
     }
 
@@ -824,137 +804,169 @@
 
       const img = this.customerImage;
 
-      // 1. Position and Render Garment Layer (From Website)
+      // 0. Base Royal Atelier Background
+      const bgGrad = this.ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, '#0a211a');
+      bgGrad.addColorStop(0.35, '#061712');
+      bgGrad.addColorStop(1, '#020906');
+      this.ctx.fillStyle = bgGrad;
+      this.ctx.fillRect(0, 0, w, h);
+
+      // 1. Prepare Garment Image
       let garmentImg = null;
       if (this.selectedOutfit) {
         const garmentSrc = this.selectedOutfit.fullImage || this.selectedOutfit.image;
         garmentImg = this.cachedGarmentImages.get(garmentSrc);
         if (!garmentImg) {
           garmentImg = new Image();
+          garmentImg.onload = () => this.requestRender();
           garmentImg.src = garmentSrc;
           this.cachedGarmentImages.set(garmentSrc, garmentImg);
         }
       }
 
-      // Garment positioning: Mandaring collar at y ≈ 0.24 * h
+      // Garment positioning & collar geometry
       let gW = w;
       let gH = h;
       let gX = 0;
       let gY = 0;
+      const gAspect = (garmentImg && garmentImg.naturalWidth && garmentImg.naturalHeight)
+        ? (garmentImg.naturalWidth / garmentImg.naturalHeight)
+        : (1024 / 1536);
+      gH = h * 0.94;
+      gW = gH * gAspect;
+      gX = (w - gW) / 2;
+      gY = h - gH + 10;
 
-      if (garmentImg && garmentImg.complete && garmentImg.naturalWidth > 0) {
-        const gAspect = garmentImg.naturalWidth / garmentImg.naturalHeight;
-        gH = h * 0.94;
-        gW = gH * gAspect;
-        gX = (w - gW) / 2;
-        gY = h - gH + 10;
+      const collarX = w / 2;
+      const collarY = gY + gH * 0.235;
+      const collarW = gW * 0.26;
+      const collarDepth = 26;
+
+      // 2. Draw Customer Face & Neck (Positioned to fit into the collar)
+      if (img && img.complete && img.naturalWidth > 0) {
+        this.ctx.save();
+        const detectedFaceH = (this.detectedFace && this.detectedFace.radiusY ? this.detectedFace.radiusY * 2 : 0.44) * img.height;
+        const desiredFaceH = h * 0.23;
+        const baseScale = desiredFaceH / Math.max(80, detectedFaceH);
+        const finalScale = baseScale * this.transform.scale;
+
+        const drawW = img.width * finalScale;
+        const drawH = img.height * finalScale;
+
+        const faceNormX = this.detectedFace ? this.detectedFace.cx : 0.5;
+        const chinNormY = this.detectedFace ? (this.detectedFace.cy + this.detectedFace.radiusY * 0.85) : 0.55;
+
+        const faceCenterX = collarX + this.transform.offsetX;
+        const chinY = collarY + 8 + this.transform.offsetY; // Chin sits right above the collar dip, neck tucks in
+
+        const drawLeft = faceCenterX - (faceNormX * drawW);
+        const drawTop = chinY - (chinNormY * drawH);
+
+        // Offscreen buffer for feathered face mask
+        const headCanvas = document.createElement('canvas');
+        headCanvas.width = Math.round(w);
+        headCanvas.height = Math.round(h);
+        const hCtx = headCanvas.getContext('2d');
+
+        hCtx.save();
+        if (this.transform.rotate !== 0) {
+          hCtx.translate(faceCenterX, chinY - (this.detectedFace.radiusY * drawH));
+          hCtx.rotate((this.transform.rotate * Math.PI) / 180);
+          hCtx.translate(-faceCenterX, -(chinY - (this.detectedFace.radiusY * drawH)));
+        }
+        hCtx.drawImage(img, drawLeft, drawTop, drawW, drawH);
+        hCtx.restore();
+
+        // Create organic radial/elliptical feather around customer's head & neck
+        const maskCanvas = document.createElement('canvas');
+        maskCanvas.width = Math.round(w);
+        maskCanvas.height = Math.round(h);
+        const mCtx = maskCanvas.getContext('2d');
+
+        const headRadiusX = (this.detectedFace.radiusX * drawW) * 1.35;
+        const headRadiusY = (this.detectedFace.radiusY * drawH) * 1.5;
+        const headCenterY = chinY - (this.detectedFace.radiusY * drawH);
+
+        const fGrad = mCtx.createRadialGradient(
+          faceCenterX, headCenterY, headRadiusX * 0.65,
+          faceCenterX, headCenterY, Math.max(headRadiusX, headRadiusY) * 1.15
+        );
+        fGrad.addColorStop(0, 'rgba(0, 0, 0, 1)');
+        fGrad.addColorStop(0.75, 'rgba(0, 0, 0, 0.95)');
+        fGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        mCtx.fillStyle = fGrad;
+        mCtx.beginPath();
+        mCtx.ellipse(faceCenterX, headCenterY, headRadiusX * 1.1, headRadiusY * 1.25, 0, 0, Math.PI * 2);
+        mCtx.fill();
+
+        // Apply feather mask
+        hCtx.globalCompositeOperation = 'destination-in';
+        hCtx.drawImage(maskCanvas, 0, 0);
+
+        // Render customer head onto main canvas
+        this.ctx.drawImage(headCanvas, 0, 0);
+        this.ctx.restore();
       }
 
-      // 2. Draw Customer Face with Organic Feathered Mask (Behind Garment Collar)
-      this.ctx.save();
-      const imgAspect = img.width / img.height;
-      let drawW = w;
-      let drawH = w / imgAspect;
-      if (drawH < h) {
-        drawH = h;
-        drawW = h * imgAspect;
-      }
-
-      const centerX = w / 2 + this.transform.offsetX;
-      const centerY = h * 0.20 + this.transform.offsetY;
-
-      // Create an offscreen buffer for face feathering
-      const headCanvas = document.createElement('canvas');
-      headCanvas.width = Math.round(w);
-      headCanvas.height = Math.round(h);
-      const hCtx = headCanvas.getContext('2d');
-
-      hCtx.save();
-      hCtx.translate(centerX, centerY);
-      hCtx.rotate((this.transform.rotate * Math.PI) / 180);
-      hCtx.scale(this.transform.scale, this.transform.scale);
-      hCtx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
-      hCtx.restore();
-
-      // Mask out distracting room background with a smooth radial feather around the face
-      const maskCanvas = document.createElement('canvas');
-      maskCanvas.width = Math.round(w);
-      maskCanvas.height = Math.round(h);
-      const mCtx = maskCanvas.getContext('2d');
-
-      const faceRadiusX = w * (this.detectedFace.radiusX || 0.18) * this.transform.scale * 1.5;
-      const faceRadiusY = h * (this.detectedFace.radiusY || 0.22) * this.transform.scale * 1.6;
-
-      const fGrad = mCtx.createRadialGradient(
-        centerX, centerY, faceRadiusX * 0.6,
-        centerX, centerY, Math.max(faceRadiusX, faceRadiusY) * 1.3
-      );
-      fGrad.addColorStop(0, 'rgba(0,0,0,1)');
-      fGrad.addColorStop(0.75, 'rgba(0,0,0,0.95)');
-      fGrad.addColorStop(1, 'rgba(0,0,0,0)');
-
-      mCtx.fillStyle = fGrad;
-      mCtx.beginPath();
-      mCtx.ellipse(centerX, centerY + faceRadiusY * 0.1, faceRadiusX * 1.25, faceRadiusY * 1.3, 0, 0, Math.PI * 2);
-      mCtx.fill();
-
-      // Apply feather mask to head buffer
-      hCtx.globalCompositeOperation = 'destination-in';
-      hCtx.drawImage(maskCanvas, 0, 0);
-
-      // Draw feathered face onto main canvas
-      this.ctx.drawImage(headCanvas, 0, 0);
-      this.ctx.restore();
-
-      // 3. Draw Website Royal Garment Body (Over Neck Rim)
+      // 3. Draw Website Royal Garment Body (With Collar Cutout for Head)
       if (garmentImg && garmentImg.complete && garmentImg.naturalWidth > 0) {
         this.ctx.save();
-        // Soft ambient shadow underneath garment
-        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-        this.ctx.shadowBlur = 20;
+
+        // Collar clipping path:
+        // Keeps the full royal garment body, lapels, shoulders and mandarin collar rim,
+        // but completely removes the mannequin head above the collar dip.
+        this.ctx.beginPath();
+        this.ctx.moveTo(gX - 10, h + 10);
+        this.ctx.lineTo(gX + gW + 10, h + 10);
+        this.ctx.lineTo(gX + gW + 10, collarY - 35);
+        this.ctx.lineTo(collarX + collarW / 2, collarY - 18);
+        this.ctx.quadraticCurveTo(collarX, collarY + collarDepth, collarX - collarW / 2, collarY - 18);
+        this.ctx.lineTo(gX - 10, collarY - 35);
+        this.ctx.closePath();
+        this.ctx.clip();
+
         this.ctx.drawImage(garmentImg, gX, gY, gW, gH);
         this.ctx.restore();
       }
 
-      // 4. Subtle Ambient Collar Depth Shadow (Tucks neck inside mandarin collar)
+      // 4. Subtle Mandarin Collar Ambient Shadow
       this.ctx.save();
-      const collarY = h * 0.235;
-      const collarW = w * 0.26;
       const collarShadowGrad = this.ctx.createRadialGradient(
-        w / 2, collarY, 10,
-        w / 2, collarY, collarW * 0.7
+        collarX, collarY + 4, 4,
+        collarX, collarY + 4, collarW * 0.55
       );
       collarShadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
+      collarShadowGrad.addColorStop(0.7, 'rgba(0, 0, 0, 0.20)');
       collarShadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       this.ctx.fillStyle = collarShadowGrad;
       this.ctx.beginPath();
-      this.ctx.ellipse(w / 2, collarY, collarW * 0.6, 12, 0, 0, Math.PI * 2);
+      this.ctx.ellipse(collarX, collarY + 6, collarW * 0.48, 12, 0, 0, Math.PI * 2);
       this.ctx.fill();
       this.ctx.restore();
 
       // 5. Lighting & Color Temperature Harmonizer
       this.ctx.save();
       this.ctx.globalCompositeOperation = 'overlay';
-      this.ctx.fillStyle = 'rgba(212, 175, 55, 0.05)';
+      this.ctx.fillStyle = 'rgba(212, 175, 55, 0.04)';
       this.ctx.fillRect(0, 0, w, h);
       this.ctx.restore();
 
       // 6. Watermark Badge: Authentic Website Piece
       if (this.selectedOutfit) {
-        this.ctx.fillStyle = 'rgba(7, 25, 20, 0.88)';
-        this.ctx.fillRect(16, 16, 195, 28);
+        this.ctx.fillStyle = 'rgba(7, 25, 20, 0.90)';
+        this.ctx.fillRect(16, 16, 220, 32);
         this.ctx.strokeStyle = '#d4af37';
         this.ctx.lineWidth = 1;
-        this.ctx.strokeRect(16, 16, 195, 28);
+        this.ctx.strokeRect(16, 16, 220, 32);
         this.ctx.fillStyle = '#ffe082';
         this.ctx.font = '700 11px Cinzel, serif';
-        this.ctx.textAlign = 'left';
-        this.ctx.fillText(`⚜️ WEARING: ${this.selectedOutfit.id.toUpperCase()}`, 24, 34);
-      }
-
-      // 7. Alignment Guide (if toggled)
-      if (this.showGuide) {
-        this.drawAlignmentGuide(w, h);
+        this.ctx.fillText(`⚜️ MAQDOOM BROS ATELIER`, 26, 30);
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.font = '600 10px Plus Jakarta Sans, sans-serif';
+        const titleTrim = this.selectedOutfit.title.length > 28 ? this.selectedOutfit.title.slice(0, 26) + '...' : this.selectedOutfit.title;
+        this.ctx.fillText(titleTrim, 26, 43);
       }
 
       this.ctx.restore();
@@ -1249,7 +1261,19 @@
     }
 
     selectOutfit(item) {
+      if (!item) return;
+      if (typeof item === 'string') {
+        const found = this.garments.find(g => g.id === item);
+        if (found) item = found;
+      }
       this.selectedOutfit = item;
+      const gSrc = item.fullImage || item.image;
+      if (gSrc && !this.cachedGarmentImages.has(gSrc)) {
+        const gImg = new Image();
+        gImg.onload = () => this.requestRender();
+        gImg.src = gSrc;
+        this.cachedGarmentImages.set(gSrc, gImg);
+      }
       document.querySelectorAll('.trial-outfit-chip').forEach(chip => {
         const titleElem = chip.querySelector('.trial-chip-title');
         chip.classList.toggle('active', titleElem && titleElem.textContent === item.title);
