@@ -4556,7 +4556,10 @@ textarea.form-control {
           <div class="trial-mode-bar">
             <span class="trial-mode-label">Stage Mode:</span>
             <div class="trial-mode-switch">
-              <button type="button" id="trialModeTryOnBtn" class="mode-pill active" title="Layer outfit on your photo">
+              <button type="button" id="trialModeWearBtn" class="mode-pill active" title="AI seamlessly fits your face wearing the website royal garment">
+                👑 AI Royal Wear
+              </button>
+              <button type="button" id="trialModeTryOnBtn" class="mode-pill" title="Layer outfit on your photo">
                 ✨ Visual Try-On
               </button>
               <button type="button" id="trialModeSideSideBtn" class="mode-pill" title="Compare side by side with AI fit score">
@@ -4570,6 +4573,12 @@ textarea.form-control {
             
             <!-- Canvas Compositor -->
             <canvas id="trialStageCanvas" class="trial-stage-canvas"></canvas>
+
+            <!-- AI Processing Badge Overlay -->
+            <div id="trialAiProcessingBadge" class="trial-ai-processing" style="display: none;">
+              <span class="processing-spinner">✨</span>
+              <span id="trialProcessingText">AI Synthesizing Royal Wear Look...</span>
+            </div>
 
             <!-- Overlay Empty State (When no photo uploaded yet) -->
             <div id="trialEmptyStage" class="trial-empty-overlay">
@@ -4623,6 +4632,9 @@ textarea.form-control {
             <!-- Stage Micro-Controls (Zoom, Adjust, Toggle Guide) -->
             <div id="trialStageControls" class="trial-stage-hud" style="display: none;">
               <div class="hud-left">
+                <button type="button" id="trialAutoFitBtn" class="hud-btn hud-btn-gold" title="Auto-fit face to collar & regenerate best website outfit">
+                  ⚡ Auto-Fit
+                </button>
                 <button type="button" id="trialRetakeBtn" class="hud-btn" title="Upload new photo or open camera">
                   📷 Retake
                 </button>

@@ -5155,6 +5155,80 @@ textarea.form-control {
   text-align: center;
 }
 
+/* AI Auto-Fit & Synthesize Enhancements */
+.trial-ai-processing {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(7, 25, 20, 0.94);
+  border: 1.5px solid var(--gold-primary);
+  border-radius: 20px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(212, 175, 55, 0.4);
+  z-index: 12;
+  pointer-events: none;
+  animation: pulse-badge 1.8s ease-in-out infinite;
+}
+
+.processing-spinner {
+  display: inline-block;
+  animation: spin-sparkle 1.6s linear infinite;
+}
+
+@keyframes spin-sparkle {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes pulse-badge {
+  0%, 100% { opacity: 0.95; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
+}
+
+.hud-btn.hud-btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+  color: #071914;
+  font-weight: 800;
+  border-color: #ffe082;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+}
+
+.hud-btn.hud-btn-gold:hover {
+  background: linear-gradient(135deg, #ffe082 0%, #d4af37 100%);
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.trial-chip-bestfit {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: linear-gradient(135deg, #d4af37, #996515);
+  color: #071914;
+  font-size: 0.55rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: var(--font-display);
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+  z-index: 2;
+}
+
+.trial-outfit-chip.best-fit-item {
+  border-color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.12);
+}
+
+
 /* CTAs */
 .trial-cta-cluster {
   display: flex;

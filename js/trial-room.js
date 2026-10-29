@@ -1,6 +1,6 @@
 /**
  * MAQDOOM BROS DESIGNERS PVT LTD - Royal Virtual Trial Room Engine
- * Instant In-Browser Camera & Photo Try-On with AI Fit Matcher & WhatsApp Look Card Export
+ * AI Auto-Fit & Realistic Royal Wear Synthesis strictly using Website Catalog Images
  * Established 1895 | Pathergatti, Hyderabad
  * 100% Client-Side · Zero Latency · No Third-Party API Bills · Privacy Safe
  */
@@ -15,17 +15,29 @@
       this.customerImage = null;
       this.customerImageSrc = null;
       this.isSampleModel = false;
-      this.activeMode = 'tryon'; // 'tryon' | 'sideside'
+      this.activeMode = 'wear'; // 'wear' (AI Royal Wear) | 'sideside' | 'tryon'
       this.cameraStream = null;
       this.facingMode = 'user'; // 'user' | 'environment'
-      this.showGuide = true;
+      this.showGuide = false;
 
-      // User photo transforms
+      // User photo transforms (auto-calculated on upload & adjustable)
       this.transform = {
         scale: 1.0,
         offsetX: 0,
         offsetY: 0,
-        rotate: 0
+        rotate: 0,
+        neckTuck: 0 // fine-tune neck vertical tuck into collar
+      };
+
+      // Raw image face detection cache
+      this.detectedFace = {
+        cx: 0.5,
+        cy: 0.35,
+        radiusX: 0.18,
+        radiusY: 0.22,
+        detected: false,
+        undertone: 'Warm Golden',
+        luminance: 140
       };
 
       this.isDragging = false;
@@ -33,8 +45,9 @@
       this.pinchStartDist = 0;
       this.initialScale = 1.0;
 
-      // Outfits list (Sherwanis, Indo-Westerns, Bandhgalas, Kurtas)
+      // Outfits list strictly from website CATALOG_DATA
       this.garments = [];
+      this.bestFitId = null;
       this.cachedGarmentImages = new Map();
 
       // AI Analysis state
@@ -57,7 +70,7 @@
     }
 
     init() {
-      // Gather garments from CATALOG_DATA
+      // Gather garments strictly from website CATALOG_DATA
       if (typeof CATALOG_DATA !== 'undefined' && Array.isArray(CATALOG_DATA)) {
         this.garments = CATALOG_DATA.filter(item =>
           ['sherwani', 'indo-western', 'bandhgala', 'kurta-sets'].includes(item.category)
@@ -65,7 +78,7 @@
       }
 
       if (this.garments.length === 0) {
-        // Fallback default list if loaded before catalog data
+        // Fallback default list strictly pointing to authentic website assets
         this.garments = [
           {
             id: 'sherwani-16',
@@ -98,6 +111,7 @@
       this.cameraViewport = document.getElementById('trialCameraViewport');
       this.videoElem = document.getElementById('trialCameraVideo');
       this.stageOverlayControls = document.getElementById('trialStageControls');
+      this.processingBadge = document.getElementById('trialAiProcessingBadge');
 
       // Empty stage action buttons
       this.startCameraBtn = document.getElementById('trialStartCameraBtn');
@@ -111,10 +125,12 @@
       this.cancelCameraBtn = document.getElementById('trialCancelCameraBtn');
 
       // Mode toggles
-      this.modeTryOnBtn = document.getElementById('trialModeTryOnBtn');
+      this.modeWearBtn = document.getElementById('trialModeWearBtn') || document.getElementById('trialModeTryOnBtn');
       this.modeSideSideBtn = document.getElementById('trialModeSideSideBtn');
+      this.modeTryOnBtn = document.getElementById('trialModeTryOnBtn');
 
       // Transform controls
+      this.autoFitBtn = document.getElementById('trialAutoFitBtn');
       this.zoomSlider = document.getElementById('trialZoomSlider');
       this.zoomInBtn = document.getElementById('trialZoomInBtn');
       this.zoomOutBtn = document.getElementById('trialZoomOutBtn');
@@ -194,11 +210,19 @@
       if (this.cancelCameraBtn) this.cancelCameraBtn.addEventListener('click', () => this.stopLiveCamera());
 
       // Mode toggles
-      if (this.modeTryOnBtn) {
-        this.modeTryOnBtn.addEventListener('click', () => this.setMode('tryon'));
+      if (this.modeWearBtn) {
+        this.modeWearBtn.addEventListener('click', () => this.setMode('wear'));
       }
       if (this.modeSideSideBtn) {
         this.modeSideSideBtn.addEventListener('click', () => this.setMode('sideside'));
+      }
+      if (this.modeTryOnBtn && this.modeTryOnBtn !== this.modeWearBtn) {
+        this.modeTryOnBtn.addEventListener('click', () => this.setMode('tryon'));
+      }
+
+      // Auto-Fit / Regenerate Button
+      if (this.autoFitBtn) {
+        this.autoFitBtn.addEventListener('click', () => this.recalculateAutoFit(true));
       }
 
       // Transform & Canvas Controls
@@ -210,20 +234,20 @@
       }
       if (this.zoomInBtn) {
         this.zoomInBtn.addEventListener('click', () => {
-          this.transform.scale = Math.min(2.5, this.transform.scale + 0.1);
+          this.transform.scale = Math.min(2.5, this.transform.scale + 0.08);
           if (this.zoomSlider) this.zoomSlider.value = this.transform.scale;
           this.requestRender();
         });
       }
       if (this.zoomOutBtn) {
         this.zoomOutBtn.addEventListener('click', () => {
-          this.transform.scale = Math.max(0.4, this.transform.scale - 0.1);
+          this.transform.scale = Math.max(0.4, this.transform.scale - 0.08);
           if (this.zoomSlider) this.zoomSlider.value = this.transform.scale;
           this.requestRender();
         });
       }
       if (this.resetFitBtn) {
-        this.resetFitBtn.addEventListener('click', () => this.resetTransform());
+        this.resetFitBtn.addEventListener('click', () => this.recalculateAutoFit(false));
       }
       if (this.retakeBtn) {
         this.retakeBtn.addEventListener('click', () => this.showEmptyState());
@@ -258,10 +282,9 @@
           const bookingSec = document.getElementById('booking');
           if (bookingSec) {
             bookingSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Pre-select outfit in notes if field exists
             const notesField = document.getElementById('bookNotes');
             if (notesField && this.selectedOutfit) {
-              notesField.value = `Selected in AI Royal Trial Room: ${this.selectedOutfit.title} (${this.selectedOutfit.id})`;
+              notesField.value = `Selected in AI Royal Virtual Trial Room: ${this.selectedOutfit.title} (${this.selectedOutfit.id})`;
             }
           }
         });
@@ -307,8 +330,6 @@
 
       this.renderWardrobeCarousel();
       this.updateOutfitDetails();
-
-      // Setup initial canvas resolution
       this.setupCanvasDimensions();
 
       if (!this.customerImage) {
@@ -349,8 +370,11 @@
 
     setMode(mode) {
       this.activeMode = mode;
-      if (this.modeTryOnBtn) this.modeTryOnBtn.classList.toggle('active', mode === 'tryon');
+      if (this.modeWearBtn) this.modeWearBtn.classList.toggle('active', mode === 'wear');
       if (this.modeSideSideBtn) this.modeSideSideBtn.classList.toggle('active', mode === 'sideside');
+      if (this.modeTryOnBtn && this.modeTryOnBtn !== this.modeWearBtn) {
+        this.modeTryOnBtn.classList.toggle('active', mode === 'tryon');
+      }
       this.requestRender();
     }
 
@@ -372,7 +396,6 @@
     // ==========================================
     async startLiveCamera() {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        // Fallback for older browsers or restricted permissions: trigger file picker
         if (this.fileInput) {
           this.fileInput.setAttribute('capture', 'user');
           this.fileInput.click();
@@ -437,7 +460,6 @@
       snapCanvas.height = this.videoElem.videoHeight;
       const snapCtx = snapCanvas.getContext('2d');
 
-      // Mirror front camera
       if (this.facingMode === 'user') {
         snapCtx.translate(snapCanvas.width, 0);
         snapCtx.scale(-1, 1);
@@ -458,7 +480,6 @@
         this.setCustomerPhoto(event.target.result, false);
       };
       reader.readAsDataURL(file);
-      // Reset input value so re-uploading same file works
       e.target.value = '';
     }
 
@@ -467,36 +488,251 @@
       this.setCustomerPhoto(sampleModelSrc, true);
     }
 
+    /**
+     * Called whenever ANY raw image is uploaded or snapped
+     * Automatically analyzes raw image and regenerates the best fit with website garments
+     */
     setCustomerPhoto(src, isSample = false) {
+      if (this.processingBadge) {
+        this.processingBadge.style.display = 'flex';
+      }
+
       const img = new Image();
       img.onload = () => {
         this.customerImage = img;
         this.customerImageSrc = src;
         this.isSampleModel = isSample;
-        this.resetTransform();
+
+        // Run AI raw image analysis, best-fit garment selection & auto-alignment
+        this.analyzeRawImageAndAutoFit();
+
         this.hideEmptyState();
-        this.runAIAnalysis();
-        this.requestRender();
+        this.activeMode = 'wear';
+        if (this.modeWearBtn) this.modeWearBtn.classList.add('active');
+        if (this.modeSideSideBtn) this.modeSideSideBtn.classList.remove('active');
+
+        // Smooth reveal transition
+        setTimeout(() => {
+          if (this.processingBadge) {
+            this.processingBadge.style.display = 'none';
+          }
+          this.renderWardrobeCarousel();
+          this.updateOutfitDetails();
+          this.runAIAnalysis();
+          this.requestRender();
+        }, 300);
       };
       img.src = src;
     }
 
-    resetTransform() {
+    // ==========================================
+    // AI RAW IMAGE ANALYSIS & AUTO-FIT ENGINE
+    // ==========================================
+    analyzeRawImageAndAutoFit() {
+      if (!this.customerImage) return;
+
+      const img = this.customerImage;
+      const w = this.canvasLogicalWidth || 540;
+      const h = this.canvasLogicalHeight || 720;
+
+      // Create an offscreen analysis canvas
+      const aCanvas = document.createElement('canvas');
+      const sampleW = 120;
+      const sampleH = Math.round(120 * (img.height / img.width));
+      aCanvas.width = sampleW;
+      aCanvas.height = sampleH;
+      const aCtx = aCanvas.getContext('2d');
+      aCtx.drawImage(img, 0, 0, sampleW, sampleH);
+
+      let skinPoints = 0;
+      let sumX = 0;
+      let sumY = 0;
+      let minX = sampleW, maxX = 0;
+      let minY = sampleH, maxY = 0;
+      let rSum = 0, gSum = 0, bSum = 0;
+
+      try {
+        const pData = aCtx.getImageData(0, 0, sampleW, sampleH).data;
+        // Search upper 65% of image for face
+        const searchH = Math.floor(sampleH * 0.65);
+
+        for (let y = 0; y < searchH; y++) {
+          for (let x = 0; x < sampleW; x++) {
+            const idx = (y * sampleW + x) * 4;
+            const r = pData[idx];
+            const g = pData[idx + 1];
+            const b = pData[idx + 2];
+            const sum = r + g + b;
+
+            if (sum > 0) {
+              const nr = r / sum;
+              const ng = g / sum;
+              // Skin color chromaticity filter
+              if (r > 60 && g > 40 && b > 20 && r > g && r > b && (r - g) > 10 && nr >= 0.35 && nr <= 0.60 && ng >= 0.25 && ng <= 0.40) {
+                skinPoints++;
+                sumX += x;
+                sumY += y;
+                rSum += r;
+                gSum += g;
+                bSum += b;
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Pixel access error on analysis:', err);
+      }
+
+      // Determine Face Center and Dimensions
+      let cx = 0.5;
+      let cy = 0.32;
+      let boxW = 0.30;
+      let boxH = 0.30;
+      let undertone = 'Warm Golden';
+      let lum = 140;
+
+      if (skinPoints > 40) {
+        cx = (sumX / skinPoints) / sampleW;
+        cy = (sumY / skinPoints) / sampleH;
+        boxW = Math.max(0.15, (maxX - minX) / sampleW);
+        boxH = Math.max(0.15, (maxY - minY) / sampleH);
+
+        const rAvg = rSum / skinPoints;
+        const gAvg = gSum / skinPoints;
+        const bAvg = bSum / skinPoints;
+        lum = 0.299 * rAvg + 0.587 * gAvg + 0.114 * bAvg;
+
+        if (rAvg > bAvg + 18 && gAvg > bAvg) {
+          undertone = 'Warm Golden';
+        } else if (lum > 145) {
+          undertone = 'Cool Pearl / Rosy';
+        } else {
+          undertone = 'Rich Royal Bronze';
+        }
+
+        this.detectedFace = {
+          cx,
+          cy,
+          radiusX: boxW * 0.55,
+          radiusY: boxH * 0.60,
+          detected: true,
+          undertone,
+          luminance: lum
+        };
+      } else {
+        // Fallback default for portrait orientation
+        this.detectedFace = {
+          cx: 0.5,
+          cy: 0.30,
+          radiusX: 0.18,
+          radiusY: 0.22,
+          detected: false,
+          undertone: 'Warm Golden',
+          luminance: 140
+        };
+      }
+
+      // Automatically Match Best Website Garment for this skin tone
+      this.matchBestWebsiteOutfit(undertone);
+
+      // Auto-Fit Face to the Royal Collar
+      this.calculateAutoFitTransform();
+    }
+
+    matchBestWebsiteOutfit(undertone) {
+      if (!this.garments || this.garments.length === 0) return;
+
+      // Ranking table mapped strictly to website items
+      let targetId = 'sherwani-16'; // default: Champagne Gold
+      if (undertone === 'Warm Golden') {
+        // Rich golds, crimsons, and champagne
+        const warmPref = ['sherwani-16', 'sherwani-21', 'sherwani-18', 'kurta-04'];
+        targetId = warmPref.find(id => this.garments.some(g => g.id === id)) || this.garments[0].id;
+      } else if (undertone === 'Cool Pearl / Rosy') {
+        // Blush rose, lavender lilac, ivory slate
+        const coolPref = ['sherwani-13', 'sherwani-20', 'sherwani-22', 'sherwani-17'];
+        targetId = coolPref.find(id => this.garments.some(g => g.id === id)) || this.garments[0].id;
+      } else {
+        // Rich Bronze: Deep obsidian, royal navy, darbar olive
+        const bronzePref = ['sherwani-24', 'sherwani-19', 'sherwani-23', 'sherwani-15'];
+        targetId = bronzePref.find(id => this.garments.some(g => g.id === id)) || this.garments[0].id;
+      }
+
+      this.bestFitId = targetId;
+      const matched = this.garments.find(g => g.id === targetId);
+      if (matched) {
+        this.selectedOutfit = matched;
+      }
+    }
+
+    calculateAutoFitTransform() {
+      const w = this.canvasLogicalWidth || 540;
+      const h = this.canvasLogicalHeight || 720;
+      const img = this.customerImage;
+      if (!img) return;
+
+      // Target position of the mandarin collar on canvas
+      const targetCollarX = w / 2;
+      const targetCollarY = h * 0.24;
+      const targetHeadHeight = h * 0.22;
+
+      // Estimated head height in pixels
+      const detectedFaceHeightPx = this.detectedFace.radiusY * 2 * img.height;
+      const naturalAspectScale = h / img.height;
+      let calculatedScale = targetHeadHeight / (detectedFaceHeightPx * naturalAspectScale);
+
+      // Clamp scale to natural bounds
+      calculatedScale = Math.max(0.65, Math.min(1.85, calculatedScale));
+
+      // Calculate translation so face center aligns right above collar
+      const faceImgX = this.detectedFace.cx * img.width;
+      const faceImgY = (this.detectedFace.cy + this.detectedFace.radiusY * 0.7) * img.height; // chin level
+
+      const offsetX = 0; // perfectly center with sherwani
+      const offsetY = (targetCollarY - faceImgY * (h / img.height) * calculatedScale);
+
       this.transform = {
-        scale: 1.0,
+        scale: parseFloat(calculatedScale.toFixed(2)),
         offsetX: 0,
-        offsetY: 0,
-        rotate: 0
+        offsetY: Math.round(offsetY * 0.55),
+        rotate: 0,
+        neckTuck: 0
       };
-      if (this.zoomSlider) this.zoomSlider.value = 1.0;
-      this.requestRender();
+
+      if (this.zoomSlider) {
+        this.zoomSlider.value = this.transform.scale;
+      }
+    }
+
+    recalculateAutoFit(announce = true) {
+      if (!this.customerImage) return;
+
+      if (this.processingBadge && announce) {
+        this.processingBadge.style.display = 'flex';
+        const txt = this.processingBadge.querySelector('span:last-child');
+        if (txt) txt.textContent = '✨ AI Auto-Fitting to Royal Collar...';
+      }
+
+      this.calculateAutoFitTransform();
+      this.runAIAnalysis();
+
+      setTimeout(() => {
+        if (this.processingBadge) {
+          this.processingBadge.style.display = 'none';
+        }
+        this.requestRender();
+      }, 250);
     }
 
     // ==========================================
     // CANVAS TOUCH / POINTER INTERACTIONS
     // ==========================================
     handlePointerDown(e) {
-      if (!this.customerImage || this.activeMode !== 'tryon') return;
+      if (!this.customerImage) return;
       this.isDragging = true;
       this.dragStart = { x: e.clientX, y: e.clientY };
       if (this.canvas) this.canvas.setPointerCapture(e.pointerId);
@@ -523,7 +759,7 @@
     }
 
     handleWheel(e) {
-      if (!this.customerImage || this.activeMode !== 'tryon') return;
+      if (!this.customerImage) return;
       e.preventDefault();
       const zoomFactor = e.deltaY < 0 ? 1.05 : 0.95;
       this.transform.scale = Math.max(0.4, Math.min(2.5, this.transform.scale * zoomFactor));
@@ -550,7 +786,7 @@
       const h = this.canvasLogicalHeight || (this.canvas.height / (window.devicePixelRatio || 1));
 
       // 1. Draw Royal Atelier Background
-      const bgGrad = this.ctx.createRadialGradient(w / 2, h * 0.4, 40, w / 2, h / 2, Math.max(w, h));
+      const bgGrad = this.ctx.createRadialGradient(w / 2, h * 0.35, 40, w / 2, h / 2, Math.max(w, h));
       bgGrad.addColorStop(0, '#0f2922');
       bgGrad.addColorStop(0.7, '#071914');
       bgGrad.addColorStop(1, '#030c09');
@@ -559,14 +795,16 @@
 
       if (!this.customerImage) return;
 
-      if (this.activeMode === 'tryon') {
-        this.renderTryOnMode(w, h);
-      } else {
+      if (this.activeMode === 'wear') {
+        this.renderWearMode(w, h);
+      } else if (this.activeMode === 'sideside') {
         this.renderSideSideMode(w, h);
+      } else {
+        this.renderTryOnOverlayMode(w, h);
       }
 
-      // Draw subtle royal border inside stage
-      this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
+      // Draw subtle royal gold stage border
+      this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
       this.ctx.lineWidth = 1.5;
       this.ctx.strokeRect(8, 8, w - 16, h - 16);
 
@@ -574,16 +812,46 @@
       this.drawCornerAccents(w, h);
     }
 
-    renderTryOnMode(w, h) {
+    /**
+     * PRIMARY MODE: AI Royal Wear Look
+     * Seamlessly fits customer's real face and neck wearing the website's authentic garment
+     */
+    renderWearMode(w, h) {
       this.ctx.save();
-
-      // Clip inside inner border
       this.ctx.beginPath();
       this.ctx.rect(10, 10, w - 20, h - 20);
       this.ctx.clip();
 
-      // 1. Render Customer Photo with user transform
       const img = this.customerImage;
+
+      // 1. Position and Render Garment Layer (From Website)
+      let garmentImg = null;
+      if (this.selectedOutfit) {
+        const garmentSrc = this.selectedOutfit.fullImage || this.selectedOutfit.image;
+        garmentImg = this.cachedGarmentImages.get(garmentSrc);
+        if (!garmentImg) {
+          garmentImg = new Image();
+          garmentImg.src = garmentSrc;
+          this.cachedGarmentImages.set(garmentSrc, garmentImg);
+        }
+      }
+
+      // Garment positioning: Mandaring collar at y ≈ 0.24 * h
+      let gW = w;
+      let gH = h;
+      let gX = 0;
+      let gY = 0;
+
+      if (garmentImg && garmentImg.complete && garmentImg.naturalWidth > 0) {
+        const gAspect = garmentImg.naturalWidth / garmentImg.naturalHeight;
+        gH = h * 0.94;
+        gW = gH * gAspect;
+        gX = (w - gW) / 2;
+        gY = h - gH + 10;
+      }
+
+      // 2. Draw Customer Face with Organic Feathered Mask (Behind Garment Collar)
+      this.ctx.save();
       const imgAspect = img.width / img.height;
       let drawW = w;
       let drawH = w / imgAspect;
@@ -593,42 +861,98 @@
       }
 
       const centerX = w / 2 + this.transform.offsetX;
-      const centerY = h / 2 + this.transform.offsetY;
+      const centerY = h * 0.20 + this.transform.offsetY;
 
-      this.ctx.save();
-      this.ctx.translate(centerX, centerY);
-      this.ctx.rotate((this.transform.rotate * Math.PI) / 180);
-      this.ctx.scale(this.transform.scale, this.transform.scale);
-      this.ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+      // Create an offscreen buffer for face feathering
+      const headCanvas = document.createElement('canvas');
+      headCanvas.width = Math.round(w);
+      headCanvas.height = Math.round(h);
+      const hCtx = headCanvas.getContext('2d');
+
+      hCtx.save();
+      hCtx.translate(centerX, centerY);
+      hCtx.rotate((this.transform.rotate * Math.PI) / 180);
+      hCtx.scale(this.transform.scale, this.transform.scale);
+      hCtx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+      hCtx.restore();
+
+      // Mask out distracting room background with a smooth radial feather around the face
+      const maskCanvas = document.createElement('canvas');
+      maskCanvas.width = Math.round(w);
+      maskCanvas.height = Math.round(h);
+      const mCtx = maskCanvas.getContext('2d');
+
+      const faceRadiusX = w * (this.detectedFace.radiusX || 0.18) * this.transform.scale * 1.5;
+      const faceRadiusY = h * (this.detectedFace.radiusY || 0.22) * this.transform.scale * 1.6;
+
+      const fGrad = mCtx.createRadialGradient(
+        centerX, centerY, faceRadiusX * 0.6,
+        centerX, centerY, Math.max(faceRadiusX, faceRadiusY) * 1.3
+      );
+      fGrad.addColorStop(0, 'rgba(0,0,0,1)');
+      fGrad.addColorStop(0.75, 'rgba(0,0,0,0.95)');
+      fGrad.addColorStop(1, 'rgba(0,0,0,0)');
+
+      mCtx.fillStyle = fGrad;
+      mCtx.beginPath();
+      mCtx.ellipse(centerX, centerY + faceRadiusY * 0.1, faceRadiusX * 1.25, faceRadiusY * 1.3, 0, 0, Math.PI * 2);
+      mCtx.fill();
+
+      // Apply feather mask to head buffer
+      hCtx.globalCompositeOperation = 'destination-in';
+      hCtx.drawImage(maskCanvas, 0, 0);
+
+      // Draw feathered face onto main canvas
+      this.ctx.drawImage(headCanvas, 0, 0);
       this.ctx.restore();
 
-      // 2. Render Garment Mannequin Overlay
-      if (this.selectedOutfit) {
-        const garmentSrc = this.selectedOutfit.fullImage || this.selectedOutfit.image;
-        let garmentImg = this.cachedGarmentImages.get(garmentSrc);
-
-        if (!garmentImg) {
-          garmentImg = new Image();
-          garmentImg.src = garmentSrc;
-          this.cachedGarmentImages.set(garmentSrc, garmentImg);
-        }
-
-        if (garmentImg.complete && garmentImg.naturalWidth > 0) {
-          const gAspect = garmentImg.naturalWidth / garmentImg.naturalHeight;
-          const gH = h * 0.92;
-          const gW = gH * gAspect;
-          const gX = (w - gW) / 2;
-          const gY = h - gH + 10;
-
-          // Soft subtle shadow underneath garment
-          this.ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
-          this.ctx.shadowBlur = 24;
-          this.ctx.drawImage(garmentImg, gX, gY, gW, gH);
-          this.ctx.shadowBlur = 0;
-        }
+      // 3. Draw Website Royal Garment Body (Over Neck Rim)
+      if (garmentImg && garmentImg.complete && garmentImg.naturalWidth > 0) {
+        this.ctx.save();
+        // Soft ambient shadow underneath garment
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+        this.ctx.shadowBlur = 20;
+        this.ctx.drawImage(garmentImg, gX, gY, gW, gH);
+        this.ctx.restore();
       }
 
-      // 3. Render Face & Collar Alignment Guide (if toggled on)
+      // 4. Subtle Ambient Collar Depth Shadow (Tucks neck inside mandarin collar)
+      this.ctx.save();
+      const collarY = h * 0.235;
+      const collarW = w * 0.26;
+      const collarShadowGrad = this.ctx.createRadialGradient(
+        w / 2, collarY, 10,
+        w / 2, collarY, collarW * 0.7
+      );
+      collarShadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
+      collarShadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      this.ctx.fillStyle = collarShadowGrad;
+      this.ctx.beginPath();
+      this.ctx.ellipse(w / 2, collarY, collarW * 0.6, 12, 0, 0, Math.PI * 2);
+      this.ctx.fill();
+      this.ctx.restore();
+
+      // 5. Lighting & Color Temperature Harmonizer
+      this.ctx.save();
+      this.ctx.globalCompositeOperation = 'overlay';
+      this.ctx.fillStyle = 'rgba(212, 175, 55, 0.05)';
+      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.restore();
+
+      // 6. Watermark Badge: Authentic Website Piece
+      if (this.selectedOutfit) {
+        this.ctx.fillStyle = 'rgba(7, 25, 20, 0.88)';
+        this.ctx.fillRect(16, 16, 195, 28);
+        this.ctx.strokeStyle = '#d4af37';
+        this.ctx.lineWidth = 1;
+        this.ctx.strokeRect(16, 16, 195, 28);
+        this.ctx.fillStyle = '#ffe082';
+        this.ctx.font = '700 11px Cinzel, serif';
+        this.ctx.textAlign = 'left';
+        this.ctx.fillText(`⚜️ WEARING: ${this.selectedOutfit.id.toUpperCase()}`, 24, 34);
+      }
+
+      // 7. Alignment Guide (if toggled)
       if (this.showGuide) {
         this.drawAlignmentGuide(w, h);
       }
@@ -638,15 +962,13 @@
 
     renderSideSideMode(w, h) {
       this.ctx.save();
-
-      // Clip inner
       this.ctx.beginPath();
       this.ctx.rect(10, 10, w - 20, h - 20);
       this.ctx.clip();
 
       const halfW = (w - 20) / 2;
 
-      // --- Left: Customer Photo ---
+      // --- Left: Customer Raw Photo ---
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.rect(10, 10, halfW, h - 20);
@@ -663,15 +985,15 @@
       this.ctx.drawImage(cImg, 10 + (halfW - cDrawW) / 2, 10 + (h - 20 - cDrawH) / 2, cDrawW, cDrawH);
 
       // Label
-      this.ctx.fillStyle = 'rgba(7, 25, 20, 0.85)';
+      this.ctx.fillStyle = 'rgba(7, 25, 20, 0.9)';
       this.ctx.fillRect(16, h - 46, halfW - 12, 28);
       this.ctx.fillStyle = '#f3e5ab';
-      this.ctx.font = '600 11px Cinzel, serif';
+      this.ctx.font = '700 11px Cinzel, serif';
       this.ctx.textAlign = 'center';
-      this.ctx.fillText('YOUR PHOTO', 10 + halfW / 2, h - 28);
+      this.ctx.fillText(`RAW IMAGE (${this.detectedFace.undertone})`, 10 + halfW / 2, h - 28);
       this.ctx.restore();
 
-      // --- Right: Royal Garment Full View ---
+      // --- Right: Website Royal Garment Full View ---
       this.ctx.save();
       this.ctx.beginPath();
       this.ctx.rect(10 + halfW, 10, halfW, h - 20);
@@ -693,12 +1015,12 @@
       }
 
       // Label
-      this.ctx.fillStyle = 'rgba(7, 25, 20, 0.85)';
+      this.ctx.fillStyle = 'rgba(7, 25, 20, 0.9)';
       this.ctx.fillRect(10 + halfW + 6, h - 46, halfW - 12, 28);
       this.ctx.fillStyle = '#d4af37';
-      this.ctx.font = '600 11px Cinzel, serif';
+      this.ctx.font = '700 11px Cinzel, serif';
       this.ctx.textAlign = 'center';
-      this.ctx.fillText('NIZAMI MASTERPIECE', 10 + halfW + halfW / 2, h - 28);
+      this.ctx.fillText('WEBSITE ROYAL GARMENT', 10 + halfW + halfW / 2, h - 28);
       this.ctx.restore();
 
       // Center Divider line & crest
@@ -709,7 +1031,6 @@
       this.ctx.lineTo(10 + halfW, h - 10);
       this.ctx.stroke();
 
-      // Center Medallion
       const midX = 10 + halfW;
       const midY = h * 0.45;
       this.ctx.fillStyle = '#071914';
@@ -729,42 +1050,82 @@
       this.ctx.restore();
     }
 
+    renderTryOnOverlayMode(w, h) {
+      this.ctx.save();
+      this.ctx.beginPath();
+      this.ctx.rect(10, 10, w - 20, h - 20);
+      this.ctx.clip();
+
+      const img = this.customerImage;
+      const imgAspect = img.width / img.height;
+      let drawW = w;
+      let drawH = w / imgAspect;
+      if (drawH < h) {
+        drawH = h;
+        drawW = h * imgAspect;
+      }
+
+      const centerX = w / 2 + this.transform.offsetX;
+      const centerY = h / 2 + this.transform.offsetY;
+
+      this.ctx.save();
+      this.ctx.translate(centerX, centerY);
+      this.ctx.rotate((this.transform.rotate * Math.PI) / 180);
+      this.ctx.scale(this.transform.scale, this.transform.scale);
+      this.ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+      this.ctx.restore();
+
+      if (this.selectedOutfit) {
+        const garmentSrc = this.selectedOutfit.fullImage || this.selectedOutfit.image;
+        let garmentImg = this.cachedGarmentImages.get(garmentSrc);
+        if (garmentImg && garmentImg.complete && garmentImg.naturalWidth > 0) {
+          const gAspect = garmentImg.naturalWidth / garmentImg.naturalHeight;
+          const gH = h * 0.92;
+          const gW = gH * gAspect;
+          const gX = (w - gW) / 2;
+          const gY = h - gH + 10;
+
+          this.ctx.save();
+          this.ctx.globalAlpha = 0.85;
+          this.ctx.drawImage(garmentImg, gX, gY, gW, gH);
+          this.ctx.restore();
+        }
+      }
+
+      if (this.showGuide) {
+        this.drawAlignmentGuide(w, h);
+      }
+
+      this.ctx.restore();
+    }
+
     drawAlignmentGuide(w, h) {
       this.ctx.save();
-      this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.55)';
+      this.ctx.strokeStyle = 'rgba(212, 175, 55, 0.65)';
       this.ctx.lineWidth = 1.2;
       this.ctx.setLineDash([5, 5]);
 
       const headCenterX = w / 2;
-      const headCenterY = h * 0.28;
+      const headCenterY = h * 0.20;
       const headRadiusX = w * 0.16;
       const headRadiusY = h * 0.15;
 
-      // Face Oval Guide
       this.ctx.beginPath();
       this.ctx.ellipse(headCenterX, headCenterY, headRadiusX, headRadiusY, 0, 0, Math.PI * 2);
       this.ctx.stroke();
 
-      // Eye Level Line
-      this.ctx.beginPath();
-      this.ctx.moveTo(headCenterX - headRadiusX * 0.7, headCenterY - headRadiusY * 0.15);
-      this.ctx.lineTo(headCenterX + headRadiusX * 0.7, headCenterY - headRadiusY * 0.15);
-      this.ctx.stroke();
-
-      // Collar Notch Guide
       this.ctx.setLineDash([]);
-      this.ctx.strokeStyle = 'rgba(255, 224, 130, 0.75)';
+      this.ctx.strokeStyle = 'rgba(255, 224, 130, 0.8)';
       this.ctx.lineWidth = 1.5;
       this.ctx.beginPath();
-      this.ctx.moveTo(headCenterX - w * 0.12, headCenterY + headRadiusY + 10);
-      this.ctx.quadraticCurveTo(headCenterX, headCenterY + headRadiusY + 30, headCenterX + w * 0.12, headCenterY + headRadiusY + 10);
+      this.ctx.moveTo(headCenterX - w * 0.13, headCenterY + headRadiusY + 14);
+      this.ctx.quadraticCurveTo(headCenterX, headCenterY + headRadiusY + 30, headCenterX + w * 0.13, headCenterY + headRadiusY + 14);
       this.ctx.stroke();
 
-      // Guide label
-      this.ctx.fillStyle = 'rgba(243, 229, 171, 0.85)';
-      this.ctx.font = '500 10px Plus Jakarta Sans, sans-serif';
+      this.ctx.fillStyle = '#ffe082';
+      this.ctx.font = '600 11px Cinzel, serif';
       this.ctx.textAlign = 'center';
-      this.ctx.fillText('Align Chin with Collar Rim', headCenterX, headCenterY + headRadiusY + 46);
+      this.ctx.fillText('Mandarin Collar Fit Line', headCenterX, headCenterY + headRadiusY + 46);
 
       this.ctx.restore();
     }
@@ -775,28 +1136,24 @@
       this.ctx.lineWidth = 1.5;
       const s = 14;
 
-      // Top Left
       this.ctx.beginPath();
       this.ctx.moveTo(8, 8 + s);
       this.ctx.lineTo(8, 8);
       this.ctx.lineTo(8 + s, 8);
       this.ctx.stroke();
 
-      // Top Right
       this.ctx.beginPath();
       this.ctx.moveTo(w - 8 - s, 8);
       this.ctx.lineTo(w - 8, 8);
       this.ctx.lineTo(w - 8, 8 + s);
       this.ctx.stroke();
 
-      // Bottom Left
       this.ctx.beginPath();
       this.ctx.moveTo(8, h - 8 - s);
       this.ctx.lineTo(8, h - 8);
       this.ctx.lineTo(8 + s, h - 8);
       this.ctx.stroke();
 
-      // Bottom Right
       this.ctx.beginPath();
       this.ctx.moveTo(w - 8 - s, h - 8);
       this.ctx.lineTo(w - 8, h - 8);
@@ -807,71 +1164,40 @@
     }
 
     // ==========================================
-    // AI STYLE & FIT ANALYSIS ENGINE
+    // AI STYLE & FIT ANALYSIS DISPLAY
     // ==========================================
     runAIAnalysis() {
       if (!this.selectedOutfit) return;
 
-      // Default high suitability
-      let score = 96;
-      let undertone = 'Warm Golden';
-      let contrast = 'Royal Harmony';
+      const undertone = this.detectedFace.undertone || 'Warm Golden';
+      let score = 98;
 
-      if (this.customerImage) {
-        // Fast client-side image luminance and warmth calculation
-        try {
-          const sampleCvs = document.createElement('canvas');
-          sampleCvs.width = 40;
-          sampleCvs.height = 40;
-          const sCtx = sampleCvs.getContext('2d');
-          sCtx.drawImage(this.customerImage, 0, 0, 40, 40);
-          const p = sCtx.getImageData(10, 10, 20, 20).data;
-
-          let rSum = 0, gSum = 0, bSum = 0;
-          const count = p.length / 4;
-          for (let i = 0; i < p.length; i += 4) {
-            rSum += p[i];
-            gSum += p[i + 1];
-            bSum += p[i + 2];
-          }
-          const rAvg = rSum / count;
-          const gAvg = gSum / count;
-          const bAvg = bSum / count;
-          const lum = 0.299 * rAvg + 0.587 * gAvg + 0.114 * bAvg;
-
-          if (rAvg > bAvg + 15 && gAvg > bAvg) {
-            undertone = 'Warm Golden';
-          } else if (lum > 140) {
-            undertone = 'Cool Pearl / Rosy';
-          } else {
-            undertone = 'Rich Bronze';
-          }
-
-          // Dynamic score variations based on piece color and undertone
-          const colorText = (this.selectedOutfit.color || this.selectedOutfit.title || '').toLowerCase();
-          if (undertone === 'Warm Golden' && (colorText.includes('gold') || colorText.includes('crimson') || colorText.includes('champagne'))) {
-            score = 99;
-          } else if (undertone === 'Cool Pearl / Rosy' && (colorText.includes('lavender') || colorText.includes('lilac') || colorText.includes('ivory') || colorText.includes('blue'))) {
-            score = 98;
-          } else if (undertone === 'Rich Bronze' && (colorText.includes('navy') || colorText.includes('obsidian') || colorText.includes('peacock') || colorText.includes('gold'))) {
-            score = 98;
-          } else {
-            score = 96;
-          }
-        } catch (_) {
-          score = 97;
+      if (this.bestFitId && this.selectedOutfit.id === this.bestFitId) {
+        score = 99;
+      } else {
+        const colorText = (this.selectedOutfit.color || this.selectedOutfit.title || '').toLowerCase();
+        if (undertone === 'Warm Golden' && (colorText.includes('gold') || colorText.includes('crimson') || colorText.includes('champagne'))) {
+          score = 99;
+        } else if (undertone === 'Cool Pearl / Rosy' && (colorText.includes('lavender') || colorText.includes('blush') || colorText.includes('ivory') || colorText.includes('blue'))) {
+          score = 98;
+        } else if (undertone === 'Rich Royal Bronze' && (colorText.includes('navy') || colorText.includes('olive') || colorText.includes('obsidian') || colorText.includes('darbar'))) {
+          score = 98;
+        } else {
+          score = 96;
         }
       }
 
       const occasion = this.selectedOutfit.occasion || 'Royal Baraat / Grand Nikkah / Wedding Gala';
-      const advice = `Artisanal match: The ${this.selectedOutfit.work || 'hand zardozi'} against ${this.selectedOutfit.fabric || 'pure silk'} complements ${undertone} tones for evening regal ceremonies.`;
-      const accessoryTip = `Royal Pairing: Pair with Handcrafted Velvet Mojaris (acc-02) and Nizami Kundan Kalgi Safa (acc-01) for the imperial court groom silhouette.`;
+      const isBestFit = this.bestFitId && this.selectedOutfit.id === this.bestFitId;
+      const advice = isBestFit
+        ? `🌟 AI Best Fit Match: Handcrafted ${this.selectedOutfit.work || 'zardozi'} harmonizes naturally with your ${undertone} tones for an imperial wedding entrance.`
+        : `Artisanal fit: The ${this.selectedOutfit.work || 'zardozi embroidery'} against pure silk complements ${undertone} tones for evening ceremonies.`;
+      const accessoryTip = `Royal Pairing: Pair with Handcrafted Velvet Mojaris (acc-02) and Safa with Kundan Kalgi (acc-01) for the complete Nizami court look.`;
 
       this.aiAnalysis = {
         score,
         undertone,
         occasion,
-        contrast,
         advice,
         accessoryTip
       };
@@ -889,7 +1215,7 @@
     }
 
     // ==========================================
-    // WARDROBE CAROUSEL
+    // WARDROBE CAROUSEL (WEBSITE GARMENTS ONLY)
     // ==========================================
     renderWardrobeCarousel() {
       if (!this.wardrobeCarousel) return;
@@ -902,11 +1228,14 @@
           card.classList.add('active');
         }
 
+        const isBestFit = this.bestFitId && item.id === this.bestFitId;
         const thumbSrc = item.image;
+
         card.innerHTML = `
           <div class="trial-chip-thumb">
             <img src="${thumbSrc}" alt="${item.title}" loading="lazy" />
             <span class="trial-chip-badge">${item.badge || item.categoryLabel || '2026'}</span>
+            ${isBestFit ? '<span class="trial-chip-bestfit">👑 Best Fit</span>' : ''}
           </div>
           <div class="trial-chip-title">${item.title}</div>
         `;
@@ -922,7 +1251,8 @@
     selectOutfit(item) {
       this.selectedOutfit = item;
       document.querySelectorAll('.trial-outfit-chip').forEach(chip => {
-        chip.classList.toggle('active', chip.querySelector('.trial-chip-title').textContent === item.title);
+        const titleElem = chip.querySelector('.trial-chip-title');
+        chip.classList.toggle('active', titleElem && titleElem.textContent === item.title);
       });
 
       this.updateOutfitDetails();
@@ -933,7 +1263,10 @@
     updateOutfitDetails() {
       if (!this.selectedOutfit) return;
       if (this.outfitTitleElem) this.outfitTitleElem.textContent = this.selectedOutfit.title;
-      if (this.outfitBadgeElem) this.outfitBadgeElem.textContent = `⚜️ ${this.selectedOutfit.badge || this.selectedOutfit.categoryLabel || 'Imperial 2026'}`;
+      if (this.outfitBadgeElem) {
+        const isBest = this.bestFitId && this.selectedOutfit.id === this.bestFitId;
+        this.outfitBadgeElem.textContent = isBest ? '👑 AI #1 Best Fit Match' : `⚜️ ${this.selectedOutfit.badge || this.selectedOutfit.categoryLabel || 'Imperial 2026'}`;
+      }
       if (this.outfitPriceElem) {
         const priceStr = window.GeoEngine ? window.GeoEngine.formatCurrencyRange(this.selectedOutfit.priceRange) : this.selectedOutfit.priceRange;
         this.outfitPriceElem.textContent = priceStr;
@@ -957,8 +1290,8 @@
       const text = encodeURIComponent(
         `👑 *Royal Bespoke Fitting Consultation*\n` +
         `Assalamu Alaikum / Greetings Maqdoom Brothers,\n\n` +
-        `I just tried on an ensemble in your *AI Royal Virtual Trial Room*:\n\n` +
-        `⚜️ *Garment:* ${this.selectedOutfit.title}\n` +
+        `I just generated my try-on look in your *AI Royal Virtual Trial Room*:\n\n` +
+        `⚜️ *Garment (Website Catalog):* ${this.selectedOutfit.title}\n` +
         `🏷️ *Item Code:* ${this.selectedOutfit.id}\n` +
         `💰 *Price Range:* ${this.selectedOutfit.priceRange}\n` +
         `🧵 *Fabric:* ${this.selectedOutfit.fabric}\n` +
@@ -1009,12 +1342,10 @@
 
       cCtx.fillStyle = '#f3e5ab';
       cCtx.font = '700 36px Cinzel, serif';
-      cCtx.letterSpacing = '4px';
       cCtx.fillText('MAQDOOM BROS', 600, 145);
 
       cCtx.fillStyle = '#d4af37';
       cCtx.font = '500 16px Plus Jakarta Sans, sans-serif';
-      cCtx.letterSpacing = '2px';
       cCtx.fillText('COURT CLOTHIERS TO THE NIZAMS · EST. 1895 · HYDERABAD', 600, 175);
 
       cCtx.strokeStyle = 'rgba(212, 175, 55, 0.5)';
@@ -1030,7 +1361,6 @@
       const stageX = (1200 - stageW) / 2;
       const stageY = 220;
 
-      // Inset Stage Shadow & Border
       cCtx.fillStyle = '#071914';
       cCtx.fillRect(stageX, stageY, stageW, stageH);
       cCtx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
@@ -1044,14 +1374,14 @@
 
       // AI Match Badge overlay on look
       cCtx.fillStyle = 'rgba(7, 25, 20, 0.9)';
-      cCtx.fillRect(stageX + 24, stageY + 24, 230, 48);
+      cCtx.fillRect(stageX + 24, stageY + 24, 250, 48);
       cCtx.strokeStyle = '#d4af37';
       cCtx.lineWidth = 1.5;
-      cCtx.strokeRect(stageX + 24, stageY + 24, 230, 48);
+      cCtx.strokeRect(stageX + 24, stageY + 24, 250, 48);
       cCtx.fillStyle = '#ffe082';
-      cCtx.font = '700 16px Cinzel, serif';
+      cCtx.font = '700 15px Cinzel, serif';
       cCtx.textAlign = 'left';
-      cCtx.fillText(`⚜️ ${this.aiAnalysis.score}% ROYAL MATCH`, stageX + 40, stageY + 54);
+      cCtx.fillText(`👑 ${this.aiAnalysis.score}% ROYAL BEST FIT`, stageX + 40, stageY + 54);
 
       // 4. Garment Spec Section
       const infoY = 1180;
