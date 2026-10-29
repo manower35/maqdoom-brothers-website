@@ -122,16 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="card-category">${item.categoryLabel}</span>
           </div>
           <h3 class="card-title">${item.title}</h3>
-          <div class="card-specs-panel">
-            <div class="spec-row">
-              <span class="spec-label">🧵 Fabric:</span>
-              <span class="spec-val">${item.fabric}</span>
-            </div>
-            <div class="spec-row">
-              <span class="spec-label">✨ Craft:</span>
-              <span class="spec-val">${item.work}</span>
-            </div>
-          </div>
           <div class="card-footer">
             <div class="price-tag">
               <span class="price-label">Price Range</span>

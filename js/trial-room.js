@@ -1420,7 +1420,7 @@
 
       cCtx.fillStyle = '#c3d3cc';
       cCtx.font = '400 16px Plus Jakarta Sans, sans-serif';
-      cCtx.fillText(`Fabric: ${this.selectedOutfit.fabric}  |  Craft: ${this.selectedOutfit.work}`, 600, infoY + 70);
+
 
       cCtx.fillStyle = '#f3e5ab';
       cCtx.font = 'italic 16px Playfair Display, serif';
